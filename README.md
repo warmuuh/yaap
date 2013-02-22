@@ -3,7 +3,7 @@
 Yaap is a generic annotation processor for javascript. It can be used to implement cross-cutting concerns and inject additional aspect oriented code.
 
 
-It [integrates](#wire.js_Integration) with [wire.js](https://github.com/cujojs/wire) (part of [cujo.js](http://cujojs.com)), which enables Spring-style wiring (i.e. dependency injection) of your javascript applications. 
+It [integrates](#wirejs-integration) with [wire.js](https://github.com/cujojs/wire) (part of [cujo.js](http://cujojs.com)), which enables Spring-style wiring (i.e. dependency injection) of your javascript applications. 
 With the `yaap/wire` plugin, @Autowired applications are possible
 
 
