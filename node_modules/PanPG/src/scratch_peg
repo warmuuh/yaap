@@ -1,2 +1,0 @@
-S ← !(Keyword) "f"
-Keyword ← "fi" / "fo" / "fu" / "if" / "ins" / "in"

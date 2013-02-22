@@ -1,8 +1,0 @@
-; A variant of the ES5 grammar which adds the ability to stream in some places where the ES5 grammar does not allow it.
-; In the ES5 grammar, for example, a program of the form (function(){ ... })() cannot be streamed until the final "()" is seen, as the presence or absence of these parens determines whether the entire expression parses as a NewExpr or CallExpr.
-; Here we generate an entirely different parse tree which unifies both of NewExpr and CallExpr into the LeftHandSideExpr rule.
-; This allows streaming the contents of such a program, since the only difference in the parse tree in this case will be in the tail of suffixes allowed at the end.
-
-; This file depends on ECMAScript_5.peg.
-
-LeftHandSideExpression ← (NewTok S?)* ( PrimaryExpression / FunctionExpression ) ( S? Arguments / S? BracketAccessor / S? DotAccessor )*
