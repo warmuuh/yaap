@@ -1,0 +1,564 @@
+; The entire ECMAScript language as a Parser Expression Grammar
+
+; Parser rules which share a name with ECMA-262 productions are intended to match the same language (though not necessarily with the same derivation).
+
+; for the sake of just parsing anonymous Functions, added FunctionExpression
+Program ←
+  (S? (Statement / FunctionDeclaration / FunctionExpression))* S? 
+
+FunctionBody ←
+  (S? (Statement / FunctionDeclaration))* S?
+
+FunctionDeclaration ←
+  FunctionTok S? Identifier S? "(" FormalParameterList? S? ")" S? "{" S? FunctionBody S? "}"
+
+FunctionExpression ←
+  FunctionTok S? Identifier? S? "(" FormalParameterList? S? ")" S? "{"  FunctionBody  "}"
+
+FormalParameterList ←
+  FormalParameter ("," FormalParameter)*
+
+FormalParameter ←
+  S? Identifier
+
+UseStrictDirective ←
+  "use" S "strict" S ( "," !(LineTerminator) SourceCharacter )*
+
+
+
+
+; Statements
+
+Statement
+  ← Block
+  / VariableStatement
+  / EmptyStatement
+  / ExpressionStatement
+  / IfStatement
+  / IterationStatement
+  / ContinueStatement
+  / BreakStatement
+  / ReturnStatement
+  / WithStatement
+  / LabelledStatement
+  / SwitchStatement
+  / ThrowStatement
+  / TryStatement
+  / DebuggerStatement
+
+Block ← "{" (S? Statement)* S? "}"
+
+VariableStatement ←
+  VarTok S? VariableDeclaration (S? "," S? VariableDeclaration)* EOS
+
+VariableDeclaration ←
+  Identifier (S? "=" !("=") S? AssignmentExpression)?
+
+VariableDeclarationNoIn ←
+  Identifier (S? "=" !("=") S? AssignmentExpressionNoIn)?
+
+VariableDeclarationListNoIn ←
+  VariableDeclarationNoIn (S? "," S? VariableDeclarationNoIn)*
+
+; an empty statement is marked by an explicit semicolon, ASI does not apply
+EmptyStatement ← ";"
+
+ExpressionStatement ← !("{" / FunctionTok) Expression EOS
+
+IfStatement ← IfTok S? "(" S? Expression S? ")" S? Statement (S? ElseTok S? Statement)?
+
+IterationStatement ←
+   DoWhileStatement
+ / WhileStatement
+ / ForInStatement
+ / ForStatement
+
+DoWhileStatement ←
+  DoTok S? Statement S? WhileTok S? "(" S? Expression S? ")" EOS
+
+WhileStatement ←
+  WhileTok S? "(" S? Expression S? ")" S? Statement
+
+ForInStatement ←
+  ForTok S? "(" (ForInLeft/ForInVarLeft) InTok S? Expression S? ")" S? Statement
+
+ForInLeft      ← S? LeftHandSideExpression S? 
+ForInVarLeft   ← S? VarTok S? VariableDeclarationNoIn S? 
+
+ForStatement ←
+  ForTok S? "(" S? (ForInit/ForVarInit)? S? ";" S? ForTest? S? ";" S? ForUpdate? S? ")" S? Statement
+
+ForInit      ← ExpressionNoIn
+ForVarInit   ← VarTok S? VariableDeclarationListNoIn
+ForTest      ← Expression
+ForUpdate    ← Expression
+
+ContinueStatement ←
+  ContinueTok SnoLB? (Identifier EOS / EOSnoLB)
+
+BreakStatement ←
+  BreakTok SnoLB? (Identifier EOS / EOSnoLB)
+
+ReturnStatement ←
+  ReturnTok SnoLB? (EOSnoLB / Expression EOS)
+
+WithStatement ←
+  WithTok S? "(" S? Expression S? ")" S? Statement
+
+LabelledStatement ←
+  Identifier S? ":" S? Statement
+
+SwitchStatement ←
+  SwitchTok S? "(" S? Expression S? ")" S? "{" CaseClause* (DefaultClause CaseClause*)? S? "}"
+
+CaseClause ←
+  S? CaseTok S? Expression S? ":" (S? Statement)*
+
+DefaultClause ←
+  S? DefaultTok S? ":" (S? Statement)*
+
+ThrowStatement ←
+  ThrowTok SnoLB? (EOSnoLB / Expression EOS)
+
+TryStatement ←
+  TryTok S? Block S? (Catch S? Finally? / Finally)
+
+Catch ←
+  CatchTok S? "(" S? Identifier S? ")" S? Block
+
+Finally ←
+  FinallyTok S? Block
+
+DebuggerStatement ←
+  DebuggerTok S? EOS
+
+
+
+; Expressions
+
+Expression ←
+  AssignmentExpression (S? "," S? AssignmentExpression)*
+
+ExpressionNoIn ←
+  AssignmentExpressionNoIn (S? "," S? AssignmentExpressionNoIn)*
+
+AssignmentExpression ←
+   LeftHandSideExpression S? AssignmentOperator S? AssignmentExpression
+ / ConditionalExpression
+
+AssignmentExpressionNoIn ←
+   LeftHandSideExpression S? AssignmentOperator S? AssignmentExpressionNoIn
+ / ConditionalExpressionNoIn
+
+AssignmentOperator ←
+  "=" !("=") / "*=" / "/=" / "%=" / "+=" / "-=" / "<<=" / ">>=" / ">>>=" / "&=" / "^=" / "|="
+
+ConditionalExpression ←
+  LogicalOrExpression (S? "?" S? AssignmentExpression S? ":" S? AssignmentExpression)?
+
+ConditionalExpressionNoIn ←
+  LogicalOrExpressionNoIn (S? "?" S? AssignmentExpressionNoIn S? ":" S? AssignmentExpressionNoIn)?
+
+LogicalOrExpression ←
+  LogicalAndExpression (S? "||" S? LogicalAndExpression)*
+
+LogicalOrExpressionNoIn ←
+  LogicalAndExpressionNoIn (S? "||" S? LogicalAndExpressionNoIn)*
+
+LogicalAndExpression ←
+  BitwiseOrExpression (S? "&&" S? BitwiseOrExpression)*
+
+LogicalAndExpressionNoIn ←
+  BitwiseOrExpressionNoIn (S? "&&" S? BitwiseOrExpressionNoIn)*
+
+BitwiseOrExpression ←
+  BitwiseXOrExpression (S? "|" !("=") S? BitwiseXOrExpression)*
+
+BitwiseOrExpressionNoIn ←
+  BitwiseXOrExpressionNoIn (S? "|" !("=") S? BitwiseXOrExpressionNoIn)*
+
+BitwiseXOrExpression ←
+  BitwiseAndExpression (S? "^" !("=") S? BitwiseAndExpression)*
+
+BitwiseXOrExpressionNoIn ←
+  BitwiseAndExpressionNoIn (S? "^" !("=") S? BitwiseAndExpressionNoIn)*
+
+BitwiseAndExpression ←
+  EqualityExpression (S? "&" !("=") S? EqualityExpression)*
+
+BitwiseAndExpressionNoIn ←
+  EqualityExpressionNoIn (S? "&" !("=") S? EqualityExpressionNoIn)*
+
+EqualityExpression ←
+  RelationalExpression (S? EqualityOp S? RelationalExpression)*
+
+EqualityExpressionNoIn ←
+  RelationalExpressionNoIn (S? EqualityOp S? RelationalExpressionNoIn)*
+
+EqualityOp ← "===" / "!==" / "==" / "!="
+
+RelationalExpression ←
+  ShiftExpression (S? RelationalOp S? ShiftExpression)*
+
+RelationalExpressionNoIn ←
+  ShiftExpression (S? RelationalOpNoIn S? ShiftExpression)*
+
+RelationalOp ←
+  "<=" / ">=" / "<" / ">" / InstanceOfTok / InTok
+
+RelationalOpNoIn ←
+  "<=" / ">=" / "<" / ">" / InstanceOfTok
+
+ShiftExpression ←
+  AdditiveExpression (S? ShiftOp S? AdditiveExpression)*
+
+ShiftOp ←
+  "<<" / ">>>" / ">>"
+
+AdditiveExpression ←
+  MultiplicativeExpression (S? AdditiveOp S? MultiplicativeExpression)*
+
+AdditiveOp ←
+   "+" !("+"/"=")
+ / "-" !("-"/"=")
+
+MultiplicativeExpression ←
+  UnaryExpression (S? MultiplicativeOp S? UnaryExpression)*
+
+MultiplicativeOp ←
+  ("*" / "/" / "%") !("=")
+
+UnaryExpression ←
+   PostfixExpression
+ / DeleteExpression
+ / VoidExpression
+ / TypeofExpression
+ / PreIncrementExpression
+ / PreDecrementExpression
+ / UnaryPlusExpression
+ / UnaryMinusExpression
+ / BitwiseNotExpression
+ / LogicalNotExpression
+
+DeleteExpression        ← DeleteTok S? UnaryExpression
+VoidExpression          ← VoidTok S? UnaryExpression
+TypeofExpression        ← TypeofTok S? UnaryExpression
+PreIncrementExpression  ← "++" S? UnaryExpression
+PreDecrementExpression  ← "--" S? UnaryExpression
+UnaryPlusExpression     ← "+" S? UnaryExpression
+UnaryMinusExpression    ← "-" S? UnaryExpression
+BitwiseNotExpression    ← "~" S? UnaryExpression
+LogicalNotExpression    ← "!" S? UnaryExpression
+
+; why isn't ++a++ a valid UnaryExpression?
+; answer: it is, and parses as ++(a++), the evaluation of which must throw a ReferenceError per spec
+
+PostfixExpression ←
+  LeftHandSideExpression (SnoLB? (PostIncrementOp/PostDecrementOp))?
+
+PostIncrementOp ← "++"
+PostDecrementOp ← "--"
+
+; This LHSExpression adheres to the spec, which gives semantics for CallExpression and NewExpression
+; See ECMAScript_5_streamable.peg for an alternative approach.
+
+LeftHandSideExpression ←
+   CallExpression
+ / NewExpression
+
+CallExpression ←
+  MemberExpression S? Arguments (S? Arguments / S? BracketAccessor / S? DotAccessor)*
+
+BracketAccessor ←
+  "[" S? Expression S? "]"
+
+DotAccessor ←
+  "." S? IdentifierName
+
+Arguments ←
+  "(" S? ArgumentList? S? ")"
+
+ArgumentList ←
+  AssignmentExpression (S? "," S? AssignmentExpression)*
+
+NewExpression ←
+   MemberExpression
+ / NewTok S? NewExpression
+
+MemberExpression ←
+  ( PrimaryExpression
+  / FunctionExpression
+  / NewTok S? MemberExpression S? Arguments
+  ) ( S? "[" S? Expression S? "]"
+    / S? "." S? IdentifierName
+    )*
+
+PrimaryExpression ←
+   ThisTok
+ / Identifier
+ / Literal
+ / ArrayLiteral
+ / ObjectLiteral
+ / "(" S? Expression S? ")"
+
+ArrayLiteral ←
+   "[" Elision? S? "]"
+ / "[" ElementList S? "]"
+ / "[" ElementList S? "," Elision? S? "]"
+
+ElementList ←
+  Elision? S? AssignmentExpression (S? "," Elision? S? AssignmentExpression)*
+
+Elision ←
+  (S? ",") Elision?
+
+ObjectLiteral ←
+  "{" ( S? PropertyNameAndValueList S? ","? )? S? "}"
+
+PropertyNameAndValueList ←
+  PropertyAssignment (S? "," S? PropertyAssignment)*
+
+PropertyAssignment ←
+   PropertyName S? ":" S? AssignmentExpression
+ / PropertyGetter
+ / PropertySetter
+
+PropertyGetter ←
+  "get" S? PropertyName S? "(" S? ")" S? "{" S? FunctionBody S? "}"
+
+PropertySetter ←
+  "set" S? PropertyName S? "(" S? PropertySetParameterList S? ")" S? "{" S? FunctionBody S? "}"
+
+PropertyName ←
+  IdentifierName / StringLiteral / NumericLiteral
+
+PropertySetParameterList ←
+  Identifier
+
+
+
+; Lexical tokens
+
+Literal
+  ← NullLiteral
+  / BooleanLiteral
+  / NumericLiteral
+  / StringLiteral
+  / RegularExpressionLiteral
+
+NullLiteral
+  ← NullTok
+
+BooleanLiteral
+  ← TrueTok
+  / FalseTok
+
+NumericLiteral                  ← DecimalLiteral !(IdentifierStart)
+                                / HexIntegerLiteral !(IdentifierStart)
+
+DecimalLiteral                  ← DecimalIntegerLiteral "." DecimalDigit* ExponentPart?
+                                / "." DecimalDigit+ ExponentPart?
+                                / DecimalIntegerLiteral ExponentPart?
+
+DecimalIntegerLiteral           ← "0"
+                                / [1-9] DecimalDigit*
+
+DecimalDigit                    ← [0-9]
+
+ExponentPart                    ← [eE] SignedInteger
+
+SignedInteger                   ← DecimalDigit+
+                                / "+" DecimalDigit+
+                                / "-" DecimalDigit+
+
+HexIntegerLiteral               ← "0x" HexDigit+
+                                / "0X" HexDigit+
+
+DQ                              ← [U+0022]
+SQ                              ← [U+0027]
+
+StringLiteral                   ← DQ DoubleStringCharacter* DQ
+                                / SQ SingleStringCharacter* SQ
+
+RS                              ← [U+005C]
+
+DoubleStringCharacter           ← !( DQ / RS / LineTerminator ) SourceCharacter
+                                / RS EscapeSequence
+                                / LineContinuation
+
+SingleStringCharacter           ← !( SQ / RS / LineTerminator ) SourceCharacter
+                                / RS EscapeSequence
+                                / LineContinuation
+
+LineContinuation                ← RS LineTerminatorSequence
+
+EscapeSequence                  ← CharacterEscapeSequence
+                                / "0" !(DecimalDigit)
+                                / HexEscapeSequence
+                                / UnicodeEscapeSequence
+
+CharacterEscapeSequence         ← SingleEscapeCharacter
+                                / NonEscapeCharacter
+
+SingleEscapeCharacter           ← [ U+0027 U+0022 U+005C b f n r t v ]
+
+NonEscapeCharacter              ← !(EscapeCharacter / LineTerminator) SourceCharacter
+
+EscapeCharacter                 ← SingleEscapeCharacter
+                                / DecimalDigit
+                                / [ x u ]
+
+HexEscapeSequence               ← "x" HexDigit HexDigit
+
+UnicodeEscapeSequence           ← "u" HexDigit{4}
+
+RegularExpressionLiteral        ← "/" RegularExpressionBody "/" RegularExpressionFlags
+
+RegularExpressionBody           ← RegularExpressionFirstChar RegularExpressionChar*
+
+RegularExpressionFirstChar      ← !( LineTerminator / [ * U+005C / [ ] ) SourceCharacter
+                                / RegularExpressionBackslashSequence
+                                / RegularExpressionClass
+
+RegularExpressionChar           ← !( LineTerminator / [ U+005C / [ ] ) SourceCharacter
+                                / RegularExpressionBackslashSequence
+                                / RegularExpressionClass
+
+RegularExpressionBackslashSequence ← RS !(LineTerminator) SourceCharacter
+
+RegularExpressionClass          ← "[" RegularExpressionClassChar* "]"
+
+RegularExpressionClassChar      ← !(LineTerminator / [ U+005C U+005D ]) SourceCharacter
+                                / RegularExpressionBackslashSequence
+
+RegularExpressionFlags          ← IdentifierPart*
+
+SourceCharacter                 ← [ U+0000-U+10FFFF ]
+
+WhiteSpace                      ← [ U+0009 
+                                    U+000B
+                                    U+000C
+                                    U+0020
+                                    U+0085
+                                    U+00A0
+                                    U+200B
+                                    U+FEFF
+                                    [:Zs:] ]
+
+LF                              ← [ U+000A ]
+CR                              ← [ U+000D ]
+LS                              ← [ U+2028 ]
+PS                              ← [ U+2029 ]
+
+LineTerminator                  ← LF / CR / LS / PS
+
+LineTerminatorSequence          ← LF / CR LF / CR / LS / PS
+
+Comment                         ← AnnotationComment
+                                / SingleLineComment
+                                / MultiLineComment
+
+MultiLineComment                ← "/*" (!("*/") SourceCharacter)* "*/"
+
+
+
+AnnotationComment               ← "/*" SnoComment? AnnotationFunction (SnoComment? AnnotationFunction)* SnoComment? "*/"
+AnnotationFunction              ← AnnotationName SnoComment? AnnotationParameterList?
+AnnotationName                  ← "@" Identifier
+AnnotationParameterList         ← "(" SnoComment? AnnotationParameter SnoComment? ( "," SnoComment? AnnotationParameter)*  SnoComment?")"
+AnnotationParameter             ←  StringLiteral / NumericLiteral
+
+
+MultiLineCommentNoLB            ← "/*" (!("*/") !(LineTerminator) SourceCharacter)* "*/"
+
+SingleLineComment               ← "//" [^ U+000A U+000D U+2028 U+2029 ]*
+
+S ← ( WhiteSpace / LineTerminatorSequence / Comment )+
+SnoComment ← ( WhiteSpace / LineTerminatorSequence )+
+
+SnoLB ← ( WhiteSpace / SingleLineComment / MultiLineCommentNoLB )+
+
+; end of statement
+EOS
+ ← S? ";"
+ / SnoLB? LineTerminatorSequence
+ / SnoLB? &("}")
+ / S? EOF
+
+; end of statement in a "no linebreak here" context
+; EOSnoLB will consume a linebreak, but it won't extend to the next line
+EOSnoLB
+ ← SnoLB? ";"
+ / SnoLB? LineTerminatorSequence
+ / SnoLB? &("}")
+ / SnoLB? EOF
+
+EOF
+ ← !(SourceCharacter)
+
+ReservedWord
+ ← ( Keyword
+   / FutureReservedWord
+   / "null"
+   / "true"
+   / "false"
+   ) !(IdentifierPart)
+
+Keyword
+ ← "break" / "case" / "catch" / "continue" / "debugger" / "default" / "delete" / "do" / "else" / "finally" / "for" / "function" / "if" / "instanceof" / "in" / "new" / "return" / "switch" / "this" / "throw" / "try" / "typeof" / "var" / "void" / "while" / "with"
+
+FutureReservedWord
+ ← "abstract" / "boolean" / "byte" / "char" / "class" / "const" / "double" / "enum" / "export" / "extends" / "final" / "float" / "goto" / "implements" / "import" / "interface" / "int" / "long" / "native" / "package" / "private" / "protected" / "public" / "short" / "static" / "super" / "synchronized" / "throws" / "transient" / "volatile"
+
+Identifier                      ← !(ReservedWord) IdentifierName
+
+IdentifierName                  ← IdentifierStart IdentifierPart*
+
+IdentifierStart                 ← UnicodeLetter
+                                / "$"
+                                / "_"
+                                / RS UnicodeEscapeSequence
+
+IdentifierPart                  ← IdentifierStart
+                                / [ [:Mn:] [:Mc:]
+                                    [:Nd:]
+                                    [:Pc:] ]
+
+UnicodeLetter                   ← [ [:Lu:]
+                                    [:Ll:]
+                                    [:Lt:]
+                                    [:Lm:]
+                                    [:Lo:]
+                                    [:Nl:] ]
+
+HexDigit                        ← [ 0-9 a-f A-F ]
+
+FalseTok      ← "false"      !(IdentifierPart)
+TrueTok       ← "true"       !(IdentifierPart)
+NullTok       ← "null"       !(IdentifierPart)
+BreakTok      ← "break"      !(IdentifierPart)
+ContinueTok   ← "continue"   !(IdentifierPart)
+DebuggerTok   ← "debugger"   !(IdentifierPart)
+InTok         ← "in"         !(IdentifierPart)
+InstanceOfTok ← "instanceof" !(IdentifierPart)
+DeleteTok     ← "delete"     !(IdentifierPart)
+FunctionTok   ← "function"   !(IdentifierPart)
+NewTok        ← "new"        !(IdentifierPart)
+ThisTok       ← "this"       !(IdentifierPart)
+TypeofTok     ← "typeof"     !(IdentifierPart)
+VoidTok       ← "void"       !(IdentifierPart)
+IfTok         ← "if"         !(IdentifierPart)
+ElseTok       ← "else"       !(IdentifierPart)
+DoTok         ← "do"         !(IdentifierPart)
+WhileTok      ← "while"      !(IdentifierPart)
+ForTok        ← "for"        !(IdentifierPart)
+VarTok        ← "var"        !(IdentifierPart)
+ReturnTok     ← "return"     !(IdentifierPart)
+CaseTok       ← "case"       !(IdentifierPart)
+DefaultTok    ← "default"    !(IdentifierPart)
+SwitchTok     ← "switch"     !(IdentifierPart)
+ThrowTok      ← "throw"      !(IdentifierPart)
+CatchTok      ← "catch"      !(IdentifierPart)
+FinallyTok    ← "finally"    !(IdentifierPart)
+TryTok        ← "try"        !(IdentifierPart)
+WithTok       ← "with"       !(IdentifierPart)

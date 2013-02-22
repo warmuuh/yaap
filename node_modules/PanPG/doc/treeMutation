@@ -1,0 +1,453 @@
+Title: General Purpose Tree Mutation Language
+Date: 2009-02-09
+Status: notes
+
+## Definitions of Trees and Nodes.
+
+### Nodes
+
+A node is defined as set of property keys and a function taking keys to values.
+
+A keys function is defined on nodes which returns the set of keys for a given node.
+
+A get function is defined which takes returns the value of a named property on a given node.
+
+Nodes are fully characterized by their attribute set; two nodes with the same set of keys having the same value for each key are indistinguishable.
+
+### Trees
+
+A tree is a set of nodes and a set of directed edges between nodes, such that there is one node, the root, which is the target of no edge, and every other node is the target of exactly one edge.
+
+A tree is a node and a set of child trees.
+In some cases the children may be ordered; an ordered tree is a node and a list of child ordered trees.
+
+## Node Selection
+
+### Node Value Predicates
+
+Node selection primitives depend on the datatype of nodes.
+E.g. nodes ranging over files may be specified by filesystem attributes such as filename, size, or modification time, while nodes ranging over integers may be specified by range, by exact value, by primality, etc.
+
+We take as given a set NS of node selector primitives appropriate for N, the range of node values of a given tree.
+Every n ∈ NS is a function N → {true,false}.
+We call such functions node value tests, since they match single node values considered in isolation.
+
+Node value tests may be combined using set operations.
+For n,m ∈ NS, the complement of n, and the union, intersection, or set difference of n with m, are also node value tests.
+
+### Structural Selection
+
+Nodes appearing in a tree may be characterized by their connectedness to other nodes.
+
+Disregarding issues of node values, we may define a function which selects a subset of the nodes in a tree by defining connectedness constraints which nodes must fulfill in order to be selected.
+
+We wish to define a system of primitives which is capable of expressing any relation which can be described only by reference to the position of a node within and relative to the tree structure and its shape.
+
+First we define a tree-walking automaton which is capable of reaching any node from any other node on the same tree.
+
+In an unordered tree, there may exist distinct nodes which are impossible to distinguish.
+
+In a graph containing nodes {a, b, c} with edges {(a,b), (a,c)}, it is impossible to distinguish b from c structurally:
+
+  a
+ / \
+b   c
+
+However, if this is an ordered tree, then b may be distinguished as the first child of a.
+
+In the graph {a, b, c, d} {(a,b), (a,c), (c,d)} every node is structurally distinct, even if a tree's child nodes are unordered:
+
+     a
+    / \
+   b   c
+       |
+       d
+
+ .Tree B.
+
+Even without ordering in the edges, we assume an identity relation is defined on nodes, and we give our automaton the ability to distinguish previously seen nodes from unseen nodes.
+
+The automaton may go up, reversing any incoming edge to find a node which has not been previously visited.
+
+The automaton may go down, following any outgoing edge to a previously unvisited node.
+
+The automaton may go back, which reverses the most recent up or down move in the chain from the start node to the current position.
+
+Now any node may be reached from any other node in the same tree by means of strings of up and down motions alone.
+
+We may characterize these movements by expressions in the following language:
+
+MotionExpr  ≔ Motion+
+Motion      ≔ SingleMove | Group | Rep
+SingleMove  ≔ "U" | "D" | "B"
+Group       ≔ "(" Motion+ ")"
+Rep         ≔ Motion "*"
+
+Thus in the tree B above, we may characterize the motion from c to b as 'UD'.
+
+Tree C: {a, b, c, d, e} {(a,b),(a,c),(a,d),(d,e)}
+
+            a
+          / | \
+         b  c  d
+               |
+               e
+
+Note that while it is possible to move from any node to another, the node arrived at by a given motion from a given node may be indeterminate, e.g., beginning at c in C, the 'UD' motion may terminate at either b or d.
+
+We say a motion expression "matches" a given node if it is possible to execute that motion from that node.
+
+Thus in tree C, the motion 'UD' matches nodes b, c, and d.
+It does not match a, since the up motion cannot succeed.
+It does not match e since, after having gone up to d, it is not possible to go down to any previously unvisited node.
+
+'UD' is in fact a synonym for "any node which has at least one sibling."
+
+'U' alone will match every node but the root; 'UU' will match any node at depth 2 or more, e.g. in tree C, 'UU' matches only node e.
+
+We can match d by 'UBD' or equivalently 'DBU'.
+
+[maybe instead of B we want a branching operator 'U&B' or something that makes the symmetry clearer and (with grouping) eliminates the need for long strings of 'B's]
+
+In tree C 'DD' will match only a.
+
+While b and c are structurally distinct from d and from e, we cannot construct a motion which will only match b and c, nor even one which will match only b c and e.
+
+Motion      ≔ SingleMove | Group | Rep | Negation
+Negation    ≔ "!" Motion
+
+A negation "!" E, where E is a motion expression, matches a node (without changing the current node) iff E does not match.
+
+Now we can match the root of an arbitrary tree: '!U' will match only a node which has no parent.
+
+'!D' will match leaf nodes (e.g. b, c, and e in C).
+
+'U!UB!D' matches only b and c in C, that is, nodes at depth 1 having no children.
+
+### Node selection and capture
+
+[ ... straightforward composition of structural selection with node value predicates and capturing/naming ]
+
+#### Semantics of Structural Negation with Node Value Predicates
+
+Let P and Q be some node value predicates which match nodes a, c, e, g, i, and b, d, f, h, respectively, in the following tree:
+
+      a
+    / | \             P ≔ { a, c, e, g, i }
+   b  c  d
+ / | \   | \          Q ≔ { b, d, f, h }
+e  f  g  h  i
+
+Then P UU will match e, g, and i.
+To match a alone: !U, or P D Q.
+b alone: UBDBDBD, or Q D P B D P (better written as Q (DP) & (DP), or Q (DPB){2,}, perhaps.)
+c alone: !DU!U, or P U P.
+d alone: UBDBDB!D, or Q DPB !DP
+
+Q DPB !DP means, a Q node which has exactly one P child.
+Q !DPB DP means, a Q node which does not have a P child, and does have a P child, and thus can never match.
+Q !DDPBB DP matches a Q node which does not have a P grandchild, but does have a P child.
+So there may be uses for a negated branch followed by a positive branch, though the same could be achieved by:
+Q (DP !DP) !DDP
+
+So the semantics of branch negation are: try to match the given branch at the current location, before binding any later branch in the expression.
+If the match succeeds, fail, otherwise, continue.
+Since prior bindings are non-deterministic, any negated branch must be tried against all possible permutations of previous positive branches against potential object node matches, i.e. the algorithm must try as hard to match a negated branch as it would a positive branch.
+
+## Mutation
+
+### Tree Production Rules
+
+A tree production rule is a function on sets of nodes into trees.
+
+Tree production rules may be expressed in the following language:
+
+NodeDef     ≔ "[" ( AttrSet | ϵ ) "]"
+AttrSet     ≔ ( AttrLit | AttrRef | FuncCall )+
+AttrLit     ≔ "(" PropLit ["," ValueLit] ")"
+AttrRef     ≔ NodeRef "." ( PropLit | "*")
+FuncCall    ≔ "(" PropLit "," FName "(" AttrSet "))"
+
+where PropLit and ValueLit are representations of elements in K and V in some convenient syntax.
+
+It should also be possible to call any pure function with an AttrSet argument returning a value.
+
+### Mutation Rules and Rulesets
+
+A mutation rule is a node selection and capture expression and a tree production expression.
+
+A mutation ruleset is a set of mutation rules, and a mutation program is a sequence of mutation rulesets.
+
+The interpretation of a mutation program applied to a tree is the application of each ruleset in order.
+
+The interpretation of a ruleset applied to a tree:
+- For each mutation rule, construct the result of the selection and capture expression.
+- For each mutation rule, replace the matched node in the tree with the result of the tree production expression.
+
+[ this is incredibly sloppy and underspecified, but I'm not sure exactly what I want yet either. hopefully some practical experience will show what is useful. ]
+
+[ In XSLT, nodes are dropped on the floor by default and the entire output tree must be explicitly specified. Default templates then muddy the waters. Here we do not modify nodes by default but require explicit mutation rules for any change to be made. ]
+
+[ The issue of how to do structural mutation, and whether the result of a mutation rule replaces only a node, a node and all its children, the entire set of nodes captured in the node selection expression, or some combination of these, is entirely open. ]
+
+[ it may be useful to have uniqueness (or n-max-matches, n > 0) annotations on rules, such that once n matches are found the rule can be removed from the test set for the remainder of the tree traversal.  of course an implementation can also exit early if the test set becomes empty. ]
+
+[ I now believe that the best way to do tree mutation is to regard the tree as immutable, and to construct and attach a new tree as an ordinary attribute (e.g. of the root node).  Thus there is no need for any special machinery for tree mutation. ]
+
+## PEG Parser Code Generation Requirements
+
+Note: it's possible in a UI, when choosing a p_ rule as a node predicate, to determine from the PEG all possible child node types that it may have, and this might be a useful editor feature.
+In general, the connection between a grammar and the possible structural elements of the parse trees generated should be explored.
+
+In the case of something like a p_OrdChoice with multiple p_Sequence children, we need to be able to refer to all children of the node as a collection or list.
+
+Each rule defines attributes on the nodes which it matches.
+Any pure function can be called with attributes, attribute sets, or nodes as arguments and must return an attribute value.
+
+The implementation can store a pointer to the function and can lazily evaluate attributes as they are needed.
+
+clean version:
+
+implement structural repetitions, e.g. "[Parent] ( D [Child] B )+", which would select all Parent nodes with one or more Child child nodes, putting them all in a set for use in the tree production expression.
+
+minimal version:
+
+Make the set of child nodes available, whether selected or not, in every tree production expression.
+Of course the set may be empty, and may also have unwanted (and unselected) nodes in it.
+For symmetry we could make the parent node also available.
+Making further nodes available if not explicitly selected seems like a mistake.
+
+interesting version:
+
+Implement a tree production language which uses the structural selector language to refer to variables.
+Structural selectors may be used freely in the tree production expression and are added to the selector automatically.
+
+The minimal version should be sufficient for code generation and seems likely to be the easiest to implement.
+
+Of course we also need to add some node attributes like .match, currently all we have are start and end positions.
+The .match attribute should also be lazy, implemented as a function that gets the substring.
+
+### Example
+
+#### Output
+
+function p_RuleSet(s,p){var c=s.pre('p_RuleSet',p);if(typeof c=='boolean')return c;return s.fin(c,p,
+ ordChoice(
+  seq(
+   p_Rule,
+   rep(0,0,
+    seq(
+     rep(1,0,p_LB),
+     p_Rule))),
+  empty)(s,c)
+)}
+
+#### Input
+
+...
+,["p_Rule (1926–1984)"
+ ,["p_NonTerminal (1926–1933)"]
+ ,["p_S (1933–1944)"]
+ ,["p_S (1945–1946)"]
+ ,["p_OrdChoice (1946–1984)"
+  ,["p_Sequence (1946–1981)"
+   ,["p_SeqUnit (1946–1950)"
+    ,["p_AtomicExpr (1946–1950)"
+     ,["p_NonTerminal (1946–1950)"]]]
+   ,["p_S (1950–1951)"]
+   ,["p_SeqUnit (1951–1962)"
+    ,["p_Repetition (1951–1962)"
+     ,["p_Replicand (1951–1961)"
+      ,["p_ParenthExpr (1951–1961)"
+       ,["p_OrdChoice (1952–1960)"
+        ,["p_Sequence (1952–1960)"
+         ,["p_SeqUnit (1952–1955)"
+          ,["p_PosRep (1952–1955)"
+           ,["p_Replicand (1952–1954)"
+            ,["p_AtomicExpr (1952–1954)"
+             ,["p_NonTerminal (1952–1954)"]]]]]
+         ,["p_S (1955–1956)"]
+         ,["p_SeqUnit (1956–1960)"
+          ,["p_AtomicExpr (1956–1960)"
+           ,["p_NonTerminal (1956–1960)"]]]]]]]]]
+   ,["p_S (1962–1981)"]]
+  ,["p_S (1982–1983)"]
+  ,["p_Sequence (1983–1984)"
+   ,["p_SeqUnit (1983–1984)"
+    ,["p_AtomicExpr (1983–1984)"
+     ,["p_Empty (1983–1984)"]]]]]]]
+
+#### Tree Mutation Program Pseudo-code
+
+// the mutation rule syntax is: selector on a line without leading whitespace, followed by tree production expression on lines with leading whitespace.
+// comments begin with "//", and mutation rules are separated by blank lines.
+// an empty selector matches every node.
+
+ match ≔ [ function which cuts the relevant characters from the input string ]
+
+[p_S]
+ x // the node is deleted
+
+[p_Rule] D [p_NonTerminal] BD [p_OrdChoice]
+ code ≔ "function p_" ++ .0.match ++ "(s,p){var c=s.pre('p_" ++ .0.match ++ "',p);if(typeof c=='boolean')return c;return s.fin(c,p,"
+         .1.code ++ "(s,c))}"
+
+// the ".0.match" syntax is: "." for the selected node; [0-9]+ for the child of a node (where the index is of the expression that selected it); .attr for attribute value selection; alternatively, "p_NonTerminal" could be used when unambiguous; and any fragment of the structural selector could also be used, matching the node selected by the first appearance eg D means the NonTerminal, BD (or DBD) means the OrdChoice.
+
+[p_OrdChoice] D [p_Sequence] B !( D [p_Sequence] ) // "for p_OrdChoice of exactly one p_Sequence child"
+ code ≔ D.code
+
+[p_OrdChoice] (D [p_Sequence] B)+
+ code ≔ "ordChoice(" ++ children[p_Sequence].code.join(',') ++ ")"
+
+// we need some sort of code to select child nodes matching some selector, or things matched by a repetition in the selector if we have those, or ...
+
+[p_Sequence] ... essentially the same as p_OrdChoice
+
+[p_SeqUnit]
+ elide
+// SeqUnit is defined as AnyRep / PosRep / MNRep / ..., so it will have exactly one child which will be the thing that is actually interesting.  In other words, SeqUnit exists as a convenience in the PEG, and is not in any way useful once the parse tree is generated.  For such things we should have a way to collapse/hide them (and perhaps even automatically suggest this) so that it's not necessary to denature the PEG just to get a nice tree back out.
+// Also in this category are p_Replicand, p_ParenthExpr, p_AtomicExpr, and potentially any rule with a RHS of an ordered choice of other non-terminals.
+// [foo|bar|baz] syntax would be convenient here as well.
+
+Code generation for the rest seems fairly trivial.
+
+So the easiest way forward:
+
+- function call syntax with arguments drawn from the selector, and one distinguished value that is a list of all children.
+- selectors to distinguish n=1 and n>1 children aren't necessary if this logic is pushed into the handler function.
+- functions will be simple pure JavaScript functions
+- we provide `delete` and `elide` as convenience functions
+  whether these actually mutate the tree structure or are simulated is an implementation detail
+
+#### Actual Syntax
+
+[p_S]
+ del
+
+[p_SeqUnit|p_Replicand|p_ParenthExpr|p_AtomicExpr]
+ elide
+
+/* After which we have something like:
+
+ ["p_Rule (1926–1984)"
+ ,["p_NonTerminal (1926–1933)"]
+ ,["p_OrdChoice (1946–1984)"
+  ,["p_Sequence (1946–1981)"
+   ,["p_NonTerminal (1946–1950)"]
+   ,["p_Repetition (1951–1962)"
+    ,["p_OrdChoice (1952–1960)"
+     ,["p_Sequence (1952–1960)"
+      ,["p_PosRep (1952–1955)"
+       ,["p_NonTerminal (1952–1954)"]]
+      ,["p_NonTerminal (1956–1960)"]]]]]
+  ,["p_Sequence (1983–1984)"
+   ,["p_Empty (1983–1984)"]]]]
+
+*/
+
+[p_Rule] D [p_NonTerminal] BD [p_OrdChoice]
+ match_code ≔ rule_cg D.match BD.match_code
+
+// rule is a function, function call syntax doesn't require braces
+// ident "≔" expression   defines an attribute on the existing node
+
+[p_OrdChoice]
+ match_code ≔ ordchoice_cg children
+
+// children is basically a magical attribute, like .match
+// this is probably a really bad idea since it's nothing like an attribute...
+// instead we probably want a single character like * or something.
+
+[p_Sequence]
+ match_code ≔ sequence_cg children
+
+// really we'd rather have something like 'map .match_code children' to return list of match_code attribute of children
+
+[p_NonTerminal] // U [!p_Rule] (not necessary, but would tidy things up if implemented)
+
+[p_AnyRep] D
+ match_code ≔ anyrep_cg D.match_code
+
+[p_PosRep] D
+ ... etc for other repetition types
+
+[p_Empty]
+ match_code ≔ empty_cg // this is a constant (a function of 0 arguments) but we use the same syntax for simplicity
+
+Then in JavaScript, the following code generation functions:
+
+function rule_cg(name,code){
+ return "function p_"+name+"(s,p){var c=s.pre('p_"+name+"',p);if(typeof c=='boolean')return c;return s.fin(c,p,"+code+"(s,c))}"}
+function ordchoice_cg(cs){
+ return "ordChoice("+cs.join(',')+")"}
+function sequence_cg(cs){
+ return "seq("+cs.join(',')+")"}
+function anyrep_cg(code){
+ return "rep(0,0,"+code+")"}
+function posrep_cg(code){
+ return "rep(1,0,"+code+")"}
+function mnrep_cg(m,n,code){
+ return "rep("+m+","+n+","+code+")"}
+function optional_cg(code){
+ return "rep(0,1,"+code+")"}
+function empty_cg(){
+ return "empty"}
+
+## By Types
+
+Assuming a reasonable type system:
+
+A TMProg (needs a more accurate name since it doesn't actually mutate a tree anymore) is defined using a language which mixes node selectors with JavaScript expressions used to define attribute values.
+
+The development environment can display a tree and illustrate the effects of the program on the tree in real time as it is written.
+
+Essentially it is an attribute grammar rather than a mutation program.
+
+A tree is a type qualified by a specific type of Node:
+
+data Node a => Tree a = Tree a [Tree a]
+
+Node is a typeclass with operations to find a set of keys, and get or define attributes identified by key.
+
+class Node a where
+  keys :: a -> [String]
+  get :: a -> String -> x
+  define :: a -> String -> x -> a
+
+When a TMProg is run, the nodes of a tree will already have some attributes.
+These attributes are accessed through the same methods as attributes defined by the program.
+
+In JavaScript:
+
+A tree is created using the Tree constructor:
+
+Tree(node,children)
+
+It supports whatever methods are necessary for the TMProg structural selection and application to work.
+
+A Node can be constructed by any means desired.
+It supports the following methods:
+
+.get(key)
+.define(key,function)
+.keys()
+
+define(key,function) takes a function which is called with no arguments and must return the value of the key.
+This function will typically be a closure over the node, and so may reference other attributes, which may not be defined yet.
+
+Once .define() has been called, the set returned by .keys() must include that key even if the value has not yet been forced.
+
+Additionally a Node should support the following methods:
+
+.show() generate a short string which describes the node, intended for use in a tree display.
+.children()
+
+A TMProg is defined over a tree of a particular Node instance.
+This instance may define attributes that exist on every node.
+For example a parse tree node defines a start, end, and match attribute on every node, which return the start position, end position, and string value of the segment of the input string matched by that parse node.
+
+When walking the tree, when an attribute is defined, a thunk is created which may reference other attributes which may not yet exist.
+Currently this level of laziness does not exist in practice since the arguments to any attribute definition function are evaluated before the attribute definition is attached to the node.
+Actually I'm not sure if that's true.
+It's false.

@@ -1,0 +1,1 @@
+function assert(x,msg){if(!x)throw new Error('assertion failed'+(msg?': '+msg:''))}

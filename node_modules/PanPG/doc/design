@@ -1,0 +1,20 @@
+Notes on the design of the PEG API and implementation
+
+2009-06-12
+
+Use case:
+Generate a parser for a programming language to be used in a compiler.
+The grammar is known in advance, and the parser code will be generated once and then used many times.
+The generated parser should be optimized at the expense of spending more time at parser generation time.
+
+Use case:
+A grammar is created dynamically by the user while observing the resulting parse tree on a known input.
+The grammar may change at any time and changes to the grammar need to take effect as quickly as possible.
+Each revision of the grammar will likely only be used once, and the sample input the user is testing on is small, so the total time from grammar edit to new parse tree visualization should be minimized.
+
+Use case:
+Generate a parser for use in a text editor.
+The generated parser needs to be able to handle local edits to the text by making local updates to the syntax tree, not by reparsing the entire text, which would be too expensive.
+
+The same PEG language and the same API must be able to meet all these use cases.
+This suggests an 'immediate' API to use when parsing a PEG and then parsing text, and a separate codegen API to use when generating a parser to be used repeatedly later.

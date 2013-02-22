@@ -1,0 +1,11 @@
+{
+  "formatter": {
+    "js": {
+      "indent_size": 4,
+      "indent_char": "  "
+    }
+  },
+  "jshint" : {
+  	options: {node: true}
+  }
+}

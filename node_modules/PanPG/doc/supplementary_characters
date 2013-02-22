@@ -1,0 +1,27 @@
+Supplementary character support in the v6 codegen
+
+In the v6 codegen we have a set of states each of which tests the current input character for membership in a particular character set derived from the grammar.
+
+We support supplementary characters, which are those with code points above 0xFFFF, i.e. those which do not fit in a single 16-bit code unit (which JavaScript regards as a single character) but instead require two code units.
+See http://inimino.org/~inimino/blog/javascript_cset for an overview of UTF-16 in JavaScript (and the issues raised with using RegExps to try to match supplementary characters) or consult any UTF-16 reference.
+In UTF-16, and hence in JavaScript, supplementary characters are encoded as a surrogate pair consisting of a high surrogate followed by a low surrogate.
+
+Supplementary characters are comparatively rare in actual text, as few languages require their use, and in programming languages the majority of text is in fact in the much smaller ASCII range, and almost all of the rest is in the Basic Multilingual Plane (BMP), which is characters with code points which fit into 16 bits, with the surrogate ranges (which are reserved in Unicode) excluded.
+In the v6 codegen we optimize for the common BMP case, and fall through this case on any surrogate pairs.
+
+When a surrogate pair is encountered, we may need to wait for more input to get the second code unit in the pair.
+If an invalid surrogate appears (i.e. a surrogate which is not part of a valid surrogate pair and cannot be decoded as UTF-16) then we wish to fail the parse with an appropriate error.
+
+So in the primitive test loop, first we test for characters within the BMP.
+The tests in this loop are restricted to the BMP-subset of the cset given in the grammar.
+If we succeed here we are done, but if this match fails, then before failing the primitive test, we also test whether the input is a surrogate code unit.
+If it is a low surrogate, we return a parse failure.
+If it is a high surrogate, we attempt to read another code unit from the input.
+If we are at EOF we fail the parse.
+If there is no EOF and no next character we wait for more input, and reset the position to before the high surrogate was seen.
+This avoids having a separate 'waiting in surrogate pair' state in the parser, instead it will just be as if the high surrogate had not yet been seen.
+When the parser resumes, it will either have an EOF marker, which will throw an error at that time, or it will have the next code unit to continue decoding.
+If the next code unit does not complete a valid UTF-16 surrogate pair, we throw an error.
+Otherwise, with the two code units in hand we decode a supplementary code point, and according to the current primitive test state, test that code point against the supplementary subset of the appropriate cset.
+For many csets this subset will be empty, so we handle those with a default case which just rejects.
+If we accept, then we advance the position by two, since we need to move past both code points in the surrogate pair.

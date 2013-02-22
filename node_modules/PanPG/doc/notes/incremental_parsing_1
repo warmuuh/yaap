@@ -1,0 +1,38 @@
+First solution attempt.
+
+See incremental_parsing for a problem statement.
+
+For simplicity we first consider insertion or deletion of a single character.
+
+There are two possible outcomes: either the parse tree retains the same structure, but a single node either matches one character more or less, or the structure of the parse tree changes, with one or more nodes being replaced by a new sub-tree.
+For simplicity, in the second case, we always express such a structural change as a single node replacement, consisting of a path into the original parse tree T and a new subtree which replaces the node at that path to give the new parse tree T'.
+It can easily be seen that for any necessary structural changes to T, there is one node (at worst, the root node) which can be replaced by a new subtree to give the desired T'.
+In the first case, where there is no structural change, we return a similar result, containing a path to a node, and an update to the start position or length of that node.
+
+In a change of a single character, we first find the lowest node containing the change.
+Because of the construction of the parse tree, not all terminal characters are owned by parse tree nodes, so this node may not be a leaf node.
+
+As an example the following rule
+
+ S ← A "xyz" B
+
+will match an A nonterminal followed by "xyz" followed by a B non-terminal.
+The "xyz" characters are not added to the parse tree, and would not carry any additional information, as the "xyz" is implied by the S rule succeeding.
+
+In the rule 
+
+ S ← A "x"* B
+
+there is a match of any number of "x" characters between an A and a B.
+This is also not added to the parse tree, which does lose information, namely the number of x's appearing in the input.
+
+We regard such literals appearing directly in rules as merely syntactic necessities of the matched language, not worthy of a node in the parse tree.
+
+We wish to prove that the transformation we generate will give the same updated tree as if the changed string were re-parsed entirely.
+To do this it is sufficient to prove that, if the changed string was to be parsed, (a) the segment of the new string corresponding to the new sub-tree we provide would have been parsed as such, and (b) no other node in the tree would have been parsed differently as a result of the change made to the string.
+
+A PEG allows unlimited forward lookahead, which means that a change in the parse string can potentially change the parsing of any previous node, regardless of whether the node overlaps the change.
+Of course, any later node may also be affected, so a singe insertion can potentially change every node in the parse tree, no matter how remote.
+
+However, in many typical grammars, we can prove that changes will be localized within certain boundaries.
+For example, a change to a quoted string literal, assuming it does not introduce an un-escaped quotation mark, newline, or syntax error of some kind, will not affect any other node.

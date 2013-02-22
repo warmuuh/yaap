@@ -1,0 +1,203 @@
+Title: Tree Mutation Language, ECMAScript implementation notes
+Date: 2009-02-12
+Status: notes
+
+## Structural models
+
+A structural model is implied by any given structural selection expression.
+For example, the expression "UDBD" implies a structural model isomorphic to the following:
+
+      a
+    / | \
+   b  *  c
+
+Where a, b, and c are any nodes, and * is the node matched.
+
+We refer to * as the distinguished node, and the branch from the root of the structural model to * as the distinguished branch.
+
+In an annotated structural model, node predicates may be associated with the model nodes.
+
+When descending the tree, we "anchor" a on any node which matches each of the zero or more associated predicates.
+
+In the traversal of the children of any such anchored node, we maintain some state corresponding to the partial match.
+
+If the event of a match, we then attempt to predicate-match the sibling model-nodes b and c to sibling object nodes.
+We may cache the result of any such matches in annotations on the object tree.
+We may also try to split and recombine predicate tests so as to be more amenable to such optimization.
+If node predicate matching succeeds (on either a given node, or on all nodes) on the level of the distinguished node, we then attempt to match the model nodes at a lower level (again caching results where appropriate).
+If every node in the model is satisfied by an object node, the model has matched the object node corresponding to the distinguished model node.
+
+### A structural model matching algorithm
+
+We assume a set of of structural models with associated actions to be taken on matched nodes, a function for comparing model nodes to object nodes, and a tree to be matched against.
+We describe an algorithm which iterates over the entire tree, executing the defined action on each nodes which is matched by one of the structural models, in an undefined order.
+
+#### Overall Strategy
+
+We perform a depth-first traversal of the tree, with occasional excursions into subtrees as necessary.
+
+In the primary traversal, we create, for each node and for each structural model, a copy of that structural model anchored at that node.
+If that node or any descendant of it is to be matched by that model it will be by a correspondence to that copy.
+As we descend into the child nodes, we attempt to match the distinguished path of each anchored model to each child node we descend into.
+If this fails for a model, that model is removed from consideration for the node and all its descendants, which we call "removal from the test set".
+
+If the full distinguished path of a model is matched, we then immediately attempt to match the rest of the model against the object tree, holding the matched object nodes on the distinguished path as fixed, but considering all possible correspondences between non-distinguished model nodes and object nodes.
+This may involve traversing other parts of the subtree rooted at the model's object root.
+If the match succeeds we then perform the associated action, and either way we then remove the match from the test set.
+
+#### Test Set
+
+The test set is the set of all models which are potential matches for a node or its descendants.
+
+We begin the algorithm with an empty test set.
+Each node in the primary traversal has a test set, derived from the test set of its parent node and by the set of models provided as an argument to the algorithm.
+Models are added to the test set of a node by being anchored to that node, or by a further descent into the distinguished path of a member of the parent node's test set.
+Models are removed from the test set when it is known to be impossible that the model will match the node or any of its descendants.
+
+#### Test Set Expansion
+
+For each node in the tree, we inherit a test set from the parent object node, if any.
+To this we add a copy of each model in the model set.
+
+#### definitions
+
+We define a model's /deepest anchored node/ as the model node furthest from the root on the distinguished path which has been bound to an object node.
+We define a model's /next anchor/ as the distinguished child of the deepest anchored node, i.e. the model node on the distinguished path which must be matched against the children of the object node to which the deepest anchored node is anchored.
+When the deepest anchored node is the distinguished node, it has no distinguished child (though it may have non-distinguished children), and there is no next anchor.
+When a model is not yet anchored, it has no deepest anchored node, and the next anchor is the root.
+
+We define the model's object root as the object node to which the model is anchored, i.e. the current node in the primary tree traversal at the time the model is copied and added to the test set.
+
+#### Model Correspondence Testing
+
+##### Anchoring
+
+The anchoring step considers each model in the test set in turn, choosing one of three possible outcomes:
+
+1. The model is removed from the test set without action.
+2. Model correspondence completion is attempted, possibly leading to an action being called on the current node, and the model is removed from the test set.
+3. A copy of the model is created, with the copy's next anchor bound to the current node and this copy is added to the test set for the current nodes descendants.
+
+For each model in the test set the outcome is chosen as follows:
+Compare the next anchor to the current node.
+In the event of a predicate match failure, remove the model from the test set (outcome 1 above).
+
+Otherwise, create a copy, anchoring the current node to the next anchor, which becomes the deepest anchored node.
+Now the deepest anchored node, i.e. the current match position, is either the distinguished node or it is not.
+If it is, we proceed as described in Model Correspondence Completion (outcome 2).
+If it is not, we add the copy to the test set for this node's descendants.
+
+Either way, we then continue on to the next model in the test set, or to the next object node.
+
+##### Model Correspondence Completion
+
+If the current match position is the distinguished node, a match against the distinguished path of the model has been found, and we then test for a match against the non-distinguished part of the model, as follows:
+
+0. Let A be the root node of the model.
+   Let B be the object root of the model (that is, the object node to which the model is anchored).
+
+1. Let modelNode be an as-yet-unmatched, non-distinguished child of A.
+   If there is no such node, continue from step 5.
+
+2. Let objectNode be an as-yet-untried-against-modelNode, unmatched child of B.
+   If there is no such node, fail.
+
+3. Attempt a node predicate match of objectNode against modelNode.
+   If the match fails: Continue from step 2.
+   If the match succeeds: Let A be modelNode, and let B be objectNode, in a recursive call into the algorithm beginning at step 1.
+                          If it succeeds, continue; otherwise, continue from step 2.
+
+4. Let modelNode and objectNode be considered as matched in a recursive call into the algorithm beginning at step 1.
+   If it succeeds, continue.
+   Otherwise, continue from step 2.
+
+5. Let A be the distinguished child of A.
+   If there is no such node, succeed.
+   Let B be the matched node of A.
+   Continue from step 1.
+
+If the above algorithm succeeds, perform the action associated with the model on the current node.
+Whether it succeeds or fails, remove the model from the test set.
+
+###### An accounting of the state maintained by the above algorithm.
+
+A is always a model node, and B is always an object node.
+modelNode and objectNode likewise.
+
+In step 1 we must know which non-distinguished children of A have not yet been matched.
+
+In step 2 we must know which children of B have not been matched and have not been tried yet against the current modelNode.
+
+In step 3 we may recurse into the algorithm again beginning at step 1.
+In the outer call, A, B, modelNode, and objectNode must maintain their values.
+In the inner call, A and B must be equal to the modelNode and objectNode of the outer call.
+No other state from the outer call should be accessible to the inner call.
+
+In step 4 we may either modify the matched model node set used by step 1, and the matched-or-tried object nodes used in step 2, and recurse into step 1 with these modified sets, or we continue from step 2, modifying only the tried object node set.
+It might appear at first glance that step 1-4 can be modeled by a simple for loop over the model nodes, but this is insufficient.
+The recursion introduced by step 4 means that failure of the remaining model nodes to be matched to the remaining object nodes will cause the already-found match to be rejected, and another solution looked for.
+
+When we recurse into step 1 from step 4, the inner call needs access to the sets of model and object nodes already bound.
+The values of A and B are the same in the inner call as in the outer call.
+
+Step 4 also needs to record the result of the modelNode to objectNode match, so that the completed model correspondence has a reference to each corresponding object node [ this isn't actually specified behavior yet, but it is likely to be useful in extending tree mutation expressions to allow reference to any node matched by the structural selector ] [ this can actually be left out for now ].
+
+In step 5 we need to know the next anchored node pair.
+The call back to step 1 does not need to be recursive, and none of the state, beyond that this point was reached, is relevant.
+
+[ instead of distinguishing the distinguished node by a talisman in the model, we can actually just store the distinguished path as a list of zero or more indices. ]
+
+[ In the worst case, every permutation of non-distinguished model children with available object nodes will be tried. ]
+[ an obvious optimization is to at least check that there are a sufficient number of object children available before trying every permutation only to fail in the depth n-1 branches of the recursion because there are no candidate object nodes left ]
+
+[ what we really would like is an algorithm that tries something simple first that is likely to work in common cases, keeps track of every model-object comparison, never performs an unnecessary comparison, and fails as soon as it has enough data to know that a match is impossible, along with a proof of correctness ]
+
+[ in taking the above algorithmic description into code, there is a sort of general process:
+first find all the recursive entry points into the algorithm (and the external entry point)
+create formal parameters for all state that will need to be passed into these recursive calls
+]
+
+#### Negation
+
+A structural selector may specify branches which must not match for the selector to succeed.
+The simple selector '!U', for example, selects the root of a tree.
+
+[ what is the semantics of DB!(D[foo]) ?
+the semantics of DB!D is clear (node with exactly one child)
+but once negation and primitive node selection is mixed.... ]
+
+
+## Execution strategy
+
+During model matching, selectors which define attributes cause corresponding functions to be attached to matched object nodes.
+These functions are closures over the nodes referenced by the attribute expression, and may be called as necessary to generate the required attributes.
+Whether this laziness is actually valuable will depend on use, in the case of code generation from a parse tree, it is likely that each such function attached to a node will be called once, making this optimization as useless as can be.
+However, it does resolve the issue of arbitrary dependencies between generated attributes on various nodes, which would otherwise be a very hard problem.
+
+Nodes may be deleted or elided, which mutates the tree but should not take effect until all other selectors have been matched.
+Once the entire tree is traversed, a second pass may be made to delete removed nodes.
+
+Alternatively, tree production statements which mutate the tree structure could be taken to run immediately, before any subsequent rules.
+
+If a node is elided, it is replaced by its first child.
+
+Node deletion is quite simple: when a node deletion action is specified, we delete the node immediately from the tree and do not descend into any of its children (since they would be removed anyway).
+
+Node elision is more complicated.
+
+Node elisions must not immediately mutate the tree, since that would break matching in the subtree.
+
+We might store a queue of elision operations and then play the back when the entire ruleset is committed, but this requires some care.
+
+When a node N1 with parent N0 and child N2 is elided, N2 replaces N1 as the child of N0.
+If N2 is also elided and has a child N3, then N3 becomes the child of N0.
+
+This means that the parent of an elided node is not necessarily the node's original grandparent, but may be an earlier ancestor.
+
+A naive queue of elision actions would assign some nodes to the wrong parents.
+
+Instead we store a parent pointer on each node which is marked for elision.
+We add each such node to a queue of elision events.
+In performing each elision event, we remove the node from its parent and assign the node's child in its place.
+We then assign the child's parent pointer to its new parent.
+This ensures that any future elision involving this node will work, and the order of elision events is inconsequential.

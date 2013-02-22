@@ -1,0 +1,653 @@
+/*
+
+S ← (S+0 seq (S+1 neg (S+2 ref Keyword)) (S+3 cset 66))
+Keyword ← (Keyword+0 seq (Keyword+1 ordC (Keyword+2 seq (Keyword+3 cset 66) (Keyword+4 cset 69)) (Keyword+5 seq (Keyword+6 cset 66) (Keyword+7 cset 6f)) (Keyword+8 seq (Keyword+9 cset 66) (Keyword+10 cset 75)) (Keyword+11 seq (Keyword+12 cset 69) (Keyword+13 cset 66)) (Keyword+14 seq (Keyword+15 cset 69) (Keyword+16 cset 6e) (Keyword+17 cset 73)) (Keyword+18 seq (Keyword+19 cset 69) (Keyword+20 cset 6e))))
+_ ← (_+0 seq (_+1 ref S) (_+2 neg (_+3 cset 0-10ffff)))
+
+{_:{S:3,name:'_',expr:<hidden>,all_csets:[[0,55296,57344,65536]]}
+,S:{S:1,re:<hidden>,name:'S',expr:<hidden>,callers:['_'],drop:false
+   ,elide:false,direct_deps:['Keyword'],non_drop_ctx:true
+   ,all_csets:[[102,103]]}
+,Keyword:{S:2,re:<hidden>,name:'Keyword',expr:<hidden>,callers:['S']
+         ,drop:false,elide:false,direct_deps:[],non_drop_ctx:true
+         ,all_csets:[[102,103],[105,106],[102,103],[111,112],[102,103]
+                    ,[117,118],[105,106],[102,103],[105,106],[110,111]
+                    ,[115,116],[105,106],[110,111]]}}
+
+
+
+{_:{S:3,name:'_',all_csets:[[0,55296,57344,65536]],known_regular:[true]
+   ,expr:{id:'_+0',type:2,S:3,T:110592,M:30,F:31,toplevel:true,flag_n:0
+         ,S_flags:12288
+         ,flags:{cache:false,t_bufferout:false,pushpos:false
+                ,t_emitstate:false,m_emitstate:false,m_emitclose:false
+                ,m_emitlength:false,m_resetpos:false,m_tossbuf:false
+                ,f_tossbuf:false}
+         ,subexprs:[{id:'_+1',type:5,S:27,T:7343,M:114688,F:31
+                    ,flags:undefined,ref:'S',flag_n:0,subexprs:[]
+                    ,S_flags:110592}
+                   ,{id:'_+2',type:6,S:28,T:118784,M:30,F:31
+                    ,flags:undefined,flag_n:0,S_flags:114688
+                    ,subexprs:[{id:'_+3',type:0,S:29,T:undefined,M:31
+                               ,F:30,flags:undefined,cset:[0,1114112]
+                               ,flag_n:0,subexprs:[],S_flags:118784
+                               ,dfa:{type:'transition'
+                                    ,transition:[[[0,55296,57344,65536]
+                                                 ,{type:'match'}]]}}]}]}}
+,S:{S:1,re:[2,[[6,[5,'Keyword']],[1,'f']]],name:'S',callers:['_']
+   ,drop:false,elide:false,direct_deps:['Keyword'],non_drop_ctx:true
+   ,all_csets:[[102,103]],known_regular:[true]
+   ,expr:{id:'S+0',type:2,S:1,T:18950,M:30,F:31,toplevel:true,flag_n:3247
+         ,anon_consume:true,can_emit_named:false,S_flags:7343
+         ,flags:{cache:true,t_bufferout:true,pushpos:true
+                ,t_emitstate:true,m_emitstate:false,m_emitclose:true
+                ,m_emitanon:false,m_emitlength:true,m_resetpos:false
+                ,m_tossbuf:false,m_emitbuf:true,f_tossbuf:true}
+         ,subexprs:[{id:'S+1',type:6,S:4,T:20480,M:24576,F:31,flag_n:2566
+                    ,consumes_anon:false,can_emit_named:false
+                    ,S_flags:18950
+                    ,flags:{cache:false,t_bufferout:true,pushpos:true
+                           ,t_emitstate:false,m_emitstate:false
+                           ,m_emitclose:false,m_emitanon:false
+                           ,m_emitlength:false,m_resetpos:false
+                           ,m_tossbuf:true,m_emitbuf:false
+                           ,f_tossbuf:true}
+                    ,subexprs:[{id:'S+2',type:5,S:5,T:11439,M:31,F:30
+                               ,ref:'Keyword',flag_n:0,subexprs:[]
+                               ,can_emit_named:true,S_flags:20480
+                               ,flags:{cache:false,t_bufferout:false
+                                      ,pushpos:false,t_emitstate:false
+                                      ,m_emitstate:false
+                                      ,m_emitclose:false
+                                      ,m_emitanon:false
+                                      ,m_emitlength:false
+                                      ,m_resetpos:false,m_tossbuf:false
+                                      ,m_emitbuf:false,f_tossbuf:false}}]}
+                   ,{id:'S+3',type:0,S:6,T:undefined,M:30,F:31
+                    ,cset:[102,103],flag_n:0,subexprs:[]
+                    ,anon_consume:true,S_flags:24576
+                    ,dfa:{type:'transition'
+                         ,transition:[[[102,103],{type:'match'}]]}
+                    ,flags:{cache:false,t_bufferout:false,pushpos:false
+                           ,t_emitstate:false,m_emitstate:false
+                           ,m_emitclose:false,m_emitanon:false
+                           ,m_emitlength:false,m_resetpos:false
+                           ,m_tossbuf:false,m_emitbuf:false
+                           ,f_tossbuf:false}}]}}
+,Keyword:{S:2,name:'Keyword',callers:['S'],drop:false,elide:false
+         ,direct_deps:[],non_drop_ctx:true,known_regular:[true]
+         ,re:[2
+             ,[[3
+               ,[[1,'fi'],[1,'fo'],[1,'fu'],[1,'if'],[1,'ins'],[1,'in']]]]]
+         ,all_csets:[[102,103],[105,106],[102,103],[111,112],[102,103]
+                    ,[117,118],[105,106],[102,103],[105,106],[110,111]
+                    ,[115,116],[105,106],[110,111]]
+         ,expr:{id:'Keyword+0',type:2,S:2,T:28672,M:30,F:31,toplevel:true
+               ,flag_n:3247,anon_consume:true,can_emit_named:false
+               ,S_flags:11439
+               ,flags:{cache:true,t_bufferout:true,pushpos:true
+                      ,t_emitstate:true,m_emitstate:false
+                      ,m_emitclose:true,m_emitanon:false
+                      ,m_emitlength:true,m_resetpos:false
+                      ,m_tossbuf:false,m_emitbuf:true,f_tossbuf:true}
+               ,subexprs:[{id:'Keyword+1',type:3,S:7,T:35846,M:30,F:31
+                          ,flag_n:0,anon_consume:true
+                          ,can_emit_named:false,S_flags:28672
+                          ,flags:{cache:false,t_bufferout:false
+                                 ,pushpos:false,t_emitstate:false
+                                 ,m_emitstate:false,m_emitclose:false
+                                 ,m_emitanon:false,m_emitlength:false
+                                 ,m_resetpos:false,m_tossbuf:false
+                                 ,m_emitbuf:false,f_tossbuf:false}
+                          ,subexprs:[{id:'Keyword+2',type:2,S:8
+                                     ,T:undefined,M:30,F:48134
+                                     ,flag_n:3078,anon_consume:true
+                                     ,can_emit_named:false,S_flags:35846
+                                     ,dfa:{type:'transition'
+                                          ,transition:[[[102,103]
+                                                       ,{type:'transition'
+                                                        ,transition:[[[
+                                                                      105
+                                                                      ,106]
+                                                                     ,{type:'match'}]]}]]}
+                                     ,flags:{cache:false,t_bufferout:true
+                                            ,pushpos:true
+                                            ,t_emitstate:false
+                                            ,m_emitstate:false
+                                            ,m_emitclose:false
+                                            ,m_emitanon:false
+                                            ,m_emitlength:false
+                                            ,m_resetpos:false
+                                            ,m_tossbuf:false
+                                            ,m_emitbuf:true
+                                            ,f_tossbuf:true}
+                                     ,subexprs:[{id:'Keyword+3',type:0
+                                                ,S:9,T:undefined
+                                                ,M:undefined,F:undefined
+                                                ,cset:[102,103],flag_n:0
+                                                ,subexprs:[]
+                                                ,anon_consume:true
+                                                ,S_flags:36864
+                                                ,dfa:{type:'transition'
+                                                     ,transition:[[[102
+                                                                   ,103]
+                                                                  ,{type:'match'}]]}
+                                                ,flags:{cache:false
+                                                       ,t_bufferout:false
+                                                       ,pushpos:false
+                                                       ,t_emitstate:false
+                                                       ,m_emitstate:false
+                                                       ,m_emitclose:false
+                                                       ,m_emitanon:false
+                                                       ,m_emitlength:false
+                                                       ,m_resetpos:false
+                                                       ,m_tossbuf:false
+                                                       ,m_emitbuf:false
+                                                       ,f_tossbuf:false}}
+                                               ,{id:'Keyword+4',type:0
+                                                ,S:10,T:undefined
+                                                ,M:undefined,F:undefined
+                                                ,cset:[105,106],flag_n:0
+                                                ,subexprs:[]
+                                                ,anon_consume:true
+                                                ,S_flags:40960
+                                                ,dfa:{type:'transition'
+                                                     ,transition:[[[105
+                                                                   ,106]
+                                                                  ,{type:'match'}]]}
+                                                ,flags:{cache:false
+                                                       ,t_bufferout:false
+                                                       ,pushpos:false
+                                                       ,t_emitstate:false
+                                                       ,m_emitstate:false
+                                                       ,m_emitclose:false
+                                                       ,m_emitanon:false
+                                                       ,m_emitlength:false
+                                                       ,m_resetpos:false
+                                                       ,m_tossbuf:false
+                                                       ,m_emitbuf:false
+                                                       ,f_tossbuf:false}}]}
+                                    ,{id:'Keyword+5',type:2,S:11
+                                     ,T:undefined,M:30,F:60422
+                                     ,flag_n:3078,anon_consume:true
+                                     ,can_emit_named:false,S_flags:48134
+                                     ,dfa:{type:'transition'
+                                          ,transition:[[[102,103]
+                                                       ,{type:'transition'
+                                                        ,transition:[[[
+                                                                      111
+                                                                      ,112]
+                                                                     ,{type:'match'}]]}]]}
+                                     ,flags:{cache:false,t_bufferout:true
+                                            ,pushpos:true
+                                            ,t_emitstate:false
+                                            ,m_emitstate:false
+                                            ,m_emitclose:false
+                                            ,m_emitanon:false
+                                            ,m_emitlength:false
+                                            ,m_resetpos:false
+                                            ,m_tossbuf:false
+                                            ,m_emitbuf:true
+                                            ,f_tossbuf:true}
+                                     ,subexprs:[{id:'Keyword+6',type:0
+                                                ,S:12,T:undefined
+                                                ,M:undefined,F:undefined
+                                                ,cset:[102,103],flag_n:0
+                                                ,subexprs:[]
+                                                ,anon_consume:true
+                                                ,S_flags:49152
+                                                ,dfa:{type:'transition'
+                                                     ,transition:[[[102
+                                                                   ,103]
+                                                                  ,{type:'match'}]]}
+                                                ,flags:{cache:false
+                                                       ,t_bufferout:false
+                                                       ,pushpos:false
+                                                       ,t_emitstate:false
+                                                       ,m_emitstate:false
+                                                       ,m_emitclose:false
+                                                       ,m_emitanon:false
+                                                       ,m_emitlength:false
+                                                       ,m_resetpos:false
+                                                       ,m_tossbuf:false
+                                                       ,m_emitbuf:false
+                                                       ,f_tossbuf:false}}
+                                               ,{id:'Keyword+7',type:0
+                                                ,S:13,T:undefined
+                                                ,M:undefined,F:undefined
+                                                ,cset:[111,112],flag_n:0
+                                                ,subexprs:[]
+                                                ,anon_consume:true
+                                                ,S_flags:53248
+                                                ,dfa:{type:'transition'
+                                                     ,transition:[[[111
+                                                                   ,112]
+                                                                  ,{type:'match'}]]}
+                                                ,flags:{cache:false
+                                                       ,t_bufferout:false
+                                                       ,pushpos:false
+                                                       ,t_emitstate:false
+                                                       ,m_emitstate:false
+                                                       ,m_emitclose:false
+                                                       ,m_emitanon:false
+                                                       ,m_emitlength:false
+                                                       ,m_resetpos:false
+                                                       ,m_tossbuf:false
+                                                       ,m_emitbuf:false
+                                                       ,f_tossbuf:false}}]}
+                                    ,{id:'Keyword+8',type:2,S:14
+                                     ,T:undefined,M:30,F:72710
+                                     ,flag_n:3078,anon_consume:true
+                                     ,can_emit_named:false,S_flags:60422
+                                     ,dfa:{type:'transition'
+                                          ,transition:[[[102,103]
+                                                       ,{type:'transition'
+                                                        ,transition:[[[
+                                                                      117
+                                                                      ,118]
+                                                                     ,{type:'match'}]]}]]}
+                                     ,flags:{cache:false,t_bufferout:true
+                                            ,pushpos:true
+                                            ,t_emitstate:false
+                                            ,m_emitstate:false
+                                            ,m_emitclose:false
+                                            ,m_emitanon:false
+                                            ,m_emitlength:false
+                                            ,m_resetpos:false
+                                            ,m_tossbuf:false
+                                            ,m_emitbuf:true
+                                            ,f_tossbuf:true}
+                                     ,subexprs:[{id:'Keyword+9',type:0
+                                                ,S:15,T:undefined
+                                                ,M:undefined,F:undefined
+                                                ,cset:[102,103],flag_n:0
+                                                ,subexprs:[]
+                                                ,anon_consume:true
+                                                ,S_flags:61440
+                                                ,dfa:{type:'transition'
+                                                     ,transition:[[[102
+                                                                   ,103]
+                                                                  ,{type:'match'}]]}
+                                                ,flags:{cache:false
+                                                       ,t_bufferout:false
+                                                       ,pushpos:false
+                                                       ,t_emitstate:false
+                                                       ,m_emitstate:false
+                                                       ,m_emitclose:false
+                                                       ,m_emitanon:false
+                                                       ,m_emitlength:false
+                                                       ,m_resetpos:false
+                                                       ,m_tossbuf:false
+                                                       ,m_emitbuf:false
+                                                       ,f_tossbuf:false}}
+                                               ,{id:'Keyword+10',type:0
+                                                ,S:16,T:undefined
+                                                ,M:undefined,F:undefined
+                                                ,cset:[117,118],flag_n:0
+                                                ,subexprs:[]
+                                                ,anon_consume:true
+                                                ,S_flags:65536
+                                                ,dfa:{type:'transition'
+                                                     ,transition:[[[117
+                                                                   ,118]
+                                                                  ,{type:'match'}]]}
+                                                ,flags:{cache:false
+                                                       ,t_bufferout:false
+                                                       ,pushpos:false
+                                                       ,t_emitstate:false
+                                                       ,m_emitstate:false
+                                                       ,m_emitclose:false
+                                                       ,m_emitanon:false
+                                                       ,m_emitlength:false
+                                                       ,m_resetpos:false
+                                                       ,m_tossbuf:false
+                                                       ,m_emitbuf:false
+                                                       ,f_tossbuf:false}}]}
+                                    ,{id:'Keyword+11',type:2,S:17
+                                     ,T:undefined,M:30,F:84998
+                                     ,flag_n:3078,anon_consume:true
+                                     ,can_emit_named:false,S_flags:72710
+                                     ,dfa:{type:'transition'
+                                          ,transition:[[[105,106]
+                                                       ,{type:'transition'
+                                                        ,transition:[[[
+                                                                      102
+                                                                      ,103]
+                                                                     ,{type:'match'}]]}]]}
+                                     ,flags:{cache:false,t_bufferout:true
+                                            ,pushpos:true
+                                            ,t_emitstate:false
+                                            ,m_emitstate:false
+                                            ,m_emitclose:false
+                                            ,m_emitanon:false
+                                            ,m_emitlength:false
+                                            ,m_resetpos:false
+                                            ,m_tossbuf:false
+                                            ,m_emitbuf:true
+                                            ,f_tossbuf:true}
+                                     ,subexprs:[{id:'Keyword+12',type:0
+                                                ,S:18,T:undefined
+                                                ,M:undefined,F:undefined
+                                                ,cset:[105,106],flag_n:0
+                                                ,subexprs:[]
+                                                ,anon_consume:true
+                                                ,S_flags:73728
+                                                ,dfa:{type:'transition'
+                                                     ,transition:[[[105
+                                                                   ,106]
+                                                                  ,{type:'match'}]]}
+                                                ,flags:{cache:false
+                                                       ,t_bufferout:false
+                                                       ,pushpos:false
+                                                       ,t_emitstate:false
+                                                       ,m_emitstate:false
+                                                       ,m_emitclose:false
+                                                       ,m_emitanon:false
+                                                       ,m_emitlength:false
+                                                       ,m_resetpos:false
+                                                       ,m_tossbuf:false
+                                                       ,m_emitbuf:false
+                                                       ,f_tossbuf:false}}
+                                               ,{id:'Keyword+13',type:0
+                                                ,S:19,T:undefined
+                                                ,M:undefined,F:undefined
+                                                ,cset:[102,103],flag_n:0
+                                                ,subexprs:[]
+                                                ,anon_consume:true
+                                                ,S_flags:77824
+                                                ,dfa:{type:'transition'
+                                                     ,transition:[[[102
+                                                                   ,103]
+                                                                  ,{type:'match'}]]}
+                                                ,flags:{cache:false
+                                                       ,t_bufferout:false
+                                                       ,pushpos:false
+                                                       ,t_emitstate:false
+                                                       ,m_emitstate:false
+                                                       ,m_emitclose:false
+                                                       ,m_emitanon:false
+                                                       ,m_emitlength:false
+                                                       ,m_resetpos:false
+                                                       ,m_tossbuf:false
+                                                       ,m_emitbuf:false
+                                                       ,f_tossbuf:false}}]}
+                                    ,{id:'Keyword+14',type:2,S:20
+                                     ,T:undefined,M:30,F:101382
+                                     ,flag_n:3078,anon_consume:true
+                                     ,can_emit_named:false,S_flags:84998
+                                     ,flags:{cache:false,t_bufferout:true
+                                            ,pushpos:true
+                                            ,t_emitstate:false
+                                            ,m_emitstate:false
+                                            ,m_emitclose:false
+                                            ,m_emitanon:false
+                                            ,m_emitlength:false
+                                            ,m_resetpos:false
+                                            ,m_tossbuf:false
+                                            ,m_emitbuf:true
+                                            ,f_tossbuf:true}
+                                     ,dfa:{type:'transition'
+                                          ,transition:[[[105,106]
+                                                       ,{type:'transition'
+                                                        ,transition:[[[
+                                                                      110
+                                                                      ,111]
+                                                                     ,{type:'transition'
+                                                                      ,transition:[[[
+                                                                                    115
+                                                                                    ,116]
+                                                                                   ,{type:'match'}]]}]]}]]}
+                                     ,subexprs:[{id:'Keyword+15',type:0
+                                                ,S:21,T:undefined
+                                                ,M:undefined,F:undefined
+                                                ,cset:[105,106],flag_n:0
+                                                ,subexprs:[]
+                                                ,anon_consume:true
+                                                ,S_flags:86016
+                                                ,dfa:{type:'transition'
+                                                     ,transition:[[[105
+                                                                   ,106]
+                                                                  ,{type:'match'}]]}
+                                                ,flags:{cache:false
+                                                       ,t_bufferout:false
+                                                       ,pushpos:false
+                                                       ,t_emitstate:false
+                                                       ,m_emitstate:false
+                                                       ,m_emitclose:false
+                                                       ,m_emitanon:false
+                                                       ,m_emitlength:false
+                                                       ,m_resetpos:false
+                                                       ,m_tossbuf:false
+                                                       ,m_emitbuf:false
+                                                       ,f_tossbuf:false}}
+                                               ,{id:'Keyword+16',type:0
+                                                ,S:22,T:undefined
+                                                ,M:undefined,F:undefined
+                                                ,cset:[110,111],flag_n:0
+                                                ,subexprs:[]
+                                                ,anon_consume:true
+                                                ,S_flags:90112
+                                                ,dfa:{type:'transition'
+                                                     ,transition:[[[110
+                                                                   ,111]
+                                                                  ,{type:'match'}]]}
+                                                ,flags:{cache:false
+                                                       ,t_bufferout:false
+                                                       ,pushpos:false
+                                                       ,t_emitstate:false
+                                                       ,m_emitstate:false
+                                                       ,m_emitclose:false
+                                                       ,m_emitanon:false
+                                                       ,m_emitlength:false
+                                                       ,m_resetpos:false
+                                                       ,m_tossbuf:false
+                                                       ,m_emitbuf:false
+                                                       ,f_tossbuf:false}}
+                                               ,{id:'Keyword+17',type:0
+                                                ,S:23,T:undefined
+                                                ,M:undefined,F:undefined
+                                                ,cset:[115,116],flag_n:0
+                                                ,subexprs:[]
+                                                ,anon_consume:true
+                                                ,S_flags:94208
+                                                ,dfa:{type:'transition'
+                                                     ,transition:[[[115
+                                                                   ,116]
+                                                                  ,{type:'match'}]]}
+                                                ,flags:{cache:false
+                                                       ,t_bufferout:false
+                                                       ,pushpos:false
+                                                       ,t_emitstate:false
+                                                       ,m_emitstate:false
+                                                       ,m_emitclose:false
+                                                       ,m_emitanon:false
+                                                       ,m_emitlength:false
+                                                       ,m_resetpos:false
+                                                       ,m_tossbuf:false
+                                                       ,m_emitbuf:false
+                                                       ,f_tossbuf:false}}]}
+                                    ,{id:'Keyword+18',type:2,S:24
+                                     ,T:undefined,M:30,F:31,flag_n:3078
+                                     ,anon_consume:true
+                                     ,can_emit_named:false
+                                     ,S_flags:101382
+                                     ,dfa:{type:'transition'
+                                          ,transition:[[[105,106]
+                                                       ,{type:'transition'
+                                                        ,transition:[[[
+                                                                      110
+                                                                      ,111]
+                                                                     ,{type:'match'}]]}]]}
+                                     ,flags:{cache:false,t_bufferout:true
+                                            ,pushpos:true
+                                            ,t_emitstate:false
+                                            ,m_emitstate:false
+                                            ,m_emitclose:false
+                                            ,m_emitanon:false
+                                            ,m_emitlength:false
+                                            ,m_resetpos:false
+                                            ,m_tossbuf:false
+                                            ,m_emitbuf:true
+                                            ,f_tossbuf:true}
+                                     ,subexprs:[{id:'Keyword+19',type:0
+                                                ,S:25,T:undefined
+                                                ,M:undefined,F:undefined
+                                                ,cset:[105,106],flag_n:0
+                                                ,subexprs:[]
+                                                ,anon_consume:true
+                                                ,S_flags:102400
+                                                ,dfa:{type:'transition'
+                                                     ,transition:[[[105
+                                                                   ,106]
+                                                                  ,{type:'match'}]]}
+                                                ,flags:{cache:false
+                                                       ,t_bufferout:false
+                                                       ,pushpos:false
+                                                       ,t_emitstate:false
+                                                       ,m_emitstate:false
+                                                       ,m_emitclose:false
+                                                       ,m_emitanon:false
+                                                       ,m_emitlength:false
+                                                       ,m_resetpos:false
+                                                       ,m_tossbuf:false
+                                                       ,m_emitbuf:false
+                                                       ,f_tossbuf:false}}
+                                               ,{id:'Keyword+20',type:0
+                                                ,S:26,T:undefined
+                                                ,M:undefined,F:undefined
+                                                ,cset:[110,111],flag_n:0
+                                                ,subexprs:[]
+                                                ,anon_consume:true
+                                                ,S_flags:106496
+                                                ,dfa:{type:'transition'
+                                                     ,transition:[[[110
+                                                                   ,111]
+                                                                  ,{type:'match'}]]}
+                                                ,flags:{cache:false
+                                                       ,t_bufferout:false
+                                                       ,pushpos:false
+                                                       ,t_emitstate:false
+                                                       ,m_emitstate:false
+                                                       ,m_emitclose:false
+                                                       ,m_emitanon:false
+                                                       ,m_emitlength:false
+                                                       ,m_resetpos:false
+                                                       ,m_tossbuf:false
+                                                       ,m_emitbuf:false
+                                                       ,f_tossbuf:false}}]}]}]}}}
+opts.equiv_classes
+{equiv_class_6:{id:0,key:'equiv_class_6',member_cset_ids:[6]}
+,equiv_class_0,6:{id:1,key:'equiv_class_0,6',member_cset_ids:[0,6]}
+,equiv_class_1,6:{id:2,key:'equiv_class_1,6',member_cset_ids:[1,6]}
+,equiv_class_4,6:{id:3,key:'equiv_class_4,6',member_cset_ids:[4,6]}
+,equiv_class_2,6:{id:4,key:'equiv_class_2,6',member_cset_ids:[2,6]}
+,equiv_class_5,6:{id:5,key:'equiv_class_5,6',member_cset_ids:[5,6]}
+,equiv_class_3,6:{id:6,key:'equiv_class_3,6',member_cset_ids:[3,6]}
+,equiv_class_:{id:7,key:'equiv_class_',member_cset_ids:[]}}
+
+opts.cset_cache
+{cset_102,103:{key:'cset_102,103',cset:[102,103],equivs:[1],id:0}
+,cset_105,106:{key:'cset_105,106',cset:[105,106],equivs:[2],id:1}
+,cset_111,112:{key:'cset_111,112',cset:[111,112],equivs:[4],id:2}
+,cset_117,118:{key:'cset_117,118',cset:[117,118],equivs:[6],id:3}
+,cset_110,111:{key:'cset_110,111',cset:[110,111],equivs:[3],id:4}
+,cset_115,116:{key:'cset_115,116',cset:[115,116],equivs:[5],id:5}
+,cset_0,55296,57344,65536:{key:'cset_0,55296,57344,65536'
+                          ,cset:[0,55296,57344,65536]
+                          ,equivs:[0,1,2,3,4,5,6],id:6}}
+
+*/
+
+trace_test.legend="S ← (S+0 seq (S+1 neg (S+2 ref Keyword)) (S+3 cset 66))\nKeyword ← (Keyword+0 seq (Keyword+1 ordC (Keyword+2 seq (Keyword+3 cset 66) (Keyword+4 cset 69)) (Keyword+5 seq (Keyword+6 cset 66) (Keyword+7 cset 6f)) (Keyword+8 seq (Keyword+9 cset 66) (Keyword+10 cset 75)) (Keyword+11 seq (Keyword+12 cset 69) (Keyword+13 cset 66)) (Keyword+14 seq (Keyword+15 cset 69) (Keyword+16 cset 6e) (Keyword+17 cset 73)) (Keyword+18 seq (Keyword+19 cset 69) (Keyword+20 cset 6e))))\n_ ← (_+0 seq (_+1 ref S) (_+2 neg (_+3 cset 0-10ffff)))";
+trace_test.names=['','S','Keyword','_']
+function trace_test(out){var eof=false,s='',l=0,S=12288,T,M,F,D,R,tbl=[],x,pos=0,offset=0,buf=[],bufs=[],states=[],posns=[],c,equiv,ds,dp,failed=0,emp=0,emps=[],S_map=['','S+0','Keyword+0','_+0','S+1','S+2','S+3','Keyword+1','Keyword+2','Keyword+3','Keyword+4','Keyword+5','Keyword+6','Keyword+7','Keyword+8','Keyword+9','Keyword+10','Keyword+11','Keyword+12','Keyword+13','Keyword+14','Keyword+15','Keyword+16','Keyword+17','Keyword+18','Keyword+19','Keyword+20','_+1','_+2','_+3'];
+equiv=rle_dec([102,0,1,1,2,0,1,2,4,0,1,3,1,4,3,0,1,5,1,0,1,6,55178,0,2048,7,8192,0])
+function rle_dec(a){var r=[],i,l,n,x,ll;for(i=0,l=a.length;i<l;i+=2){n=a[i];x=a[i+1];r.length=ll=r.length+n;for(;n;n--)r[ll-n]=x}return r}
+T=[,18950,28672,110592,20480,11439,,35846,,,,,,,,,,,,,,,,,,,,7343,118784,]
+M=[,30,30,30,24576,31,30,30,30,,,30,,,30,,,30,,,30,,,,30,,,114688,30,31]
+F=[,31,31,31,31,30,31,31,48134,,,60422,,,72710,,,84998,,,101382,,,,31,,,31,31,30]
+D=function(a,i,l,b){for(i=0,l=a.length,b=[];i<l;i++)b[i]=a[i]&&revive(a[i]);return b}([,,,,,,[[[[1]]]],,[[[[1]]],[[[2]]]],,,[[[[1]]],[[[4]]]],,,[[[[1]]],[[[6]]]],,,[[[[2]]],[[[1]]]],,,[[[[2]]],[[[3]]],[[[5]]]],,,,[[[[2]]],[[[3]]]],,,,,[[[[0,1,2,3,4,5,6]]]]])
+function revive(x){var i,l,state,j,l2,all=[],t,ts;if(!x)return;for(i=0,l=x.length;i<l;i++){state=x[i];ts=[];for(j=0,l2=state.length;j<l2;j++){t=state[j];if(t[1]==l) ts.push([t[0],true]);else ts.push([t[0],t[1]==undefined?i+1:t[1]])}all.push(ts)}return dfa(all)
+ function dfa(ss){var i,l_ss,st,l_s,t,l_t,a,d=[],j,k,l;for(i=0,l_ss=ss.length;i<l_ss;i++){st=ss[i];a=[];for(j=0,l_s=st.length;j<l_s;j++){t=st[j];for(k=0,l_t=t[0].length;k<l_t;k++){a[t[0][k]]=t[1]===true?l_ss:t[1]}}for(j=0,l=a.length;j<l;j++)if(a[j]==undefined)a[j]=l_ss+1;d[i]=a}
+  return function _dfa(st,i){var eq,pr;
+
+log('s[i] '+s[i],i);
+
+log(ss)
+
+log('st on call '+st)
+
+while(st<l_ss){
+
+eq=equiv[s.charCodeAt(i++)];
+
+log('eq '+eq);
+log('st before '+st);
+
+st=d[pr=st][eq]}
+
+if(eq==undefined&&i>=s.length){ds=pr;dp=i-1;return}
+
+ds=0;dp=undefined;
+
+log('l_ss'+l_ss);log('st'+st);
+
+if(st==l_ss){pos=i;return log(true)}return log(false)}}}
+
+
+if(typeof out=='string'){s=out;out=[];x=trace_test(function(m,x,y){if(m=='fail')out=[false,x,y,s];if(m=='tree segment')out=out.concat(x)});x('chunk',s);x('eof');return out[0]===false?out:[true,{names:trace_test.names,tree:out,input:s}]}
+return function(m,x){if(failed){out('fail',pos,'parse already failed');return}
+switch(m){
+case 'chunk':s+=x;l=s.length;while(tbl.length<l+1)tbl.push([]);mainloop();break
+case 'eof':eof=true;mainloop();break
+default:throw new Error('unhandled message: '+m)}}
+//mainloop
+function mainloop(){for(;;){dbg("main")
+if(dp==undefined&&(S>34||S<32))
+t_block:{
+if(S&4/*pushpos*/)posns.push(pos)
+if(S&2/*t_bufferout*/){bufs.push(buf);buf=[]}
+if(S&8/*t_emitstate*/){emps.push(emp);emp=pos;buf.push(S>>>12)}
+if(S&1/*cache*/&&(x=tbl[pos-offset][S])!=undefined){if(x){R=true;pos=x[0];buf=x[1];if(emp<x[2])emp=x[2]}else{R=false}dbg("cached")}
+}
+if(R==undefined){dbg("test")
+if(D[S>>>12]){R=D[S>>>12](ds||0,dp||pos);
+
+log('ds after call: '+ds+' dp: '+' R: '+R+' eof: '+eof);
+
+if(R==undefined){
+  if(eof){ds=dp=undefined;R=false}else{out('ready');return}
+}
+
+log('ds after call: '+ds)
+
+//if(R==false&&eof){dp=undefined}
+
+}
+else{states.push(S);S=T[S>>>12]}
+if(S==32){R=true;S=states.pop()}}
+while(R!=undefined){dbg("result")
+if(S==12288){(R?emit:fail)();return}if(R){
+if(S&1/*cache*/){tbl[posns[posns.length-1]][S]=[pos,buf,emp];buf=buf.slice()}
+if(S&8/*t_emitstate*/){if(pos!=emp&&emp!=posns[posns.length-1]){buf.push(-1,pos-emp)}emp=emps.pop();if(emp!=posns[posns.length-1]){buf=[-1,posns[posns.length-1]-emp].concat(buf)}}
+if(S&16/*m_emitstate*/)buf.push(S>>>12)
+if(S&32/*m_emitclose*/)buf.push(-2)
+if(S&128/*m_emitlength*/)buf.push(pos-posns[posns.length-1])
+if(S&8/*t_emitstate*/){emp=pos}
+if(S&256/*m_resetpos*/)pos=posns[posns.length-1]
+if(S&4/*pushpos*/)posns.pop()
+if(S&512/*m_tossbuf*/)buf=bufs.pop()
+if(S&1024/*m_emitbuf*/){buf=bufs.pop().concat(buf);}
+if(!bufs.length&&buf.length>64)emit()
+S=M[S>>>12]}
+else{
+if(S&1/*cache*/)tbl[posns[posns.length-1]][S]=false
+if(S&4/*pushpos*/)pos=posns.pop()
+if(S&2048/*f_tossbuf*/)buf=bufs.pop()
+if(S&8/*t_emitstate*/){emp=emps.pop()}
+if(emp>pos){emp=pos}
+S=F[S>>>12]}
+if(S==30){R=true;S=states.pop()}else if(S==31){R=false;S=states.pop()}else R=undefined;dbg("res_end")}}}
+function emit(){var x=bufs.length?bufs[0]:buf;if(x.length){out('tree segment',x);if(bufs.length)bufs[0]=[];else buf=[]}}
+function fail(s){out('fail',pos,s);failed=1}
+function dbg(msg){/*log(msg+' S:'+(S_map[S>>>12]||'unknown state'+S>>>12)+' pos:'+pos+' R:'+R+' stack:'+states.map(function(s){return s>>>12})+' posns:'+posns+' bufs:'+bufs.map(function(b){return '['+b+']'})+' buf:'+buf+' emps:['+emps+']'+' emp:'+emp)*/}}

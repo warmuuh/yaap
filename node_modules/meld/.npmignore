@@ -1,0 +1,6 @@
+projectFilesBackup/
+.idea/
+.editorconfig
+.jshintrc
+.gitignore
+.travis.yml

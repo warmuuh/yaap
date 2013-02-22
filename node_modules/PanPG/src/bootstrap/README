@@ -1,0 +1,5 @@
+Originally there was a bootstrapping process starting from pure JavaScript and working up to the full PEG parser generator.
+This is the remnants of that system.
+Currently this is unmaintained but it may be revived in a more elegant form at some future point.
+
+The current builds require build/parsePEG.js to exist in order to rebuild build/parsePEG.js itself or any other parser.

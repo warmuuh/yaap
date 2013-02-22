@@ -1,0 +1,72 @@
+[RuleSet] D[Rule]B*
+ codegenTable ≔ [Ds.re,concat(Ds.deps)]
+ reTable ≔ Ds.re_kvpair
+ reTablePostProcessed ≔ reTablePostProcess(.reTable)
+ codegen_v1 ≔ function(start,prefix,elisionSet,elisionFlag){return reTableCodeGen(start,prefix,.reTablePostProcessed,.pfTable,.depTable,elisionSet,elisionFlag)}
+ depTable ≔ objectFromList(Ds.dep_kvpair)
+ pfTable ≔ objectFromList(Ds.pf_kvpair)
+
+[Rule]D[NonTerminal]BD[OrdChoice]
+ re_kvpair ≔ [.nm,BD.re]
+ dep_kvpair ≔ [.nm,BD.deps]
+ pf_kvpair ≔ [.nm,.fdecl]
+
+[OrdChoice]D[Sequence]B*
+ re ≔ re_union(Ds.re)
+ deps ≔ concat(Ds.deps).sort().uniq()
+
+[Sequence]D[SeqUnit]B*
+ re ≔ re_sequence(Ds.re)
+ deps ≔ concat(Ds.deps).sort().uniq()
+
+[NegLookahead|PosLookahead|Replicand|ParenthExpr|AtomicExpr|SeqUnit] D
+ deps ≔ D.deps
+
+[Empty|CharSet|StrLit]
+ deps ≔ []
+
+[PosRep|AnyRep|MNRep|Optional] D[Replicand]
+ deps ≔ D.deps
+
+[AnyRep]D[Replicand]
+ re ≔ re_rep(0,0,D.re)
+
+[PosRep]D[Replicand]
+ re ≔ re_rep(1,0,D.re)
+
+[Optional]D[Replicand]
+ re ≔ re_rep(0,1,D.re)
+
+[MNRep]D[Replicand]BD[M]B!D[N]
+ re ≔ re_rep(BD.n,BD.n,D.re)
+
+[MNRep]D[Replicand]BD[M]BD[N]
+ re ≔ re_rep(BD.n,BDBD.n,D.re)
+
+[M|N]
+ n ≔ parseInt(.match)
+
+[SeqUnit|AtomicExpr|CharSet|Replicand|ParenthExpr] D
+ re ≔ D.re
+
+[PosCharSet]D[CharSetExpr]
+ re ≔ re_from_cset(D.cset)
+
+[NegCharSet]D[CharSetExpr]
+ re ≔ re_from_cset(CSET.complement(D.cset))
+
+[StrLit]
+ re ≔ re_from_str(.match)
+
+[Empty]
+ re ≔ re_from_str("")
+
+[NonTerminal]
+ re ≔ re_reference(.match)
+ deps ≔ [.match]
+
+[NegLookahead] D[OrdChoice]
+ re ≔ re_neg_lookahead(D.re)
+
+[PosLookahead] D[OrdChoice]
+ re ≔ re_pos_lookahead(D.re)
