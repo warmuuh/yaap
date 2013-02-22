@@ -5,7 +5,7 @@ module.exports = {
 	"wire integration": function(test){
 		
 		var spec = {
-			testInstance:{create: {module:'./classes/TestClass'}},
+			testInstance:{create: './classes/TestClass'},
 			plugins: [//{module: "wire/debug", trace: true},
 					    {module:'../wire'}]
 		};
@@ -22,7 +22,7 @@ module.exports = {
 		
 		var spec = {
 			bean: "autowiredValue",
-			testInstance:{create: {module:'./classes/AutoWiredTest'}},
+			testInstance:{create: './classes/AutoWiredTest'},
 			plugins: [//{module: "wire/debug", trace: true},
 					    {module:'../wire'}]
 		};
