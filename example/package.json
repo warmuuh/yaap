@@ -1,0 +1,22 @@
+{
+	"name": "yaap_example",
+	"version": "0.0.1",
+	"description": "yaap example",
+	"keywords": [ "javascript" ],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/warmuuh/yaap.git"
+	},
+	"bugs": {
+		"url": "https://github.com/warmuuh/yaap/issues"
+	},
+	"contributors": [
+		"Peter Mucha <ptmucha@gmail.com>"
+	],
+	"dependencies": {
+        "yaap": "0.0.1",
+        "wire": "0.9.1"
+	},
+	"license": "MIT",
+	"readmeFilename": "README.md"
+} 
