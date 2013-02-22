@@ -16,8 +16,8 @@ The library already includes some so-called annotation processors, e.g. @NotNull
 ```js
 var logger = {
 	log: function(message, /*@Defaul("INFO")*/ level){
-					console.log(level + ": " + message);
-					}
+		console.log(level + ": " + message);
+	}
 };
 yaap.process(logger);
 ```
@@ -28,6 +28,7 @@ enables attached annotations.
 
 ```js
 logger.log("hello world"); //will print "INFO: hello world"
+logger.log("hello world", "ERROR"); //will print "ERROR: hello world"
 ```
 
 ##Annotations in Javascript
@@ -38,8 +39,8 @@ Right now, Yaap supports parameter-annotations and function-annotations:
 ```js
 var obj = {
 	fn: function(message, /*@Defaul("INFO")*/ level) /*@NotNull*/{
-					console.log(level + ": " + message);
-					}
+		console.log(level + ": " + message);
+	}
 };
 ```
 `@Default` here is an parameter-annotation while `@NotNull` is a function-annotation. (`@NotNull` can also be used as parameter-annotation though).
@@ -47,7 +48,7 @@ var obj = {
 
 
 ##Processors
-Yaap is no library of pre-defined annotations for javascript. It should be an extensible foundation to process 
+Yaap is no library of pre-defined annotations for javascript (though some are already contained examplary). It should be an extensible foundation to process 
 your own annotations easily. All need to be done is to register your processor. The rest is taken care of by Yaap.
 
 ```js
@@ -61,7 +62,7 @@ yaap.register(myProcessor);
 
 After registering your processor, `processFunction` will be called, 
 if a function is annotated with the according annotation. `processParameter` is called, 
-if an annotated parameter is found.
+if an annotated parameter is found. (The current `@NotNull` implementation uses [meld.js](https://github.com/cujojs/meld) to inject additional code)
 
 `Remark:` You can either define both or one of these functions, depending on 
 where you want to allow your annotation to be placed.
@@ -71,17 +72,12 @@ To use @Autowired (and annotations in general) in wire.js, simply add it as a pl
 ```js
 var wire = require("wire");
 wire({
-		    level: "INFO",
-        logger: {
-                create: {
-				            module: './Logger'
-				        }
-        },
-        
-        plugins: [
-           {module: "yaap/wire"}
-        ]
-        
+	level: "INFO",
+	logger: {create: './Logger'},
+
+	plugins: [
+		{module: "yaap/wire"}
+	]
 }, {require: require}).then(function(ctx){
 	ctx.logger.log("message");
 }, console.error);
@@ -90,11 +86,10 @@ Everything else is done by yaap, so you can start use your annotations:
 
 ```js
 //Logger.js
-
 module.exports = {
   log: function(message, /*@Autowire*/ level){
-					 console.log(level + ": " + message);
-					}
+		console.log(level + ": " + message);
+	}
 }
 ```
 `level` references the value in the wire-context (with value "INFO") now.
