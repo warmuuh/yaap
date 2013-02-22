@@ -1,4 +1,17 @@
-/*global console require exports*/
+/** @license MIT License (c) copyright 2013 original author or authors */
+
+/**
+ * A javascript annotation processor
+ *
+ * Licensed under the MIT License at:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * @author Peter Mucha
+ *
+ * @version 0.0.1
+ */
+"use strict";
+ 
 var _ = require("underscore");
 
 

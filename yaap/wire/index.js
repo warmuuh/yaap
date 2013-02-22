@@ -1,7 +1,7 @@
-/** @license MIT License (c) copyright wrm */
+/** @license MIT License (c) copyright Peter Mucha */
 
 /**
- * yaap/annotate plugin
+ * yaap/wire plugin
  * wire plugin that provides annotation processing of components, e.g. @Autowired
  *
  * wire is part of the cujo.js family of libraries (http://cujojs.com/)
@@ -17,23 +17,15 @@ define(["underscore", "../index", "./plugins/AutowireProcessor"], function ( _, 
 
 
 	function annotatesFacet(resolver, facet, wire) {
-
-
 		var options = facet.options;
 		var obj = facet.target;
-		
 		yaap.process(obj, {wire: wire});
-		
-		
 		resolver.resolve();
 	} 
 
 
-	
-
 	return {	wire$plugin: function(){
-    yaap.register(autowire)
-  
+    yaap.register(autowire);
 		/*return {
 			facets: {
 				//define annotate facet
@@ -48,11 +40,7 @@ define(["underscore", "../index", "./plugins/AutowireProcessor"], function ( _, 
 		return {
 			initialize:annotatesFacet
 		};
-		
-		
 	}};
-
-	
 
 });
 }(

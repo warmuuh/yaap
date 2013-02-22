@@ -19,7 +19,7 @@ MyClass.prototype = {
 	},
   
   doSomethingElseAgain: function( message) /*@Autowired*/{
-		console.log(message );
+		console.log("autowired(fn): " + message );
 	},
   
 };

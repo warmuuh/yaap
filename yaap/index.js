@@ -1,5 +1,16 @@
-/*global console require exports*/
+/** @license MIT License (c) copyright 2013 original author or authors */
 
+/**
+ * A javascript annotation processor
+ *
+ * Licensed under the MIT License at:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * @author Peter Mucha
+ *
+ * @version 0.0.1
+ */
+"use strict";
 var _ = require("underscore");
 
 
@@ -22,6 +33,8 @@ var callProcessors = function(obj, fnObj, config){
           _(registry.getProcessors(annotation.name)).each(function(processor){
                 if (_(processor).has("processFunction"))
                    processor.processFunction(obj, fnObj, annotation.parameters, config);
+                else
+                    console.log("Function-annotations are not supported for: " + annotation.name);
           });
             
     });
@@ -33,6 +46,8 @@ var callProcessors = function(obj, fnObj, config){
 	          _(registry.getProcessors(annotation.name)).each(function(processor){
 	                if (_(processor).has("processParameter"))
 	                   processor.processParameter(obj, fnObj, parameter, annotation.parameters, config);
+                else
+                    console.log("Parameter-annotations are not supported for: " + annotation.name);
 	          });
 	            
 	    });
@@ -43,7 +58,6 @@ var callProcessors = function(obj, fnObj, config){
 
 
 
-
 var process = exports.process = function (obj, config){
 	var functions = _(obj).functions();
 	_(functions).each(function(f){
@@ -51,7 +65,7 @@ var process = exports.process = function (obj, config){
 		var PanPG_util=require('./parser/PanPG_util');
 		var es5 = require('./parser/ECMA5Parser');
 
-	    var walker = require("./walker");
+	    var walker = require("./parser/walker");
 	    
 	    
 	    var source = obj[f].toString();

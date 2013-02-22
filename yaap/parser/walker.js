@@ -1,4 +1,17 @@
-/*global console require exports module*/
+/** @license MIT License (c) copyright 2013 original author or authors */
+
+/**
+ * Tree walker that creates the AST of the parsed code
+ *
+ * Licensed under the MIT License at:
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * @author Peter Mucha
+ *
+ * @version 0.0.1
+ */
+"use strict";
+ 
 var _ = require("underscore");
 
 
@@ -22,7 +35,7 @@ var treewalker = module.exports = {
       parameters: _(children).chain().pluck('parameters').compact().first().value()
     };
     if (fnObj.parameters === undefined)
-      fnObj.parameters = []
+      fnObj.parameters = [];
     
    return fnObj;
   },
