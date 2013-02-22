@@ -3,7 +3,7 @@
 Yaap is a generic annotation processor for javascript. It can be used to implement cross-cutting concerns and inject additional aspect oriented code.
 
 
-It [integrates](#wire.js_Integration) with [wire.js](https://github.com/cujojs/wire) (part of [cujo.js](http://cujojs.com)), which enables Spring-style wiring (i.e. dependency injection) of your javascript applications. 
+It [integrates](#wirejs-integration) with [wire.js](https://github.com/cujojs/wire) (part of [cujo.js](http://cujojs.com)), which enables Spring-style wiring (i.e. dependency injection) of your javascript applications. 
 With the `yaap/wire` plugin, @Autowired applications are possible
 
 ##Installation
@@ -19,8 +19,8 @@ The library already includes some so-called annotation processors, e.g. @NotNull
 ```js
 var logger = {
 	log: function(message, /*@Defaul("INFO")*/ level){
-					console.log(level + ": " + message);
-					}
+		console.log(level + ": " + message);
+	}
 };
 yaap.process(logger);
 ```
@@ -41,8 +41,8 @@ Right now, Yaap supports parameter-annotations and function-annotations:
 ```js
 var obj = {
 	fn: function(message, /*@Defaul("INFO")*/ level) /*@NotNull*/{
-					console.log(level + ": " + message);
-					}
+		console.log(level + ": " + message);
+	}
 };
 ```
 `@Default` here is an parameter-annotation while `@NotNull` is a function-annotation. (`@NotNull` can also be used as parameter-annotation though).
@@ -74,17 +74,12 @@ To use @Autowired (and annotations in general) in wire.js, simply add it as a pl
 ```js
 var wire = require("wire");
 wire({
-		    level: "INFO",
-        logger: {
-                create: {
-				            module: './Logger'
-				        }
-        },
+	level: "INFO",
+	logger: {create:  './Logger'},
         
         plugins: [
            {module: "yaap/wire"}
         ]
-        
 }, {require: require}).then(function(ctx){
 	ctx.logger.log("message");
 }, console.error);
@@ -96,8 +91,8 @@ Everything else is done by yaap, so you can start use your annotations:
 
 module.exports = {
   log: function(message, /*@Autowire*/ level){
-					 console.log(level + ": " + message);
-					}
+		console.log(level + ": " + message);
+	}
 }
 ```
 `level` references the value in the wire-context (with value "INFO") now.
