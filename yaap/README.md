@@ -77,9 +77,9 @@ wire({
 	level: "INFO",
 	logger: {create:  './Logger'},
         
-        plugins: [
-           {module: "yaap/wire"}
-        ]
+	plugins: [
+		{module: "yaap/wire"}
+	]
 }, {require: require}).then(function(ctx){
 	ctx.logger.log("message");
 }, console.error);
