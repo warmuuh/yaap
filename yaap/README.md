@@ -11,6 +11,10 @@ With the `yaap/wire` plugin, @Autowired applications are possible
 ##Installation
 Installation for node: `npm install yaap`
 
+##Articles
+
+[Annotations for JavaScript](http://cubiccow.blogspot.com/2013/02/yaap-annotations-for-javascript.html)
+
 
 ##Example
 
