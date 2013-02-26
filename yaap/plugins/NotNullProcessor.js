@@ -10,15 +10,16 @@
  *
  * @author Peter Mucha
  *
- * @version 0.0.1
+ * @version 0.0.2
  */
 "use strict";
- 
-var meld = require("meld");
-var _ = require("underscore");
+(function(define) {
+define(["underscore", "meld"], 
+function(_, meld) {
+
     
     
-module.exports = {
+return  {
   annotation: "@NotNull",
   
   
@@ -46,3 +47,4 @@ module.exports = {
   }
 };
 
+});})(typeof define == 'function'? define: function(deps, factory) {module.exports = factory.apply(this, deps.map(function(x) {return require(x);}));});

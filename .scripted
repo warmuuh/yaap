@@ -6,6 +6,6 @@
     }
   },
   "jshint" : {
-  	options: {node: true}
+  	options: {node: true, white:false}
   }
 }

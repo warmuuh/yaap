@@ -1,0 +1,49 @@
+<html>
+<head>
+
+<!--<script src="components/underscore/underscore.js"></script>-->
+<script type="text/javascript">
+	curl = {
+
+			paths: {
+				curl: 'components/curl/src/curl/'
+			},
+			 packages: {
+		        wire: { path: 'components/wire', main: 'wire'},
+		        when: { path: 'components/when/', main: 'when'},
+		        yaap: { path: '../yaap/', main: 'yaap'},
+		        meld: { path: 'components/meld', main: 'meld' },
+		        underscore:{ path: 'components/underscore', main: 'underscore',
+		        		config: {moduleLoader: 'curl/loader/cjsm11'}
+		        }
+		        
+		    }
+		};
+
+
+</script>
+</head>
+<body>
+
+<script src="components/curl/src/curl.js"></script>
+<script type="text/javascript">
+
+curl(['wire!spec']).then(function(ctx){
+
+	console.log("----- initialized -----");
+	ctx.myComponent.doSomething();
+  	ctx.myComponent.doSomethingElseAgain();
+  	
+},function(err){
+	console.log("err: " + err);
+})
+
+
+</script>
+
+
+
+
+
+</body>
+</html>

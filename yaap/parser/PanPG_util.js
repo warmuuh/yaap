@@ -4,8 +4,10 @@
  * http://boshi.inimino.org/3box/PanPG/about.html
  * MIT Licensed
  */
+"use strict";
+(function(define) {
+define([],function() {
 
-;(function(exports){
 
 // (event array (can be partial), [name array], [input string], [state]) → [ascii-art tree, state]
 // -or-
@@ -154,7 +156,9 @@ function treeWalker(dict,result){var p,any,anon,other,fail,except,index,cb=[],st
  function warn(s){
   if(dict.warn)dict.warn(s)}}
 
-exports.showTree=showTree
-exports.treeWalker=treeWalker
+return {
+	showTree:showTree,
+	treeWalker:treeWalker
+}
 
-})(typeof exports=='object'?exports:PanPG_util={});
+});})(typeof define == 'function'? define: function(deps, factory) {module.exports = factory.apply(this, deps.map(function(x) {return require(x);}));});

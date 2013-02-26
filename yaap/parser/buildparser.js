@@ -8,7 +8,7 @@
  *
  * @author Peter Mucha
  *
- * @version 0.0.1
+ * @version 0.0.2
  */
 "use strict";
 
@@ -19,7 +19,7 @@ var grammar = fs.readFileSync("ECMAScript_5.peg").toString();
 var parser = pg.generateParser(grammar);
 
 
-parser = parser + "\nexports.Program = Program;";
+parser = "(function(define) {\ndefine([],function(){\n\n" + parser + "return {Program:Program};\n\n});})(typeof define == 'function'? define: function(deps, factory) {module.exports = factory.apply(this, deps.map(function(x) {return require(x);}));});";
 
 
 fs.writeFileSync("ECMA5Parser.js", parser);

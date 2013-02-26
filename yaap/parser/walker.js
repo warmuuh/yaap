@@ -8,14 +8,17 @@
  *
  * @author Peter Mucha
  *
- * @version 0.0.1
+ * @version 0.0.2
  */
 "use strict";
- 
-var _ = require("underscore");
+ (function(define) {
+define(["underscore"], 
+function(_) {
 
 
-var treewalker = module.exports = {
+
+
+return  {
   Program: function(match, children){
     return children;
   },
@@ -95,3 +98,5 @@ var treewalker = module.exports = {
   }
   
 };
+
+});})(typeof define == 'function'? define: function(deps, factory) {module.exports = factory.apply(this, deps.map(function(x) {return require(x);}));});

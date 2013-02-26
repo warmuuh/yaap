@@ -5,7 +5,7 @@
  * 
  * Autowires parameters of function calls based on a given or the parameter name.
  * 
- * needs wire to be in the global configuration object. 
+ * needs wire to be in the configuration object. 
  *    
  *
  * Licensed under the MIT License at:
@@ -13,16 +13,15 @@
  *
  * @author Peter Mucha
  *
- * @version 0.0.1
+ * @version 0.0.2
  */
 "use strict";
-var meld = require("meld");
-var _ = require("underscore");
-var when = require("when");
-    
+(function(define) {
+define(["underscore", "when", "meld"], 
+function(_, when, meld) {
 
     
-module.exports = {
+return  {
   annotation: "@Autowired",
   processParameter: function(obj, fnObj, param, annotationParams, cfg)  {
     //console.log("@Autowired("+ annotationParams +") attached at parameter: " + param.name);
@@ -61,7 +60,8 @@ module.exports = {
                    joinpoint.args[i] = resolvedRefs[i];
                 return joinpoint.proceed();
 			});
-      }, console.error);
+      }, function(err){console.error(err);});
   }
 };
 
+});})(typeof define == 'function'? define: function(deps, factory) {module.exports = factory.apply(this, deps.map(function(x) {return require(x);}));});

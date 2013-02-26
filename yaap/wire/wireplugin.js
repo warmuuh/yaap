@@ -23,24 +23,24 @@
                         resolver.resolve();
                 }
 
-              
-
-               
 
 
-            return {
-                    wire$plugin: function(ready, destroyed, options) {
 
-                            yaap.register(autowire);
-        
-					                return {
-					                        initialize: annotatesFacet
-					                };
-                                }
-                        };
 
-                });
-        }(
-        typeof define == 'function' && define.amd ? define : function(deps, factory) {
-                module.exports = factory.apply(this, deps.map(require));
-        }));
+
+                return {
+                        wire$plugin: function(ready, destroyed, options) {
+
+                                yaap.register(autowire);
+
+                                return {
+                                        initialize: annotatesFacet
+                                };
+                        }
+                };
+
+        });
+}(
+typeof define == 'function' && define.amd ? define : function(deps, factory) {
+        module.exports = factory.apply(this, deps.map(require));
+}));

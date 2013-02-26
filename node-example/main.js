@@ -18,7 +18,7 @@ wire({
         	
         plugins: [
           //{module: "wire/debug", trace: true},
-           {module: "../yaap/wire", hookRequire: require}
+           {module: "../yaap/wire"}
            
         ]
         
@@ -26,7 +26,7 @@ wire({
 
 	console.log("----- initialized -----");
 	ctx.myComponent.doSomething();
-  ctx.myComponent.doSomethingElseAgain();
+  	ctx.myComponent.doSomethingElseAgain();
 
-}, console.error);
+}, function(err){console.error(err);});
 

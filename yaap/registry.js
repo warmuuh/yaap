@@ -8,23 +8,27 @@
  *
  * @author Peter Mucha
  *
- * @version 0.0.1
+ * @version 0.0.2
  */
 "use strict";
- 
-var _ = require("underscore");
-
+(function(define) {
+define(["underscore"], function(_) {
 
 var registry = [];
 
-var register = exports.register = function(processors){
-	_(processors).each(function(proc){
-		registry.push(proc);
-	});
-};
 
 
 
-var getProcessors = exports.getProcessors = function(annotation){
-	return _(registry).where({annotation:annotation});
-};
+return {
+	getProcessors: function(annotation){
+		return _(registry).where({annotation:annotation});
+	},
+	register: function(processors){
+		_(processors).each(function(proc){
+			registry.push(proc);
+		})
+	}
+}
+
+
+});})(typeof define == 'function'? define: function(deps, factory) {module.exports = factory.apply(this, deps.map(function(x) {return require(x);}));});
