@@ -106,3 +106,8 @@ module.exports = {
 `Remark:` Yaap/wire uses the parameter name to autowire. You can also supply a reference name with `/*@Autowire("level")*/`
 
 `Remark:` You can also annotate the whole function with `@Autowire` so every parameter will be autowired by name.
+
+###Constructors
+The yaap/wire plugin will be called after the bean was initialized. That means, the constructor itself will not be affected by annotations. 
+
+As a workaround, use a separate initialize-method (using the [init-facade](https://github.com/cujojs/wire/blob/master/docs/configure.md#init-methods) of wire).
