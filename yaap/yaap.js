@@ -58,9 +58,15 @@ var callProcessors = function(obj, fnObj, config){
 
 
 
+
+
+
 var process = exports.process = function (obj, config){
 	var functions = _(obj).functions();
 	_(functions).each(function(f){
+	
+		
+	
 	
 		var PanPG_util=require('./parser/PanPG_util');
 		var es5 = require('./parser/ECMA5Parser');
@@ -80,4 +86,7 @@ var process = exports.process = function (obj, config){
 		});
   });
 };
+
+
+
 

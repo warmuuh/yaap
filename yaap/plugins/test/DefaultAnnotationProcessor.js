@@ -3,7 +3,7 @@ module.exports = {
 	
 	setUp: function (callback) {
         
-        this.yaap = require("../../index");
+        this.yaap = require("../../yaap");
         
         callback();
     },

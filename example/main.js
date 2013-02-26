@@ -9,17 +9,16 @@ var wire = require("wire");
 
 wire({
 		    message: "autowired",
-
         myComponent: {
                 create: {
 				            module: './MyClass',
 				            args: "wired"
 				        }
         },
-        
+        	
         plugins: [
           //{module: "wire/debug", trace: true},
-           {module: "yaap/wire"}
+           {module: "../yaap/wire", hookRequire: require}
            
         ]
         

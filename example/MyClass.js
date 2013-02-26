@@ -3,6 +3,7 @@ function MyClass (val){
 	this.value = val;
 }
 
+
 MyClass.prototype = {
 
 	doSomething: function( /*@Default("Default Message")*/msg, /*@Autowired("message")*/msg2, /*@Autowired*/message) {

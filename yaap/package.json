@@ -2,7 +2,7 @@
 	"name": "yaap",
 	"version": "0.0.1",
 	"description": "yaap",
-	"keywords": [ "javascript" ],
+	"keywords": [ "javascript", "dependency injection", "AOP", "IOC"],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/warmuuh/yaap.git"
@@ -24,5 +24,6 @@
 	     "nodeunit": "0.7.4"
 	},
 	"license": "MIT",
-	"readmeFilename": "README.md"
+	"readmeFilename": "README.md",
+  "main":"./yaap"
 } 
