@@ -14,7 +14,7 @@ Installation for node: `npm install yaap`
 ##Articles
 
 [Annotations for JavaScript](http://cubiccow.blogspot.com/2013/02/yaap-annotations-for-javascript.html)
-
+[@Autowired for JavaScript](http://cubiccow.blogspot.de/2013/02/autowire-for-javascript.html)
 
 ##Example
 
