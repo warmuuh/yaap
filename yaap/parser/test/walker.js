@@ -48,8 +48,25 @@ module.exports = {
 		}]);
 		
 		test.done();
-	}
+	},
 	
+	"annotations with parameters on named function": function(test){
+		
+		var fnObj = this.parse("function /*@a(1)*/ MyFunction /*@b(2)*/ (/*@c(3)*/a, /*@d(4)*/b){ c = d;}");
+		
+    console.log(JSON.stringify(fnObj));
+	
+		test.deepEqual(fnObj, [{
+			name: "MyFunction",
+			parameters: [
+				{name: "a", annotations: [{name:"@c", parameters: [3]}], index: 0},
+				{name: "b", annotations: [{name:"@d", parameters: [4]}], index: 1}
+			],
+			annotations: [{name:"@a", parameters: [1]}, {name:"@b", parameters: [2]}]
+		}]);
+		
+		test.done();
+	}
 	
 	
 	

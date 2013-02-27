@@ -24,7 +24,7 @@ function(_, when, meld) {
 return  {
   annotation: "@Autowired",
   processParameter: function(obj, fnObj, param, annotationParams, cfg)  {
-    //console.log("@Autowired("+ annotationParams +") attached at parameter: " + param.name);
+    console.log("@Autowired("+ annotationParams +") attached at parameter: " + param.name);
     
     var refName = annotationParams.length == 1
 					? annotationParams[0]
@@ -33,10 +33,13 @@ return  {
     var ref = {$ref: refName};
     cfg.wire(ref).then(function (value){
 	    meld.around(obj, fnObj.name, function(joinpoint){
-			 var args = joinpoint.args;
+       
+			     var args = joinpoint.args;
 	         if (_(args[param.index]).isNull() || _(args[param.index]).isUndefined())
 	             args[param.index] = value;
-	         return joinpoint.proceed();
+	         
+           console.log("@Autowiring..." + refName + " -> " + value);
+           return joinpoint.proceed();
 	    });
     }, 
     function(err){

@@ -16,7 +16,21 @@ define(["underscore"],
 function(_) {
 
 
+  var FunctionWalker = function(match, children){
+    
+   
+    children = _.flatten(children);
+    
+    var fnObj = {
+      name: _(children).chain().pluck('name').compact().first().value(),
+      parameters: _(children).chain().pluck('parameters').compact().first().value(),
+      annotations: _(children).chain().pluck('annotations').flatten().compact().value()
+    };
+   // console.log("fn decl annotations found: " + JSON.stringify(fnObj));
+    
 
+    return fnObj;
+  };
 
 return  {
   Program: function(match, children){
@@ -66,21 +80,8 @@ return  {
     };
      return paramObj;
   },
-  FunctionExpression: function(match, children){
-    
-   
-    children = _.flatten(children);
-    
-    var fnObj = {
-      name: _(children).chain().pluck('name').compact().first().value(),
-      parameters: _(children).chain().pluck('parameters').compact().first().value(),
-      annotations: _(children).chain().pluck('annotations').flatten().compact().value()
-    };
-   // console.log("fn decl annotations found: " + JSON.stringify(fnObj));
-    
-
-    return fnObj;
-  },
+  FunctionDeclaration:  FunctionWalker,
+  FunctionExpression: FunctionWalker,
   FormalParameterList: function(match, children){
    // console.log("fn param list annotations found: " + JSON.stringify(children));
     //atach index to children

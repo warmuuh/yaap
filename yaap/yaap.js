@@ -33,13 +33,15 @@ function(_, registry, NotNullProcessor, DefaultProcessor, wire, PanPG_util, es5,
 	                    console.log("Function-annotations are not supported for: " + annotation.name);
 	          });
 	            
-	    });
-
+	    });		
+      
+      
+       console.log("obj  " + _(obj).functions());
 		//process parameter annotations
-		
 		_(fnObj.parameters).each(function (parameter){
 	          _(parameter.annotations).each(function (annotation){
 		          _(registry.getProcessors(annotation.name)).each(function(processor){
+              
 		                if (_(processor).has("processParameter"))
 		                   processor.processParameter(obj, fnObj, parameter, annotation.parameters, config);
 	                else
@@ -68,13 +70,46 @@ function(_, registry, NotNullProcessor, DefaultProcessor, wire, PanPG_util, es5,
 
 			    var fnObjs = PanPG_util.treeWalker(walker, ast);
 
+
+		    
 		    
 			    _(fnObjs).each(function(fnObj){
 			        fnObj.name = f;
 				    callProcessors(obj, fnObj, config);
 				});
 		  });
-		}
+		},
+    processFunction: function (fname, f, config){
+          var obj = {};
+          obj[fname] = f;
+          
+			    console.log("fs  " + _(obj).functions());
+          
+			    var source = f.toString();
+          
+			    console.log("f2  " + source);
+			    var ast = es5.Program(source);
+
+			    console.log("f3  " + ast);
+			    var fnObjs = PanPG_util.treeWalker(walker, ast);
+
+
+			    console.log("f4  " + JSON.stringify(fnObjs));
+      
+
+			    _(fnObjs).each(function(fnObj){
+  			      fnObj.name = fname;
+  				    callProcessors(obj, fnObj, config);
+				    });
+            
+            
+          
+		      return obj[fname];
+		},
+    
+    
+    
+    
 	}
 
 

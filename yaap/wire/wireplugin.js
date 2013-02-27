@@ -10,7 +10,7 @@
  * http://www.opensource.org/licenses/mit-license.php
  */
 (function(define) {
-        define(["underscore", "../yaap", "./plugins/AutowireProcessor", "wire"], function(_, yaap, autowire, wire) {
+        define(["underscore", "../yaap", "./plugins/AutowireProcessor", "wire", "meld"], function(_, yaap, autowire, wire, meld) {
                 "use strict";
 
 
@@ -34,7 +34,32 @@
                                 yaap.register(autowire);
 
                                 return {
-                                        initialize: annotatesFacet
+                                        initialize: annotatesFacet,
+                                        create:function (resolver, componentDef, wire) {
+                                          
+                                                var spec = componentDef.spec;
+                                                    
+                                                if (spec && spec.annotated){
+                                                    console.log("Creating: " + JSON.stringify(spec.module));
+                                                    
+                                                    
+                                                    wire({result: {module: spec.module}}).then( function(ctx){
+                                                    
+                                                    //  if (ctx.result.$adviced)
+                                                     //   return;
+                                                      
+                                                      var ctor = ctx.result.$getCtor();
+                                                      console.log("create listener: " + spec.module);
+                                                      
+                                                      var newf = yaap.processFunction("ctor", ctor, {wire:wire});
+                                                      if (newf != ctor)
+                                                        ctx.result.$setCtor(newf);
+                                                      
+                                                    }, function(err){console.error(err)})
+                                                }
+                                      					
+                                                 resolver.resolve();
+                                      				}
                                 };
                         }
                 };

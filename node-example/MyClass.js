@@ -1,5 +1,5 @@
 
-function MyClass (val){
+function MyClass ( /*@Autowired("message")*/ val){
 	this.value = val;
 }
 

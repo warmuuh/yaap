@@ -7,8 +7,14 @@ var wire = require("wire");
 
 
 
+
+
+
+
+
 wire({
 		    message: "autowired",
+        
         myComponent: {
                 create: {
 				            module: './MyClass',
