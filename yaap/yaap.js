@@ -8,11 +8,11 @@
  *
  * @author Peter Mucha
  *
- * @version 0.0.2
+ * @version 0.0.3
  */
 "use strict";
 (function(define) {
-define(["underscore", "./registry", "./plugins/NotNullProcessor", "./plugins/DefaultProcessor", "wire", './parser/PanPG_util', './parser/ECMA5Parser', "./parser/walker"], 
+define(["underscore", "./registry", "./plugins/NotNullProcessor", "./plugins/DefaultProcessor", "wire", './parser/PanPG_util', './parser/ECMA5Parser_min', "./parser/walker"], 
 function(_, registry, NotNullProcessor, DefaultProcessor, wire, PanPG_util, es5, walker) {
 
 
@@ -53,6 +53,10 @@ function(_, registry, NotNullProcessor, DefaultProcessor, wire, PanPG_util, es5,
 	};
 
 	 
+   
+   
+   
+   
 	return {
 		register: function (processor) {
 			registry.register([processor]);
@@ -64,16 +68,28 @@ function(_, registry, NotNullProcessor, DefaultProcessor, wire, PanPG_util, es5,
 			
 			    
 			    var source = obj[f].toString();
+          
+          
+          source = source.substring(0, source.indexOf("{")); //strip body //TODO: this is not secure, if comments contain '{'
+          
+          
+          
+          
 			    var ast = es5.Program(source);
-
-			    var fnObjs = PanPG_util.treeWalker(walker, ast);
-
+          
+			    //console.log(PanPG_util.showTree(ast));
+          var fnObjs = null;
+          try{
+            fnObjs = PanPG_util.treeWalker(walker, ast);
+          } catch(e){console.error(e); throw e;}
 		    
 			    _(fnObjs).each(function(fnObj){
 			        fnObj.name = f;
 				    callProcessors(obj, fnObj, config);
 				});
 		  });
+      
+     return obj; 
 		}
 	}
 

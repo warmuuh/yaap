@@ -10,12 +10,12 @@
  *
  * @author Peter Mucha
  *
- * @version 0.0.2
+ * @version 0.0.3
  */
 "use strict";
 (function(define) {
-define(["underscore", "meld"], 
-function(_, meld) {
+define([], 
+function() {
 
     
     
@@ -25,25 +25,50 @@ return  {
   
   processFunction: function(obj, fnObj)  {
     //console.log("@NotNull attached at function");
-    meld.before(obj, fnObj.name, function(){
-         if (fnObj.parameters.length != arguments.length) //there are undefined parameters!!
-            throw "Constraint violated: too few/many arguments at function " + fnObj.name;
-          
-        _(arguments).each(function(arg){
-           if (arg === null || arg === undefined)
-            throw "Constraint violated: null or undefined arguments at function " + fnObj.name;
-        });
-    });
+   
+    var origFn = obj[fnObj.name];
+    obj[fnObj.name] = function(){
+    
+       if (fnObj.parameters.length != arguments.length)
+        throw "Constraint violated: too few/many arguments at function " + fnObj.name;
+       
+        var idx = arguments.length-1
+        do{
+          if (arguments[idx] == null) //null or undefined
+            throw "Constraint violated: parameter " + param.name + " of function " + fnObj.name + " is null or undefined.";
+        }while(idx--);
+        
+        switch(arguments.length){
+            case 0: return origFn.call(obj);
+            case 1: return origFn.call(obj, arguments[0]);
+            case 2: return origFn.call(obj, arguments[0], arguments[1]);
+            case 3: return origFn.call(obj, arguments[0], arguments[1], arguments[2]);
+            default: return origFn.apply(obj, arguments);
+        }
+        
+    }
+    
+    
+    
   },
   
   processParameter: function(obj, fnObj, param)  {
     //console.log("@NotNull attached at parameter: " + param.name);
-    meld.before(obj, fnObj.name, function(){
-  
-         if (_(arguments[param.index]).isNull() || _(arguments[param.index]).isUndefined())
-           throw "Constraint violated: parameter " + param.name + " of function " + fnObj.name + " is null or undefined.";
-	
-    });
+    var origFn = obj[fnObj.name];
+    obj[fnObj.name] = function(){
+        if (arguments[param.index] == null) //null or undefined
+          throw "Constraint violated: parameter " + param.name + " of function " + fnObj.name + " is null or undefined.";
+       
+        switch(arguments.length){
+            case 0: return origFn.call(obj);
+            case 1: return origFn.call(obj, arguments[0]);
+            case 2: return origFn.call(obj, arguments[0], arguments[1]);
+            case 3: return origFn.call(obj, arguments[0], arguments[1], arguments[2]);
+            default: return origFn.apply(obj, arguments);
+        }
+        
+    }
+    
   }
 };
 

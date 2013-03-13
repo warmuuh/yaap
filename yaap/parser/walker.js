@@ -8,7 +8,7 @@
  *
  * @author Peter Mucha
  *
- * @version 0.0.2
+ * @version 0.0.3
  */
 "use strict";
  (function(define) {
@@ -59,6 +59,7 @@ return  {
       return children;
   },
   FormalParameter: function(match, children){
+  
     children = _.flatten(children);
      var paramObj = {
       name: _(children).chain().pluck('name').compact().first().value(),
@@ -88,14 +89,16 @@ return  {
        children[i].index = i;
     
     return {parameters: children};
-  },
+  }
+  
+  /*, //commented out because strippedDown-parser does not need this:
   FunctionBody: function(match, children){
    children = _.flatten(children);
      var bodyObj = {
       annotations: _(children).chain().pluck('annotations').flatten().compact().value()
     };
     //console.log("fn body annotations found: " + JSON.stringify(bodyObj));
-  }
+  }*/
   
 };
 

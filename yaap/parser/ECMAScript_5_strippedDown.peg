@@ -1,0 +1,250 @@
+; The entire ECMAScript language as a Parser Expression Grammar
+
+; Parser rules which share a name with ECMA-262 productions are intended to match the same language (though not necessarily with the same derivation).
+
+; for the sake of just parsing anonymous Functions, added FunctionExpression
+Program ←
+  (S? (FunctionDeclaration / FunctionExpression))* S? 
+
+FunctionDeclaration ←
+  FunctionTok S? Identifier S? "(" FormalParameterList? S? ")" S?
+
+FunctionExpression ←
+  FunctionTok S? Identifier? S? "(" FormalParameterList? S? ")" S?
+
+FormalParameterList ←
+  FormalParameter ("," FormalParameter)*
+
+FormalParameter ←
+  S? Identifier
+
+
+
+
+
+
+; Lexical tokens
+
+Literal
+  ← NullLiteral
+  / BooleanLiteral
+  / NumericLiteral
+  / StringLiteral
+  / RegularExpressionLiteral
+
+NullLiteral
+  ← NullTok
+
+BooleanLiteral
+  ← TrueTok
+  / FalseTok
+
+NumericLiteral                  ← DecimalLiteral !(IdentifierStart)
+                                / HexIntegerLiteral !(IdentifierStart)
+
+DecimalLiteral                  ← DecimalIntegerLiteral "." DecimalDigit* ExponentPart?
+                                / "." DecimalDigit+ ExponentPart?
+                                / DecimalIntegerLiteral ExponentPart?
+
+DecimalIntegerLiteral           ← "0"
+                                / [1-9] DecimalDigit*
+
+DecimalDigit                    ← [0-9]
+
+ExponentPart                    ← [eE] SignedInteger
+
+SignedInteger                   ← DecimalDigit+
+                                / "+" DecimalDigit+
+                                / "-" DecimalDigit+
+
+HexIntegerLiteral               ← "0x" HexDigit+
+                                / "0X" HexDigit+
+
+DQ                              ← [U+0022]
+SQ                              ← [U+0027]
+
+StringLiteral                   ← DQ DoubleStringCharacter* DQ
+                                / SQ SingleStringCharacter* SQ
+
+RS                              ← [U+005C]
+
+DoubleStringCharacter           ← !( DQ / RS / LineTerminator ) SourceCharacter
+                                / RS EscapeSequence
+                                / LineContinuation
+
+SingleStringCharacter           ← !( SQ / RS / LineTerminator ) SourceCharacter
+                                / RS EscapeSequence
+                                / LineContinuation
+
+LineContinuation                ← RS LineTerminatorSequence
+
+EscapeSequence                  ← CharacterEscapeSequence
+                                / "0" !(DecimalDigit)
+                                / HexEscapeSequence
+                                / UnicodeEscapeSequence
+
+CharacterEscapeSequence         ← SingleEscapeCharacter
+                                / NonEscapeCharacter
+
+SingleEscapeCharacter           ← [ U+0027 U+0022 U+005C b f n r t v ]
+
+NonEscapeCharacter              ← !(EscapeCharacter / LineTerminator) SourceCharacter
+
+EscapeCharacter                 ← SingleEscapeCharacter
+                                / DecimalDigit
+                                / [ x u ]
+
+HexEscapeSequence               ← "x" HexDigit HexDigit
+
+UnicodeEscapeSequence           ← "u" HexDigit{4}
+
+RegularExpressionLiteral        ← "/" RegularExpressionBody "/" RegularExpressionFlags
+
+RegularExpressionBody           ← RegularExpressionFirstChar RegularExpressionChar*
+
+RegularExpressionFirstChar      ← !( LineTerminator / [ * U+005C / [ ] ) SourceCharacter
+                                / RegularExpressionBackslashSequence
+                                / RegularExpressionClass
+
+RegularExpressionChar           ← !( LineTerminator / [ U+005C / [ ] ) SourceCharacter
+                                / RegularExpressionBackslashSequence
+                                / RegularExpressionClass
+
+RegularExpressionBackslashSequence ← RS !(LineTerminator) SourceCharacter
+
+RegularExpressionClass          ← "[" RegularExpressionClassChar* "]"
+
+RegularExpressionClassChar      ← !(LineTerminator / [ U+005C U+005D ]) SourceCharacter
+                                / RegularExpressionBackslashSequence
+
+RegularExpressionFlags          ← IdentifierPart*
+
+SourceCharacter                 ← [ U+0000-U+10FFFF ]
+
+WhiteSpace                      ← [ U+0009 
+                                    U+000B
+                                    U+000C
+                                    U+0020
+                                    U+0085
+                                    U+00A0
+                                    U+200B
+                                    U+FEFF
+                                    [:Zs:] ]
+
+LF                              ← [ U+000A ]
+CR                              ← [ U+000D ]
+LS                              ← [ U+2028 ]
+PS                              ← [ U+2029 ]
+
+LineTerminator                  ← LF / CR / LS / PS
+
+LineTerminatorSequence          ← LF / CR LF / CR / LS / PS
+
+Comment                         ← AnnotationComment
+                                / SingleLineComment
+                                / MultiLineComment
+
+MultiLineComment                ← "/*" (!("*/") SourceCharacter)* "*/"
+
+
+
+AnnotationComment               ← "/*" SnoComment? AnnotationFunction (SnoComment? AnnotationFunction)* SnoComment? "*/"
+AnnotationFunction              ← AnnotationName SnoComment? AnnotationParameterList?
+AnnotationName                  ← "@" Identifier
+AnnotationParameterList         ← "(" SnoComment? AnnotationParameter SnoComment? ( "," SnoComment? AnnotationParameter)*  SnoComment?")"
+AnnotationParameter             ←  StringLiteral / NumericLiteral
+
+
+MultiLineCommentNoLB            ← "/*" (!("*/") !(LineTerminator) SourceCharacter)* "*/"
+
+SingleLineComment               ← "//" [^ U+000A U+000D U+2028 U+2029 ]*
+
+S ← ( WhiteSpace / LineTerminatorSequence / Comment )+
+SnoComment ← ( WhiteSpace / LineTerminatorSequence )+
+
+SnoLB ← ( WhiteSpace / SingleLineComment / MultiLineCommentNoLB )+
+
+; end of statement
+EOS
+ ← S? ";"
+ / SnoLB? LineTerminatorSequence
+ / SnoLB? &("}")
+ / S? EOF
+
+; end of statement in a "no linebreak here" context
+; EOSnoLB will consume a linebreak, but it won't extend to the next line
+EOSnoLB
+ ← SnoLB? ";"
+ / SnoLB? LineTerminatorSequence
+ / SnoLB? &("}")
+ / SnoLB? EOF
+
+EOF
+ ← !(SourceCharacter)
+
+ReservedWord
+ ← ( Keyword
+   / FutureReservedWord
+   / "null"
+   / "true"
+   / "false"
+   ) !(IdentifierPart)
+
+Keyword
+ ← "break" / "case" / "catch" / "continue" / "debugger" / "default" / "delete" / "do" / "else" / "finally" / "for" / "function" / "if" / "instanceof" / "in" / "new" / "return" / "switch" / "this" / "throw" / "try" / "typeof" / "var" / "void" / "while" / "with"
+
+FutureReservedWord
+ ← "abstract" / "boolean" / "byte" / "char" / "class" / "const" / "double" / "enum" / "export" / "extends" / "final" / "float" / "goto" / "implements" / "import" / "interface" / "int" / "long" / "native" / "package" / "private" / "protected" / "public" / "short" / "static" / "super" / "synchronized" / "throws" / "transient" / "volatile"
+
+Identifier                      ← !(ReservedWord) IdentifierName
+
+IdentifierName                  ← IdentifierStart IdentifierPart*
+
+IdentifierStart                 ← UnicodeLetter
+                                / "$"
+                                / "_"
+                                / RS UnicodeEscapeSequence
+
+IdentifierPart                  ← IdentifierStart
+                                / [ [:Mn:] [:Mc:]
+                                    [:Nd:]
+                                    [:Pc:] ]
+
+UnicodeLetter                   ← [ [:Lu:]
+                                    [:Ll:]
+                                    [:Lt:]
+                                    [:Lm:]
+                                    [:Lo:]
+                                    [:Nl:] ]
+
+HexDigit                        ← [ 0-9 a-f A-F ]
+
+FalseTok      ← "false"      !(IdentifierPart)
+TrueTok       ← "true"       !(IdentifierPart)
+NullTok       ← "null"       !(IdentifierPart)
+BreakTok      ← "break"      !(IdentifierPart)
+ContinueTok   ← "continue"   !(IdentifierPart)
+DebuggerTok   ← "debugger"   !(IdentifierPart)
+InTok         ← "in"         !(IdentifierPart)
+InstanceOfTok ← "instanceof" !(IdentifierPart)
+DeleteTok     ← "delete"     !(IdentifierPart)
+FunctionTok   ← "function"   !(IdentifierPart)
+NewTok        ← "new"        !(IdentifierPart)
+ThisTok       ← "this"       !(IdentifierPart)
+TypeofTok     ← "typeof"     !(IdentifierPart)
+VoidTok       ← "void"       !(IdentifierPart)
+IfTok         ← "if"         !(IdentifierPart)
+ElseTok       ← "else"       !(IdentifierPart)
+DoTok         ← "do"         !(IdentifierPart)
+WhileTok      ← "while"      !(IdentifierPart)
+ForTok        ← "for"        !(IdentifierPart)
+VarTok        ← "var"        !(IdentifierPart)
+ReturnTok     ← "return"     !(IdentifierPart)
+CaseTok       ← "case"       !(IdentifierPart)
+DefaultTok    ← "default"    !(IdentifierPart)
+SwitchTok     ← "switch"     !(IdentifierPart)
+ThrowTok      ← "throw"      !(IdentifierPart)
+CatchTok      ← "catch"      !(IdentifierPart)
+FinallyTok    ← "finally"    !(IdentifierPart)
+TryTok        ← "try"        !(IdentifierPart)
+WithTok       ← "with"       !(IdentifierPart)

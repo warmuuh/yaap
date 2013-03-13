@@ -31,7 +31,7 @@
                 return {
                         wire$plugin: function(ready, destroyed, options) {
 
-                                yaap.register(autowire);
+                                yaap.register(autowire); //register annotation processor for @Autowire
 
                                 return {
                                         initialize: annotatesFacet

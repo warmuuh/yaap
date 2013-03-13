@@ -14,7 +14,6 @@
 		"Peter Mucha <ptmucha@gmail.com>"
 	],
 	"dependencies": {
-        "meld": "1.2.0",
 		    "PanPG": "0.0.9",
         "underscore": "1.4.4",
         "when": "1.8.0",

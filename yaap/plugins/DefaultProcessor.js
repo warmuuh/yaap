@@ -10,12 +10,12 @@
  *
  * @author Peter Mucha
  *
- * @version 0.0.2
+ * @version 0.0.3
  */
 "use strict";
 (function(define) {
-define(["underscore", "meld"], 
-function(_, meld) {
+define([], 
+function() {
    
     
 return {
@@ -23,12 +23,26 @@ return {
   
   processParameter: function(obj, fnObj, param, annotationParams)  {
     //console.log("@Default("+ annotationParams +") attached at parameter: " + param.name);
-    meld.around(obj, fnObj.name, function(joinpoint){
-		 var args = joinpoint.args;
-         if (_(args[param.index]).isNull() || _(args[param.index]).isUndefined())
-             args[param.index] = annotationParams[0];
-         return joinpoint.proceed();
-    });
+   
+    var origFn = obj[fnObj.name];
+       
+    obj[fnObj.name] =  function(){
+            while (arguments.length -1 < param.index)
+                [].push.call(arguments, undefined);
+                
+            if (arguments[param.index] == null) //tests for null or undefined because  'null==undefined'
+              arguments[param.index] = annotationParams[0];
+           
+           
+            switch(arguments.length){
+              case 0: return origFn.call(obj);
+              case 1: return origFn.call(obj, arguments[0]);
+              case 2: return origFn.call(obj, arguments[0], arguments[1]);
+              case 3: return origFn.call(obj, arguments[0], arguments[1], arguments[2]);
+              default: return origFn.apply(obj, arguments);
+            }
+          }; 
+    
   }
 };
 

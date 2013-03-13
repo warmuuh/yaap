@@ -13,12 +13,12 @@
  *
  * @author Peter Mucha
  *
- * @version 0.0.2
+ * @version 0.0.3
  */
 "use strict";
 (function(define) {
-define(["underscore", "when", "meld"], 
-function(_, when, meld) {
+define(["underscore", "when"], 
+function(_, when) {
 
     
 return  {
@@ -31,13 +31,27 @@ return  {
                     : param.name;
             
     var ref = {$ref: refName};
-    cfg.wire(ref).then(function (value){
-	    meld.around(obj, fnObj.name, function(joinpoint){
-			 var args = joinpoint.args;
-	         if (_(args[param.index]).isNull() || _(args[param.index]).isUndefined())
-	             args[param.index] = value;
-	         return joinpoint.proceed();
-	    });
+    cfg.wire(ref).then(function (value) {
+      
+      var origFn = obj[fnObj.name];
+      
+      obj[fnObj.name] = function(){
+            while (arguments.length -1 < param.index)
+                [].push.call(arguments, undefined);
+                
+            if (arguments[param.index] == null) //tests for null or undefined because  'null==undefined'
+              arguments[param.index] = value;
+           
+           
+            switch(arguments.length){
+              case 0: return origFn.call(obj);
+              case 1: return origFn.call(obj, arguments[0]);
+              case 2: return origFn.call(obj, arguments[0], arguments[1]);
+              case 3: return origFn.call(obj, arguments[0], arguments[1], arguments[2]);
+              default: return origFn.apply(obj, arguments);
+            }
+          }; 
+      
     }, 
     function(err){
            console.error("@Autowired failed: " + err);
@@ -54,12 +68,28 @@ return  {
                               });
       
       when.map(refs, cfg.wire).then(function (resolvedRefs){
-         meld.around(obj, fnObj.name, function(joinpoint){
-                joinpoint.args.length = resolvedRefs.length;
-                for(var i = 0; i < resolvedRefs.length; ++i)
-                   joinpoint.args[i] = resolvedRefs[i];
-                return joinpoint.proceed();
-			});
+        //console.log("1");
+        var origFn = obj[fnObj.name];
+      
+        obj[fnObj.name] = function(){
+              while (arguments.length < resolvedRefs.length)
+                  [].push.call(arguments, undefined);
+                  
+              for(var i = 0; i < resolvedRefs.length; ++i)
+                if (arguments[i] == null) //tests for null or undefined because  'null==undefined'
+                  arguments[i] = resolvedRefs[i];
+             
+             
+              switch(arguments.length){
+                case 0: return origFn.call(obj);
+                case 1: return origFn.call(obj, arguments[0]);
+                case 2: return origFn.call(obj, arguments[0], arguments[1]);
+                case 3: return origFn.call(obj, arguments[0], arguments[1], arguments[2]);
+                default: return origFn.apply(obj, arguments);
+              }
+            }; 
+      
+      
       }, function(err){console.error(err);});
   }
 };
