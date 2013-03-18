@@ -6,6 +6,7 @@
     }
   },
   "jshint" : {
-  	options: {node: true, white:false}
+  	options: {node: true, white:false},
+  	"global" : ["console", "define", "exports", "module", "require"]
   }
 }

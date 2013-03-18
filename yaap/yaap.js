@@ -50,6 +50,9 @@ function(_, registry, NotNullProcessor, DefaultProcessor, wire, PanPG_util, es5,
 	    });
 
 
+
+		
+
 	};
 
 	 
@@ -61,7 +64,7 @@ function(_, registry, NotNullProcessor, DefaultProcessor, wire, PanPG_util, es5,
 		register: function (processor) {
 			registry.register([processor]);
 		},
-
+ 
 		process: function (obj, config){
 			var functions = _(obj).functions();
 			_(functions).each(function(f){
@@ -91,7 +94,7 @@ function(_, registry, NotNullProcessor, DefaultProcessor, wire, PanPG_util, es5,
       
      return obj; 
 		}
-	}
+	};
 
 
 

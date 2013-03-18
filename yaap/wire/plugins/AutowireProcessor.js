@@ -68,7 +68,6 @@ return  {
                               });
       
       when.map(refs, cfg.wire).then(function (resolvedRefs){
-        //console.log("1");
         var origFn = obj[fnObj.name];
       
         obj[fnObj.name] = function(){

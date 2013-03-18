@@ -33,5 +33,21 @@ module.exports = {
 			test.equal(ctx.testInstance.fn3(), ctx.bean);
 			test.done();
 		}, console.error);
+	},
+	"wiring with @Initialize": function(test){
+		
+		var spec = {
+			bean: "autowiredValue",
+			testInstance:{create: './classes/InitializeTest'},
+			plugins: [//{module: "wire/debug", trace: true},
+					    {module:'../wire'}]
+		};
+		
+		wire(spec, {require:require}).then(function(ctx){
+			test.equal(ctx.testInstance.bean, ctx.bean);
+			test.equal(ctx.testInstance.value, 1);
+			test.done();
+		}, console.error);
 	}
+	
 };

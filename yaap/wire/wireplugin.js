@@ -10,20 +10,26 @@
  * http://www.opensource.org/licenses/mit-license.php
  */
 (function(define) {
-        define(["underscore", "../yaap", "./plugins/AutowireProcessor", "wire"], function(_, yaap, autowire, wire) {
+        define(["underscore", "../yaap", "./plugins/AutowireProcessor", "./plugins/InitializeProcessor", "wire"], function(_, yaap, autowire, initialize, wire) {
                 "use strict";
 
 
-                function annotatesFacet(resolver, facet, wire) {
+                function annotatesFacet(resolver, facet, wire) {                		
                         var options = facet.options;
                         var obj = facet.target;
                         yaap.process(obj, {
                                 wire: wire
                         });
                         resolver.resolve();
+                        
+                        
                 }
 
-
+				function afterProcessing(resolver, facet, wire) {
+						//TODO: find more decoupled solution
+						initialize.afterProcessing(facet.target);
+                        resolver.resolve();
+				}
 
 
 
@@ -32,9 +38,11 @@
                         wire$plugin: function(ready, destroyed, options) {
 
                                 yaap.register(autowire); //register annotation processor for @Autowire
+								yaap.register(initialize); //register annotation processor for @Initialize
 
                                 return {
-                                        initialize: annotatesFacet
+                                        configure: annotatesFacet,
+                                        "ready": afterProcessing
                                 };
                         }
                 };
