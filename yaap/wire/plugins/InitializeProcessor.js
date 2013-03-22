@@ -29,10 +29,10 @@ return  {
  
 
   
-  processFunction: function(obj, fnObj, annotationParams, cfg){
+  processFunction: function(obj, fnDescription, annotationParams, context){
 	
 
-	registeredInitializers.push({obj: obj, name: fnObj.name});
+	registeredInitializers.push({obj: obj, name: fnDescription.name});
   },
   
   afterProcessing: function(obj){

@@ -23,25 +23,33 @@ function(_, when) {
     
 return  {
   annotation: "@Autowired",
-  processParameter: function(obj, fnObj, param, annotationParams, cfg)  {
+  processParameter: function(obj, fnDescription, annotatedParameters, context)  {
     //console.log("@Autowired("+ annotationParams +") attached at parameter: " + param.name);
     
-    var refName = annotationParams.length == 1
-					? annotationParams[0]
-                    : param.name;
-            
-    var ref = {$ref: refName};
-    cfg.wire(ref).then(function (value) {
+    var refs = {};
+    for(var i = 0; i < annotatedParameters.length; ++i){
+    
+	    var param = annotatedParameters[i];
+	    var refName = param.annotation.parameters.length == 1
+						? param.annotation.parameters[0]
+	                    : param.name;
+	            
+	    refs[param.name] = {$ref: refName};
+    }
+    
+    context.wire(refs).then(function (resolvedRefs) {
       
-      var origFn = obj[fnObj.name];
+      var origFn = obj[fnDescription.name];
       
-      obj[fnObj.name] = function(){
+      obj[fnDescription.name] = function(){
+      	for(var i = 0; i < annotatedParameters.length; ++i){
+    		var param = annotatedParameters[i];
             while (arguments.length -1 < param.index)
                 [].push.call(arguments, undefined);
                 
             if (arguments[param.index] == null) //tests for null or undefined because  'null==undefined'
-              arguments[param.index] = value;
-           
+              arguments[param.index] = resolvedRefs[param.name];
+        }
            
             switch(arguments.length){
               case 0: return origFn.call(obj);
@@ -59,18 +67,18 @@ return  {
     
   },
   
-  processFunction: function(obj, fnObj, annotationParams, cfg){
-    //console.log("@Autowired("+ annotationParams +") attached at function: " + fnObj.name);
+  processFunction: function(obj, fnDescription, annotationParams, context){
+    //console.log("@Autowired("+ annotationParams +") attached at function: " + fnDescription.name);
       
-    var refs = when.map(fnObj.parameters, 
+    var refs = when.map(fnDescription.parameters, 
                               function(param){
                                 return {$ref: param.name};
                               });
       
-      when.map(refs, cfg.wire).then(function (resolvedRefs){
-        var origFn = obj[fnObj.name];
+      when.map(refs, context.wire).then(function (resolvedRefs){
+        var origFn = obj[fnDescription.name];
       
-        obj[fnObj.name] = function(){
+        obj[fnDescription.name] = function(){
               while (arguments.length < resolvedRefs.length)
                   [].push.call(arguments, undefined);
                   

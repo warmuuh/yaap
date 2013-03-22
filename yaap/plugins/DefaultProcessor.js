@@ -21,18 +21,20 @@ function() {
 return {
   annotation: "@Default",
   
-  processParameter: function(obj, fnObj, param, annotationParams)  {
+  processParameter: function(obj, fnDescription, annotatedParameters)  {
     //console.log("@Default("+ annotationParams +") attached at parameter: " + param.name);
    
-    var origFn = obj[fnObj.name];
+    var origFn = obj[fnDescription.name];
        
-    obj[fnObj.name] =  function(){
-            while (arguments.length -1 < param.index)
-                [].push.call(arguments, undefined);
-                
-            if (arguments[param.index] == null) //tests for null or undefined because  'null==undefined'
-              arguments[param.index] = annotationParams[0];
-           
+    obj[fnDescription.name] =  function(){
+    		for(var i = 0; i < annotatedParameters.length; ++i){
+    			var param = annotatedParameters[i];
+	            while (arguments.length -1 < param.index)
+	                [].push.call(arguments, undefined);
+	                
+	            if (arguments[param.index] == null) //tests for null or undefined because  'null==undefined'
+	              arguments[param.index] = param.annotation.parameters[0];
+           }
            
             switch(arguments.length){
               case 0: return origFn.call(obj);

@@ -62,8 +62,8 @@ your own annotations easily. All need to be done is to register your processor. 
 ```js
 var myProcessor = {
 	annotation: "@NotNull",
-	processFunction: function(object, fnDescription, configuration){...	},
-	processParameter: function(object, fnDescription, paramDescription, configuration){...}
+	processFunction: function(object, fnDescription, annotationParams, configuration){...	},
+	processParameter: function(object, fnDescription, annotatedParameters, configuration){...}
 }
 yaap.register(myProcessor);
 ```
@@ -74,6 +74,8 @@ if an annotated parameter is found.
 
 `Remark:` You can either define both or one of these functions, depending on 
 where you want to allow your annotation to be placed.
+
+More information on how to create custom annotation processors are available [here](docs/processors.md).
 
 ##wire.js Integration
 To use @Autowired (and annotations in general) in wire.js, simply add it as a plugin:

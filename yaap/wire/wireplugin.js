@@ -14,11 +14,11 @@
                 "use strict";
 
 
-                function annotatesFacet(resolver, facet, wire) {                		
+                function processAnnotations(resolver, facet, wire) {                		
                         var options = facet.options;
                         var obj = facet.target;
                         yaap.process(obj, {
-                                wire: wire
+                                wire: wire //feed in context, so Autowire can do its work
                         });
                         resolver.resolve();
                         
@@ -41,7 +41,7 @@
 								yaap.register(initialize); //register annotation processor for @Initialize
 
                                 return {
-                                        configure: annotatesFacet,
+                                        configure: processAnnotations,
                                         "ready": afterProcessing
                                 };
                         }
