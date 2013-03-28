@@ -1,11 +1,10 @@
 /** @license MIT License (c) copyright 2013 original author or authors */
 
 /**
- * @Autowired annotation processor.
+ * @PostConstruct annotation processor.
  * 
- * Autowires parameters of function calls based on a given or the parameter name.
+ * Invokes annotated method after configuration of the bean
  * 
- * needs wire to be in the configuration object. 
  *    
  *
  * Licensed under the MIT License at:
@@ -25,7 +24,7 @@ var registeredInitializers = [];
 
     
 return  {
-  annotation: "@Initialize",
+  annotation: "@PostConstruct",
  
 
   

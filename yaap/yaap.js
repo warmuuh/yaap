@@ -94,12 +94,12 @@ function(_, registry, NotNullProcessor, DefaultProcessor, wire, PanPG_util, es5,
           try{
             fnDescriptions = PanPG_util.treeWalker(walker, ast);
           } catch(e){console.error(e); throw e;}
-		    
-			    _(fnDescriptions).each(function(fnDescription){
-			        fnDescription.name = f;
-				    callProcessors(obj, fnDescription, config);
-				});
-		  });
+					    
+		_(fnDescriptions).each(function(fnDescription){
+		    fnDescription.name = f;
+		    callProcessors(obj, fnDescription, config);
+		});
+	  });
       
      return obj; 
 		}

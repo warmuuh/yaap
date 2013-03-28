@@ -31,7 +31,15 @@ MyClass.prototype = {
 	/* @Autowired @Initialize */
 	{
 		console.log("autowired init fn: " + message);
+	},
+	
+	onDestroy: function()
+	/*@PreDestroy*/
+	{
+		console.log("Pre Destroy");
 	}
+	
+	
 };
 
 

@@ -10,7 +10,11 @@
  * http://www.opensource.org/licenses/mit-license.php
  */
 (function(define) {
-        define(["underscore", "../yaap", "./plugins/AutowireProcessor", "./plugins/InitializeProcessor", "wire"], function(_, yaap, autowire, initialize, wire) {
+        define(["underscore", "../yaap", 
+        "./plugins/AutowireProcessor", 
+        "./plugins/PostConstructProcessor", 
+        "./plugins/PreDestroyProcessor", 
+        "wire"], function(_, yaap, autowire, postConstruct, preDestroy, wire) {
                 "use strict";
 
 
@@ -27,22 +31,28 @@
 
 				function afterProcessing(resolver, facet, wire) {
 						//TODO: find more decoupled solution
-						initialize.afterProcessing(facet.target);
+						postConstruct.afterProcessing(facet.target);
                         resolver.resolve();
 				}
 
-
+				function beforeDestroying(resolver, facet, wire) {
+						//TODO: find more decoupled solution
+						preDestroy.beforeDestroying(facet.target);
+                        resolver.resolve();
+				}
 
 
                 return {
                         wire$plugin: function(ready, destroyed, options) {
 
                                 yaap.register(autowire); //register annotation processor for @Autowire
-								yaap.register(initialize); //register annotation processor for @Initialize
+								yaap.register(postConstruct); //register annotation processor for @Initialize
+								yaap.register(preDestroy); //register annotation processor for @PreDestroy
 
                                 return {
                                         configure: processAnnotations,
-                                        "ready": afterProcessing
+                                        "ready": afterProcessing,
+                                        "destroy": beforeDestroying
                                 };
                         }
                 };

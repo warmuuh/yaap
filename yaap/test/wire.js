@@ -34,7 +34,7 @@ module.exports = {
 			test.done();
 		}, console.error);
 	},
-	"wiring with @Initialize": function(test){
+	"wiring with @PostConstruct": function(test){
 		
 		var spec = {
 			bean: "autowiredValue",
@@ -46,6 +46,21 @@ module.exports = {
 		wire(spec, {require:require}).then(function(ctx){
 			test.equal(ctx.testInstance.bean, ctx.bean);
 			test.equal(ctx.testInstance.value, 1);
+			test.done();
+		}, console.error);
+	},
+	"wiring with @PreDestroy": function(test){
+		
+		var spec = {
+			bean: "autowiredValue",
+			testInstance:{create: './classes/InitializeTest'},
+			plugins: [{module:'../wire'}]
+		};
+		
+		wire(spec, {require:require}).then(function(ctx){
+			var bean = ctx.testInstance;
+			ctx.destroy();
+			test.equal(bean.value, 2);
 			test.done();
 		}, console.error);
 	}

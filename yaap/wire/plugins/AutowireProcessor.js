@@ -39,6 +39,7 @@ return  {
     
     context.wire(refs).then(function (resolvedRefs) {
       
+
       var origFn = obj[fnDescription.name];
       
       obj[fnDescription.name] = function(){
