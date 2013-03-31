@@ -8,6 +8,8 @@ With the `yaap/wire` plugin, @Autowired applications are possible
 
 `Remark:` This is an experimentational library and should not be used in production.
 
+An overview of out-of-the-box supported annotations is available [here](docs/annotations.md)
+
 ##Installation
 Installation for node: `npm install yaap`
 
