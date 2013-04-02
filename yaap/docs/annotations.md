@@ -23,11 +23,11 @@ Some annotations can only be used on parameters while others can also be used at
 * `@PreDestroy` (function): the annotated function will be called, if context.destroy() is called.
 
 ###browser-specific wire annotations
+for these annotations, you need to add the additional `yaao/wire/html`-plugin!
 
 * `@On(<refName>, <event>)` (function): the annotated function will automatically be bound the the event of the given dom-node.
 	This is intended to be used with the `wire/dom`-plugin. <refName> can reference one or more elements in the dom (though 
 	it is probably better practice to reference a bean in the wirecontext, which itself references the dom-nodes).
 	For example, you could bind a clickhandler with this annotation: `@On("dom.all!.btn","click")`. 
-	The annotated method accepts one argument that is the event. 
-	`Remark:` still work in process
+	The annotated method accepts one argument that is the event (though you could add additional @autowired arguments, if you want)
 

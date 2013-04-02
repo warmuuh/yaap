@@ -14,19 +14,21 @@
         "./plugins/AutowireProcessor", 
         "./plugins/PostConstructProcessor", 
         "./plugins/PreDestroyProcessor", 
-        "wire"], function(_, yaap, autowire, postConstruct, preDestroy, wire) {
+        "wire", "when"], function(_, yaap, autowire, postConstruct, preDestroy, wire, when) {
                 "use strict";
 
 
                 function processAnnotations(resolver, facet, wire) {                		
                         var options = facet.options;
                         var obj = facet.target;
-                        yaap.process(obj, {
-                                wire: wire //feed in context, so Autowire can do its work
-                        });
-                        resolver.resolve();
+                        var ctx = {
+                                wire: wire, //feed in context, so Autowire can do its work
+                                promises: [] //plugins can save promises here
+                        };
+                        yaap.process(obj, ctx);
                         
-                        
+
+                        when.all(ctx.promises).then(resolver.resolve,resolver.reject);
                 }
 
 				function afterProcessing(resolver, facet, wire) {

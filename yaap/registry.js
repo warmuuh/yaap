@@ -26,9 +26,9 @@ return {
 	register: function(processors){
 		_(processors).each(function(proc){
 			registry.push(proc);
-		})
+		});
 	}
-}
+};
 
 
 });})(typeof define == 'function'? define: function(deps, factory) {module.exports = factory.apply(this, deps.map(function(x) {return require(x);}));});

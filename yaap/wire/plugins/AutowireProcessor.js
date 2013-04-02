@@ -24,8 +24,7 @@ function(_, when) {
 return  {
   annotation: "@Autowired",
   processParameter: function(obj, fnDescription, annotatedParameters, context)  {
-    //console.log("@Autowired("+ annotationParams +") attached at parameter: " + param.name);
-    
+   
     var refs = {};
     for(var i = 0; i < annotatedParameters.length; ++i){
     
@@ -37,8 +36,9 @@ return  {
 	    refs[param.name] = {$ref: refName};
     }
     
+   var promise = when.defer();
+    context.promises.push(promise.promise);
     context.wire(refs).then(function (resolvedRefs) {
-      
 
       var origFn = obj[fnDescription.name];
       
@@ -60,10 +60,13 @@ return  {
               default: return origFn.apply(obj, arguments);
             }
           }; 
+          
+          promise.resolve();
       
     }, 
     function(err){
            console.error("@Autowired failed: " + err);
+           promise.reject();
     });
     
   },
@@ -76,6 +79,8 @@ return  {
                                 return {$ref: param.name};
                               });
       
+    var promise = when.defer();
+    context.promises.push(promise.promise);
       when.map(refs, context.wire).then(function (resolvedRefs){
         var origFn = obj[fnDescription.name];
       
@@ -95,10 +100,14 @@ return  {
                 case 3: return origFn.call(obj, arguments[0], arguments[1], arguments[2]);
                 default: return origFn.apply(obj, arguments);
               }
+              
             }; 
+        promise.resolve();
       
-      
-      }, function(err){console.error(err);});
+      }, function(err){
+			console.error(err);
+			promise.reject();
+		});
   }
 };
 

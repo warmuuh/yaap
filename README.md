@@ -9,3 +9,23 @@ There are also two examples for server and client scenario:
 
 * On [Node](node-example)
 * In [Browser](browser-example)
+
+
+#News
+
+
+##master
+* New Wire-Annotations: `@PostConstruct`, `@PreDestroy` ([more information](yaap/docs/annotation.md))
+* New Browser-specific Wire-Annotation: `@On` (for eventbinding) ([more information](yaap/docs/annotation.md))
+* Performance Improvements
+* Rearranged plugin-api
+* yaap/wire-plugins can promise now (and must, in case of deferred reference-resolving) ([more information](yaap/docs/processors.md))
+
+
+##0.0.2
+* browser-compatibility (available in `bower`)
+
+##0.0.1
+* Yaap Annotation processor
+* Initial Annotations: `@Default`, `@NotNull`
+* Initial Wire-specific Annotations: `@Autowired` 

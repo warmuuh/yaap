@@ -6,14 +6,11 @@ function MyClass (val){
 
 MyClass.prototype = {
 
-	doSomething: function( 	/*@Default("Default Message")*/msg, 	/*@Autowired("message")*/msg2, 	/*@Autowired*/message) {
-		//console.log( node );
-		//output.value = "default: " +msg +"\n";
-		console.log("default: " +msg);
-		console.log("wired: " + this.value );
-		console.log("autowired: " +msg2 );
-		console.log("autowired(pname): " + message );
-		
+	doSomething: function( 	/*@Default("Default Message")*/msg, 	/*@Autowired("message")*/msg2, 	/*@Autowired*/message, /*@Autowired("out")*/output) {
+		output.value = "default: " +msg +"\n";
+		output.value +="wired: " + this.value +"\n";
+		output.value +="autowired: " +msg2 +"\n";
+		output.value +="autowired(pname): " + message +"\n";
 	},
   
   
@@ -22,10 +19,10 @@ MyClass.prototype = {
 	},
   
   
-  onNodeClick: function( e ) 
+  onNodeClick: function( e,  	/*@Autowired*/node ) 
   /* @On("node", "click") */  
   {
-		alert("you clicked the button: " + e.target.value); // + node);
+		alert("you clicked the button: " + e.target.value + "\nNode:" + node); // + node);
   }
   
 };

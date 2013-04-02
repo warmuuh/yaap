@@ -17,8 +17,8 @@
  */
 "use strict";
 (function(define) { 
-define([ "wire/on"], 
-function(on) {
+define([ "wire/on", "when"], 
+function(on, when) {
     
 return  {
   annotation: "@On",
@@ -26,6 +26,9 @@ return  {
   
   processFunction: function(obj, fnDescription, annotationParams, context){
     var wire = context.wire;
+ 	
+ 	var promise = when.defer();
+    context.promises.push(promise.promise);
 	wire.resolveRef(annotationParams[0]).then(function(nodeRef){
 		if( nodeRef.length && nodeRef.length > 0 ) {
 
@@ -38,8 +41,9 @@ return  {
 			on(nodeRef, annotationParams[1], function(evt){
 					obj[fnDescription.name](evt); //dynamic call because there could be other annotations
 				});
-	
-	});
+		
+		promise.resolve();
+	}, promise.reject);
     
   }
 };

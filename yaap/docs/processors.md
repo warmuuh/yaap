@@ -9,15 +9,15 @@ The "annotation" property defines the name of your annotation. The following exa
 ```js
 var myProcessor = {
 	annotation: "@NotNull",
-	processFunction: function(object, fnDescription, annotationParams,  configuration){...	},
-	processParameter: function(object, fnDescription, annotatedParameters, configuration){...}
+	processFunction: function(object, fnDescription, annotationParams,  context){...	},
+	processParameter: function(object, fnDescription, annotatedParameters, context){...}
 }
 yaap.register(myProcessor);
 ```
 
 The last line registers the processor at yaap. The annotation is now ready to be used.
 
-The configuration object can be supplied as argument to yaap.process so you could hand over some dependencies to the annotation processors.
+The context object can be supplied as argument to yaap.process so you could hand over some dependencies to the annotation processors. (currently, its used for wire-specific processors).
 
 #Process Functions
 
@@ -54,3 +54,12 @@ The parameters are handed over as array instead of multiple calls to "processPar
 because then you can handle each annotated parameter in one wrapper of the target function 
 instead of one separate handler for each annotated parameter.
 
+##Wire-Specific Processors
+Wire-specific processors need a specific instance of wire to e.g. resolve references in the current context. 
+Therefore the context contains the wire-context as well as an array where plugins can put their promises. The context object looks loke this:
+```js
+{
+wire: ...,
+promises: []
+}
+```
