@@ -1,6 +1,6 @@
 {
 	"name": "yaap",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"description": "yaap",
 	"keywords": [ "javascript", "dependency injection", "AOP", "IOC"],
 	"repository": {
