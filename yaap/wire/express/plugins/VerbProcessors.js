@@ -19,38 +19,44 @@
 (function(define) { 
 define([ "when"], 
 function(when) {
+
+
+	function registerExpressCallback(path, fnExpress, obj, fnName, context){
+		path = path || '/' + fnName; //in case of no-argument annotation, use fnName as endpoint
+		fnExpress(path, function(req, res, next){
+			var result = obj[fnName](req, res, next); //dynamic call because there could be other annotations
+			if (typeof result === 'string')
+				res.render(result + '.' + context.express_view);
+			else if (result && result.view){
+				res.render(result.view + '.' + context.express_view, result.model);
+			}
+		});
+	};
+
     
 return [
 {
   annotation: "@GET",
   processFunction: function(obj, fnDescription, annotationParams, context){
-	context.express.get(annotationParams[0], function(req, res, next){
-		obj[fnDescription.name](req, res, next); //dynamic call because there could be other annotations
-	});
+	registerExpressCallback(annotationParams[0], context.express.get.bind(context.express), obj, fnDescription.name, context);
   }
 },
 {
   annotation: "@PUT",
-  processFunction: function(obj, fnDescription, annotationParams, context){
-	context.express.put(annotationParams[0], function(req, res, next){
-		obj[fnDescription.name](req, res, next); //dynamic call because there could be other annotations
-	});
+   processFunction: function(obj, fnDescription, annotationParams, context){
+	registerExpressCallback(annotationParams[0], context.express.put.bind(context.express), obj, fnDescription.name, context);
   }
 },
 {
   annotation: "@POST",
   processFunction: function(obj, fnDescription, annotationParams, context){
-	context.express.post(annotationParams[0], function(req, res, next){
-		obj[fnDescription.name](req, res, next); //dynamic call because there could be other annotations
-	});
+	registerExpressCallback(annotationParams[0], context.express.post.bind(context.express), obj, fnDescription.name, context);
   }
 },
 {
   annotation: "@DELETE",
   processFunction: function(obj, fnDescription, annotationParams, context){
-	context.express["delete"](annotationParams[0], function(req, res, next){
-		obj[fnDescription.name](req, res, next); //dynamic call because there could be other annotations
-	});
+	registerExpressCallback(annotationParams[0], context.express["delete"].bind(context.express), obj, fnDescription.name, context);
   }
 }
 ];

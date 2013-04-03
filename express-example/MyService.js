@@ -5,11 +5,13 @@ function MyService() {
 
 
 MyService.prototype = {
-
-    handleGet: function (req, res, next)/*@GET("/")*/ {
-		res.send('Look ma, no HTML!');
+    index: function (req, res, next)/*@GET*/ {
+		return 'index';
+    },
+    
+    test: function (req, res, next)/*@POST*/ {
+		return {view:'test', model:req.body};
     }
-	
 };
 
 

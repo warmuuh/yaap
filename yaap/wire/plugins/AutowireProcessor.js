@@ -43,8 +43,8 @@ return  {
       var origFn = obj[fnDescription.name];
       //console.log("@Autowire "+ JSON.stringify(resolvedRefs));       
       obj[fnDescription.name] = function(){
-      	for(var i = 0; i < annotatedParameters.length; ++i){
-    		var param = annotatedParameters[i];
+		for(var i = 0; i < annotatedParameters.length; ++i){
+			var param = annotatedParameters[i];
             while (arguments.length -1 < param.index)
                 [].push.call(arguments, undefined);
                 

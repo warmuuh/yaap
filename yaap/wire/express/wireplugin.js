@@ -24,6 +24,7 @@
                                 //register for wiring
                                 yaap.config = yaap.config || {};
                                 yaap.config.express = {$ref: options.server};
+                                yaap.config.express_view = options.view || "jade";
                                 for(var i = 0; i < VERBS.length; ++i)
 									yaap.register(VERBS[i]);
                                 return {};

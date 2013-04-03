@@ -1,0 +1,9 @@
+html
+	head
+	body
+		h1|Hello, what is your name?
+		div
+			form(name="input", action='/test',method='post')
+				label(for='name') Name
+				input(id='name', name="name",type='text',value='',placeholder='Type your name')
+				input(type='submit',value='Send!')  
