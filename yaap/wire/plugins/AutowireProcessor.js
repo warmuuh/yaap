@@ -32,16 +32,16 @@ return  {
 	    var refName = param.annotation.parameters.length == 1
 						? param.annotation.parameters[0]
 	                    : param.name;
-	            
+	     
 	    refs[param.name] = {$ref: refName};
     }
-    
+      console.log("@Autowire "+ JSON.stringify(refs));      
    var promise = when.defer();
     context.promises.push(promise.promise);
     context.wire(refs).then(function (resolvedRefs) {
 
       var origFn = obj[fnDescription.name];
-      
+      //console.log("@Autowire "+ JSON.stringify(resolvedRefs));       
       obj[fnDescription.name] = function(){
       	for(var i = 0; i < annotatedParameters.length; ++i){
     		var param = annotatedParameters[i];

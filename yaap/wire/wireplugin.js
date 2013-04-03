@@ -21,14 +21,20 @@
                 function processAnnotations(resolver, facet, wire) {                		
                         var options = facet.options;
                         var obj = facet.target;
-                        var ctx = {
-                                wire: wire, //feed in context, so Autowire can do its work
-                                promises: [] //plugins can save promises here
-                        };
-                        yaap.process(obj, ctx);
-                        
 
-                        when.all(ctx.promises).then(resolver.resolve,resolver.reject);
+                        yaap.config = yaap.config || {};
+						wire(yaap.config).then(function(ctx){
+	                        ctx.wire= wire; //feed in context, so Autowire can do its work
+	                        ctx.promises= []; //plugins can save promises here
+	                        yaap.process(obj, ctx);
+
+	                        when.all(ctx.promises).then(resolver.resolve,resolver.reject);
+						
+						}, function(err){
+							console.log("wiring yaap-config failed:" + err);
+							resolver.reject();
+						} );
+                        
                 }
 
 				function afterProcessing(resolver, facet, wire) {
@@ -46,15 +52,16 @@
 
                 return {
                         wire$plugin: function(ready, destroyed, options) {
-
+								
                                 yaap.register(autowire); //register annotation processor for @Autowire
 								yaap.register(postConstruct); //register annotation processor for @Initialize
 								yaap.register(preDestroy); //register annotation processor for @PreDestroy
-
+								
+							 
                                 return {
-                                        configure: processAnnotations,
-                                        "ready": afterProcessing,
-                                        "destroy": beforeDestroying
+                                        "connect": 	processAnnotations,
+                                        "ready": 	afterProcessing,
+                                        "destroy": 	beforeDestroying
                                 };
                         }
                 };
