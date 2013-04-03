@@ -75,19 +75,20 @@ function(_, registry, NotNullProcessor, DefaultProcessor, wire, PanPG_util, es5,
 		},
  
 		process: function (obj, config){
-			var functions = _(obj).functions();
-			_(functions).each(function(f){
-			
+
+			for(var f in obj)
+			{
+				if (!_( obj[f]).isFunction()) return;
 			    
 			    var source = obj[f].toString();
           
-          
+      
           source = source.substring(0, source.indexOf("{")); //strip body //TODO: this is not secure, if comments contain '{'
           
           
           
-          
-			    var ast = es5.Program(source);
+
+			    var ast =  es5.Program(source);
           
 			    //console.log(PanPG_util.showTree(ast));
           var fnDescriptions = null;
@@ -99,7 +100,8 @@ function(_, registry, NotNullProcessor, DefaultProcessor, wire, PanPG_util, es5,
 		    fnDescription.name = f;
 		    callProcessors(obj, fnDescription, config);
 		});
-	  });
+		
+	  }; //);
       
      return obj; 
 		}
