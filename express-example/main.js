@@ -16,6 +16,7 @@ app.listen(8000);
 
 
 wire({
+		test: "wired",
 		app: { create: 'express',
 			   init:{use:[express.bodyParser()]},
 			   ready:{listen:[8000]}

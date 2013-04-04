@@ -5,12 +5,19 @@ function MyService() {
 
 
 MyService.prototype = {
-    index: function (req, res, next)/*@GET*/ {
+    index: function ()/*@GET*/ {
 		return 'index';
     },
     
-    test: function (req, res, next)/*@POST*/ {
-		return {view:'test', model:req.body};
+    test: function (name, id)/*@POST("/test/:id") @Param*/ {
+		return {view:'test', model:{name: name, id: id}};
+    },
+    
+    rest: function( /*@Body*/msg, 
+					/*@Param*/id, 
+					/*@Autowired*/test) 
+    /*@POST("/rest/:id") @Body*/ {
+		return {msg: msg, id: id, wired: test};
     }
 };
 

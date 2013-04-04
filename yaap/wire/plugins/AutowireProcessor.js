@@ -35,8 +35,8 @@ return  {
 	     
 	    refs[param.name] = {$ref: refName};
     }
-      console.log("@Autowire "+ JSON.stringify(refs));      
-   var promise = when.defer();
+    //  console.log("@Autowire "+ JSON.stringify(refs));      
+	var promise = when.defer();
     context.promises.push(promise.promise);
     context.wire(refs).then(function (resolvedRefs) {
 

@@ -84,18 +84,18 @@ function(_, registry, NotNullProcessor, DefaultProcessor, wire, PanPG_util, es5,
 				source = source.substring(0, source.indexOf("{")); //strip body //TODO: this is not secure, if comments contain '{'
 			    var ast =  es5.Program(source);
           
-			    //console.log(PanPG_util.showTree(ast));
-          var fnDescriptions = null;
-          try{
-            fnDescriptions = PanPG_util.treeWalker(walker, ast);
-          } catch(e){console.error(e); throw e;}
-					    
-		_(fnDescriptions).each(function(fnDescription){
-		    fnDescription.name = f;
-		    callProcessors(obj, fnDescription, config);
-		});
-		
-	  }; //);
+				    //console.log(PanPG_util.showTree(ast));
+	          var fnDescriptions = null;
+	          try{
+	            fnDescriptions = PanPG_util.treeWalker(walker, ast);
+	          } catch(e){console.error(e); throw e;}
+						    
+			_(fnDescriptions).each(function(fnDescription){
+			    fnDescription.name = f;
+			    callProcessors(obj, fnDescription, config);
+			});
+			
+		  }; //);
       
      return obj; 
 		}

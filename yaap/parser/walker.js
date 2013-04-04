@@ -74,8 +74,8 @@ return  {
     
     var fnObj = {
       name: _(children).chain().pluck('name').compact().first().value(),
-      parameters: _(children).chain().pluck('parameters').compact().first().value(),
-      annotations: _(children).chain().pluck('annotations').flatten().compact().value()
+      parameters: _(children).chain().pluck('parameters').compact().first().value() || [],
+      annotations: _(children).chain().pluck('annotations').flatten().compact().value() || []
     };
    // console.log("fn decl annotations found: " + JSON.stringify(fnObj));
     
