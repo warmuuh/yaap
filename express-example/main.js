@@ -2,23 +2,9 @@
 "use strict";
 
 
-var wire = require("wire");
-var express= require("express");
-var yaap = require("../yaap/wire/express");
-
-/*
-var app = express();
-app.use(express.bodyParser());
-app.use("/index", function(req, res){res.render("index.jade");});
-app.use("/test", function(req, res){console.log(req.body);res.render("test.jade", req.body);});
-app.listen(8000);
-*/
-
-
 wire({
-		test: "wired",
 		app: { create: 'express',
-			   init:{use:[express.bodyParser()]},
+			   init:{use:[express.bodyParser()]}, //TODO:shift this into yaap/wire/express
 			   ready:{listen:[8000]}
 		},
         myService:  { create: './MyService' }, 

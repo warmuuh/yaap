@@ -23,6 +23,7 @@
                         var obj = facet.target;
 
                         yaap.config = yaap.config || {};
+                        //TODO this rewires yaap-config on every processed bean: do it once only
 						wire(yaap.config).then(function(ctx){
 	                        ctx.wire= wire; //feed in context, so Autowire can do its work
 	                        ctx.promises= []; //plugins can save promises here
