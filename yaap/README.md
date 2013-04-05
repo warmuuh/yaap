@@ -6,6 +6,8 @@ Yaap is a generic annotation processor for javascript. It can be used to impleme
 It [integrates](#wirejs-integration) with [wire.js](https://github.com/cujojs/wire) (part of [cujo.js](http://cujojs.com)), which enables Spring-style wiring (i.e. dependency injection) of your javascript applications. 
 With the `yaap/wire` plugin, @Autowired applications are possible
 
+It also [integrates](#expressjs-integration) with Express.js to achieve a SpringMVC-style framework for webapps.
+
 `Remark:` This is an experimentational library and should not be used in production.
 
 An overview of out-of-the-box supported annotations is available [here](docs/annotations.md)
@@ -17,6 +19,7 @@ Installation for node: `npm install yaap`
 
 * [Annotations for JavaScript](http://cubiccow.blogspot.com/2013/02/yaap-annotations-for-javascript.html)
 * [@Autowired for JavaScript](http://cubiccow.blogspot.de/2013/02/autowire-for-javascript.html)
+* [Express.js the SpringMVC-way](http://cubiccow.blogspot.com/2013/04/expressjs-springmvc-way.html)
 
 ##Example
 
@@ -115,3 +118,22 @@ module.exports = {
 The yaap/wire plugin will be called after the bean was created. That means, the constructor itself will not be affected by annotations. 
 
 As a workaround, use a separate initialize-method (using the [init-facade](https://github.com/cujojs/wire/blob/master/docs/configure.md#init-methods) of wire).
+
+##Express.js integration
+There are also out-of-the-box annotations included for creating webapps in a springMVC-like manner. A simple example of a service:
+
+```js
+MyService.prototype = {
+    index: function ()/*@GET*/ {
+		return 'index';
+    },
+    
+    submit: function (name, age)/*@POST @Param*/ {
+     var msg = (age < 18)? "You are too young" : "You are welcome!";
+	 return {view:'greet', model:{name: name, msg: msg}};
+    }
+};
+```
+As known from SpringMVC, the returned values determine, which view will be called and with what parameters. 
+More details on this in my [blogpost](http://cubiccow.blogspot.com/2013/02/autowire-for-javascript.html).
+

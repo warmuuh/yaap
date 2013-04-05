@@ -8,6 +8,7 @@ See [Readme](yaap) for more information.
 There are also two examples for server and client scenario:
 
 * On [Node](node-example)
+* With [Express.js] [Node](express-example)
 * In [Browser](browser-example)
 
 
