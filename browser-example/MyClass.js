@@ -19,10 +19,10 @@ MyClass.prototype = {
 	},
   
   
-  onNodeClick: function( e,  	/*@Autowired*/node ) 
+  onNodeClick: function( e ) 
   /* @On("node", "click") */  
   {
-		alert("you clicked the button: " + e.target.value + "\nNode:" + node); // + node);
+		alert("you clicked the button: " + e.target.value ); // + node);
   }
   
 };
