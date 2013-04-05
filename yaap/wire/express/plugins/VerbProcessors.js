@@ -82,8 +82,10 @@ function(when, _) {
 
 	
 	function processResponse(result, res, fnDescription, context){
-			//raw json?
+			//raw?
 			if (getAnnotation(fnDescription, "@Body") !== undefined){ 
+				res.send(result);
+			} else if (getAnnotation(fnDescription, "@JSON") !== undefined){ 
 				res.json(result);
 			} else { //forwarding to view
 				if (typeof result === 'string')

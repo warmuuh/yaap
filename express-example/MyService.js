@@ -9,16 +9,13 @@ MyService.prototype = {
 		return 'index';
     },
     
-    test: function (name, id)/*@POST("/test/:id") @Param*/ {
-		return {view:'test', model:{name: name, id: id}};
-    },
-    
-    rest: function( /*@Body*/msg, 
-					/*@Param*/id, 
-					/*@Autowired*/test) 
-    /*@POST("/rest/:id") @Body*/ {
-		return {msg: msg, id: id, wired: test};
+    submit: function (name, age)/*@POST @Param*/ {
+     var msg = (age < 18)? "You are too young" : "You are welcome!";
+	 return {view:'greet', model:{name: name, msg: msg}};
+	 
     }
+    
+ 
 };
 
 

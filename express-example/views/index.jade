@@ -3,7 +3,11 @@ html
 	body
 		h1|Hello, what is your name?
 		div
-			form(name="input", action='/test/1',method='post')
+			form(name="input", action='/submit',method='post')
 				label(for='name') Name
 				input(id='name', name="name",type='text',value='',placeholder='Type your name')
+				
+				label(for='age') Age
+				input(id='age', name="age",type='text',value='',placeholder='Type your age')
+				
 				input(type='submit',value='Send!')  
