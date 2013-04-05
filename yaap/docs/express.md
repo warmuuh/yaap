@@ -22,5 +22,5 @@ The yaap/wire/express accepts the name of a reference which will later be resolv
 
 ##yaap/wire/express options
 There are several options that can be configured during plugin-setup. 
-*`server` (mandatory): string name of the express-application bean
-*`view` (optional, default: "jade"): string of the extension that will be added to view-names. These extensions determine the template-engine in express.
+  * `server` (mandatory): string name of the express-application bean
+  * `view` (optional, default: "jade"): string of the extension that will be added to view-names. These extensions determine the template-engine in express.
