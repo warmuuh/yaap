@@ -120,7 +120,9 @@ The yaap/wire plugin will be called after the bean was created. That means, the 
 As a workaround, use a separate initialize-method (using the [init-facade](https://github.com/cujojs/wire/blob/master/docs/configure.md#init-methods) of wire).
 
 ##Express.js integration
-There are also out-of-the-box annotations included for creating webapps in a springMVC-like manner. A simple example of a service:
+There are also out-of-the-box annotations included for creating webapps in a springMVC-like manner. 
+More information on how to setup this integration is available [here](docs/express.md)
+A simple example of a service:
 
 ```js
 MyService.prototype = {
