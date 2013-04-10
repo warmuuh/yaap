@@ -31,8 +31,15 @@ function(when, _) {
 			path = obj["@Path"] + path;
 		
 		console.log("Registering route: " + path);
+				
+		var authFn = null;
 		
-		fnExpress(path, function(req, res, next){
+		try{authFn = getAuthentification(fnDescription)}
+		catch(e){console.log(e)}
+		
+		fnExpress(path, authFn, function(req, res, next){
+
+
 			var responseSent = false;
 			var sendResponse = function(result){
 				responseSent = true;
@@ -51,6 +58,36 @@ function(when, _) {
 	}
 	
 	
+	function getAuthentification(fnDescription){
+		var useAuth = (getAnnotation(fnDescription, "@Auth") !== undefined);
+		
+		var authFn = function(req, res, next){next()};
+		if (useAuth)
+			 authFn = function(req, res, next)
+				{
+					if (req.isAuthenticated === undefined){
+						console.error("connect-auth is missing"); 
+						next();
+					}
+					if (!req.isAuthenticated())
+						{
+							req.authenticate(function(err, succ){
+								if (err) console.log(err);
+								next();
+							});
+							return;
+						}
+					else{
+						next();
+					}
+				};
+		
+			
+		return authFn;
+	
+	}
+	
+	
 	function processParameters(req, fnDescription, responseCallback){
 			var args = [];
 			
@@ -60,11 +97,9 @@ function(when, _) {
 				
 				//handle @Param
 				var annoParam = getAnnotation(param, "@Param");
-				var annoBody = getAnnotation(param, "@Body");
-				var cb = getAnnotation(param, "@Callback");
 				
 				
-				if ((processEveryParameter && annoBody === undefined && cb === undefined) //NO other annotations allowed because it would be overwritten
+				if ((processEveryParameter && param.annotations.length == 0) //NO other annotations allowed because it would be overwritten
 					|| (annoParam !== undefined))
 				{
 					var parameterName =  param.name;
@@ -74,13 +109,19 @@ function(when, _) {
 				}
 				
 				//handle @Body
-				if (annoBody !== undefined)
+				if ( getAnnotation(param, "@Body") !== undefined)
 				{
 					args[param.index] = req.body;
 				}
 				
+				//handle @Body
+				if ( getAnnotation(param, "@Session") !== undefined)
+				{
+					args[param.index] = req.session;
+				}
+				
 				//handle @Callback
-				if (cb !== undefined)
+				if (getAnnotation(param, "@Callback") !== undefined)
 				{
 					args[param.index] = responseCallback;
 				}
