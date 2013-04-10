@@ -25,19 +25,33 @@ function(when, _) {
 
 	function registerExpressCallback(path, fnExpress, obj, fnDescription, context){
 		path = path || '/' + fnDescription.name; //in case of no-argument annotation, use fnName as endpoint
+		
+		//prepend basename
+		if (obj["@Path"] != null) //null or undefind
+			path = obj["@Path"] + path;
+		
+		console.log("Registering route: " + path);
+		
 		fnExpress(path, function(req, res, next){
-
-			var args = processParameters(req, fnDescription);
+			var responseSent = false;
+			var sendResponse = function(result){
+				responseSent = true;
+				processResponse(result, res, fnDescription, context); 
+			};
+			
+			var args = processParameters(req, fnDescription, sendResponse);
 			//execution
 			var result = obj[fnDescription.name].apply(obj, args); //dynamic call because there could be other annotations
 			
-			processResponse(result, res, fnDescription, context); 
+			//if it is undefined, then there *should* be a callback ;)
+			if (result !== undefined && !responseSent)
+				sendResponse(result); 
 			
 		});
 	}
 	
 	
-	function processParameters(req, fnDescription){
+	function processParameters(req, fnDescription, responseCallback){
 			var args = [];
 			
 			var processEveryParameter = (getAnnotation(fnDescription, "@Param") !== undefined);
@@ -47,9 +61,10 @@ function(when, _) {
 				//handle @Param
 				var annoParam = getAnnotation(param, "@Param");
 				var annoBody = getAnnotation(param, "@Body");
+				var cb = getAnnotation(param, "@Callback");
 				
 				
-				if ((processEveryParameter && annoBody === undefined) //NO other annotations allowed because it would be overwritten
+				if ((processEveryParameter && annoBody === undefined && cb === undefined) //NO other annotations allowed because it would be overwritten
 					|| (annoParam !== undefined))
 				{
 					var parameterName =  param.name;
@@ -62,6 +77,12 @@ function(when, _) {
 				if (annoBody !== undefined)
 				{
 					args[param.index] = req.body;
+				}
+				
+				//handle @Callback
+				if (cb !== undefined)
+				{
+					args[param.index] = responseCallback;
 				}
 				
 			}
@@ -89,7 +110,10 @@ function(when, _) {
 				res.json(result);
 			} else { //forwarding to view
 				if (typeof result === 'string')
-					res.render(result + '.' + context.express_view);
+					if (result.lastIndexOf("redirect:", 0) === 0) //starts with 'redirect:'?
+						res.redirect(result.split(":")[1]);
+					else
+						res.render(result + '.' + context.express_view);
 				else if (result && result.view){
 					res.render(result.view + '.' + context.express_view, result.model);
 				}

@@ -29,16 +29,17 @@ return  {
 
   
   processFunction: function(obj, fnDescription, annotationParams, context){
-	
-
 	registeredInitializers.push({obj: obj, name: fnDescription.name});
   },
   
   afterProcessing: function(obj){
-	while(registeredInitializers.length > 0){
-		var init = registeredInitializers.pop();
-		init.obj[init.name](); //call it
-	}
+  	for(var i = 0; i  < registeredInitializers.length; ++i)
+  		if (registeredInitializers[i].obj === obj)
+  		{
+  			var init = registeredInitializers.splice(i, 1)[0];
+  			init.obj[init.name](); //call it
+  		}
+  
   }
 };
 

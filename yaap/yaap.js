@@ -78,7 +78,7 @@ function(_, registry, NotNullProcessor, DefaultProcessor, wire, PanPG_util, es5,
 
 			for(var f in obj)
 			{
-				if (!_(obj[f]).isFunction()) return;
+				if (!_(obj[f]).isFunction()) continue;
 			    
 			    var source = obj[f].toString();
 				source = source.substring(0, source.indexOf("{")); //strip body //TODO: this is not secure, if comments contain '{'
