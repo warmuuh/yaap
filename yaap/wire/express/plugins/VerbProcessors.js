@@ -24,6 +24,7 @@ function(when, _) {
 
 
 	function registerExpressCallback(path, fnExpress, obj, fnDescription, context){
+
 		path = path || '/' + fnDescription.name; //in case of no-argument annotation, use fnName as endpoint
 		
 		//prepend basename
@@ -110,15 +111,16 @@ function(when, _) {
 				
 				//handle @Body
 				if ( getAnnotation(param, "@Body") !== undefined)
-				{
 					args[param.index] = req.body;
-				}
 				
-				//handle @Body
+				if ( getAnnotation(param, "@Req") !== undefined)
+					args[param.index] = req;
+					
+				if ( getAnnotation(param, "@Res") !== undefined)
+					args[param.index] = req;
+				
 				if ( getAnnotation(param, "@Session") !== undefined)
-				{
 					args[param.index] = req.session;
-				}
 				
 				//handle @Callback
 				if (getAnnotation(param, "@Callback") !== undefined)
@@ -169,6 +171,7 @@ return [
 {
   annotation: "@GET",
   processFunction: function(obj, fnDescription, annotationParams, context){
+ 
 	registerExpressCallback(annotationParams[0], context.express.get.bind(context.express), obj, fnDescription, context);
   }
 },
