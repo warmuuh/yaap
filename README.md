@@ -11,12 +11,20 @@ There are also two examples for server and client scenario:
 * With [Express.js] [Node](express-example)
 * In [Browser](browser-example)
 
+###Example application
+There is a more complex web application example developed with wire and a lot of yaap-features: [yaap-nodepad](https://github.com/warmuuh/yaap-nodepad)
+
 
 #News
 
-
 ##master
+* connect-auth integration with `@Auth`
+* bugfix for @PreDestroy/@PostConstruct
+
+##0.0.4
 * New Express-Annotations: `@POST`,`@GET`,`@PUT`,`@DELETE` and req/res-processing parameters: `@Body`, `@JSON`, `@Param`
+
+##0.0.3
 * New Wire-Annotations: `@PostConstruct`, `@PreDestroy` ([more information](yaap/docs/annotation.md))
 * New Browser-specific Wire-Annotation: `@On` (for eventbinding) ([more information](yaap/docs/annotation.md))
 * Performance Improvements
