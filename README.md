@@ -18,6 +18,7 @@ There is a more complex web application example developed with wire and a lot of
 #News
 
 ##master
+* "return"-callback with `@Callback` to cope with asynchronity
 * connect-auth integration with `@Auth`
 * bugfix for @PreDestroy/@PostConstruct
 
