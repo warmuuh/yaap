@@ -5,10 +5,10 @@ Yaap is a generic annotation processor for javascript. It can be used to impleme
 See [Readme](yaap) for more information.
 
 
-There are also two examples for server and client scenario:
+There are also three examples for server and client scenario:
 
 * On [Node](node-example)
-* With [Express.js] [Node](express-example)
+* With [Express.js](express-example)
 * In [Browser](browser-example)
 
 ###Example application
