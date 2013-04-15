@@ -2,6 +2,8 @@
 
 Yaap is a generic annotation processor for javascript. It can be used to implement cross-cutting concerns and inject additional aspect oriented code.
 
+It supports annotations at class-, function- and parameter-level of javascript objects. (see examples)
+
 See [Readme](yaap) for more information.
 
 
@@ -17,7 +19,8 @@ There is a more complex web application example developed with wire and a lot of
 
 #News
 
-##master
+##0.1.0
+* classbased annotations
 * "return"-callback with `@Callback` to cope with asynchronity
 * connect-auth integration with `@Auth`
 * bugfix for @PreDestroy/@PostConstruct

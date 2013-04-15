@@ -10,7 +10,8 @@ The "annotation" property defines the name of your annotation. The following exa
 var myProcessor = {
 	annotation: "@NotNull",
 	processFunction: function(object, fnDescription, annotationParams,  context){...	},
-	processParameter: function(object, fnDescription, annotatedParameters, context){...}
+	processParameter: function(object, fnDescription, annotatedParameters, context){...},
+	processClass: function(object, annotatedParameters, context){...},
 }
 yaap.register(myProcessor);
 ```
@@ -53,6 +54,10 @@ annotation: {
 The parameters are handed over as array instead of multiple calls to "processParameters" 
 because then you can handle each annotated parameter in one wrapper of the target function 
 instead of one separate handler for each annotated parameter.
+
+#Process Classes
+Class-annotations are not comments but specific attributes. they are strings starting with `@`. Their value will be handed over to the `processClass`-function.
+The parameters are the same as for `processParameter` except that there is no fnDescription.
 
 ##Wire-Specific Processors
 Wire-specific processors need a specific instance of wire to e.g. resolve references in the current context. 

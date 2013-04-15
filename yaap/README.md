@@ -47,16 +47,19 @@ logger.log("hello world"); //will print "INFO: hello world"
 ##Annotations in Javascript
 Javascript does not have annotations, but at specific positions, comments are saved and can be retrieved during runtime. This library allow to retrieve and parse annotations placed at these positions.
 
-Right now, Yaap supports parameter-annotations and function-annotations:
+Right now, Yaap supports class-annotations, parameter-annotations and function-annotations:
 
 ```js
 var obj = {
+	"@Autowired": {"myBean": "bean"},
+	
 	fn: function(message, /*@Defaul("INFO")*/ level) /*@NotNull*/{
 		console.log(level + ": " + message);
 	}
 };
 ```
 `@Default` here is an parameter-annotation while `@NotNull` is a function-annotation. (`@NotNull` can also be used as parameter-annotation though).
+`@Autowired` is an example for a classbased annotation.
 
 
 
@@ -68,16 +71,17 @@ your own annotations easily. All need to be done is to register your processor. 
 var myProcessor = {
 	annotation: "@NotNull",
 	processFunction: function(object, fnDescription, annotationParams, configuration){...	},
-	processParameter: function(object, fnDescription, annotatedParameters, configuration){...}
+	processParameter: function(object, fnDescription, annotatedParameters, configuration){...},
+	processClass: function(object, annotatedParameters, configuration){...}
 }
 yaap.register(myProcessor);
 ```
 
 After registering your processor, `processFunction` will be called, 
 if a function is annotated with the according annotation. `processParameter` is called, 
-if an annotated parameter is found.
+if an annotated parameter is found and `processClass`, if a class-annotation is found.
 
-`Remark:` You can either define both or one of these functions, depending on 
+`Remark:` You can either define all or some of these functions, depending on 
 where you want to allow your annotation to be placed.
 
 More information on how to create custom annotation processors are available [here](docs/processors.md).

@@ -2,7 +2,7 @@
 despite being an annofation processing framework, there are some annotation processors already included.
 
 While some of them work out of the box, others can only be used with wire.js. 
-Some annotations can only be used on parameters while others can also be used at function level.
+Some annotations can only be used on parameters while others can also be used at function level or class level.
 
 ##Basic annotations
 
@@ -14,9 +14,10 @@ Some annotations can only be used on parameters while others can also be used at
 
 ##Wire annotations
 
-* `@Autowired([<refName>])` (parameter/function): if a parameter is unassigned or null, a bean from the wire-context will be injected instead.
+* `@Autowired([<refName>])` (parameter/function/class): if a parameter is unassigned or null, a bean from the wire-context will be injected instead.
 		If the annotation is placed at a parameter, the given refName or, if ommitted, the parameter-name will be used to resolve the reference.
 		If the annotation is function-level, all parameters that are null or unassigned will be autowired by parameter-name.
+		If the annotation is class-level, the parameter could be a string, an array of strings or an object that maps strings onto strings. New Properties according to the given names will be injected with the referenced beans.
 
 * `@PostConstruct` (function): the annotated function will be called after container finished configuring the bean.
 
