@@ -67,20 +67,9 @@ function(_, registry, NotNullProcessor, DefaultProcessor, wire, PanPG_util, es5,
 	    }).value();
 	}
 
-	 
-   
-	return {
-		register: function (processor) {
-			registry.register([processor]);
-		},
- 
-		process: function (obj, config){
-
-			for(var f in obj)
-			{
-				if (!_(obj[f]).isFunction()) continue;
-			    
-			    var source = obj[f].toString();
+	function processFunction(obj, f, config){
+	
+		    var source = obj[f].toString();
 				source = source.substring(0, source.indexOf("{")); //strip body //TODO: this is not secure, if comments contain '{'
 			    var ast =  es5.Program(source);
           
@@ -94,8 +83,43 @@ function(_, registry, NotNullProcessor, DefaultProcessor, wire, PanPG_util, es5,
 			    fnDescription.name = f;
 			    callProcessors(obj, fnDescription, config);
 			});
+	
+	} 
+	
+	function processClassAnnotation(obj, f, config){
+		
+		//process function-annotations
+		  _(registry.getProcessors(f)).each(function (processor) {
+		        if (_(processor).has("processClass"))
+		           processor.processClass(obj, obj[f], config);
+		        else
+		            console.log("Class-annotations are not supported for: " + f);
+		  });
+	
+	
+	}
+	
+   
+	return {
+		register: function (processor) {
+			registry.register([processor]);
+		},
+ 
+		process: function (obj, config){
+
+			for(var f in obj)
+			{
+
+				if (_(obj[f]).isFunction()) 
+					processFunction(obj, f, config);
+				else if (typeof f === 'string' && f[0] === '@') //a string that starts with @
+					processClassAnnotation(obj, f, config);
+				
+					
+			    
+				
 			
-		  }; //);
+			} 
       
      return obj; 
 		}

@@ -108,6 +108,37 @@ return  {
 			console.error(err);
 			promise.reject();
 		});
+  },
+  
+  
+  
+  processClass: function(obj, annotationParams, context){
+	var refs = {};
+	if (typeof annotationParams === 'string')
+		refs[annotationParams] = {$ref: annotationParams};
+	else if (_(annotationParams).isArray()){
+		for(var i = 0; i < annotationParams.length; ++i)
+			refs[annotationParams[i]] = {$ref: annotationParams[i]};
+	} else if (_(annotationParams).isObject()){
+		for(var k in annotationParams)
+			refs[k] = {$ref: annotationParams[k]};
+	}
+  
+	var promise = when.defer();
+    context.promises.push(promise.promise);
+	context.wire(refs).then(function (resolvedRefs){
+		for(var k in resolvedRefs)
+			obj[k] = obj[k] || resolvedRefs[k]; //inject only, if not already existing
+		
+		promise.resolve();
+	}, function(err){
+			console.error(err);
+			promise.reject();
+		});
+  
+  
+  
+  
   }
 };
 

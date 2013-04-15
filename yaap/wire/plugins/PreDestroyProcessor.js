@@ -33,12 +33,12 @@ return  {
   },
   
   beforeDestroying: function(obj){
-	for(var i = 0; i  < registeredInitializers.length; ++i)
-  		if (registeredDestroyers[i].obj === obj)
-  		{
-  			var init = registeredDestroyers.splice(i, 1)[0];
-  			init.obj[init.name](); //call it
-  		}
+	for(var i = 0; i  < registeredDestroyers.length; ++i)
+		if (registeredDestroyers[i].obj === obj)
+		{
+			var init = registeredDestroyers.splice(i, 1)[0];
+			init.obj[init.name](); //call it
+		}
   }
 };
 
