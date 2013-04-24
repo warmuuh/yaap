@@ -29,7 +29,7 @@ The library already includes some so-called annotation processors, e.g. @NotNull
 
 ```js
 var logger = {
-	log: function(message, /*@Defaul("INFO")*/ level){
+	log: function(message, /*@Default("INFO")*/ level){
 		console.log(level + ": " + message);
 	}
 };
@@ -53,7 +53,7 @@ Right now, Yaap supports class-annotations, parameter-annotations and function-a
 var obj = {
 	"@Autowired": {"myBean": "bean"},
 	
-	fn: function(message, /*@Defaul("INFO")*/ level) /*@NotNull*/{
+	fn: function(message, /*@Default("INFO")*/ level) /*@NotNull*/{
 		console.log(level + ": " + message);
 	}
 };
