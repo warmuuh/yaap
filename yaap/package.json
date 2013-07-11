@@ -1,6 +1,6 @@
 {
 	"name": "yaap",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "yaap",
 	"keywords": [ "javascript", "dependency injection", "AOP", "IOC"],
 	"repository": {
@@ -14,10 +14,10 @@
 		"Peter Mucha <ptmucha@gmail.com>"
 	],
 	"dependencies": {
-		    "PanPG": "0.0.9",
+		"PanPG": "0.0.9",
         "underscore": "1.4.4",
-        "when": "1.8.0",
-        "wire": "0.9.1"
+        "when": "2.2.1",
+        "wire": "0.10.0"
 	},
 	"devDependencies": {
 	     "nodeunit": "0.7.4"

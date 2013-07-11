@@ -16,8 +16,7 @@
                 "use strict";
 
 
-                return {
-                        wire$plugin: function(ready, destroyed, options) {
+                return function(options) {
 								if (!options.server)
                                   throw "yaap/wire/express needs server reference";
                                 
@@ -28,8 +27,8 @@
                                 for(var i = 0; i < VERBS.length; ++i)
 									yaap.register(VERBS[i]);
                                 return {};
-                        }
-                };
+                        };
+                
 
         });
 }(

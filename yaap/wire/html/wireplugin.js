@@ -16,12 +16,11 @@
                 "use strict";
 
 
-                return {
-                        wire$plugin: function(ready, destroyed, options) {
+                return function(options) {
 								yaap.register(on);
                                 return {};
-                        }
-                };
+                        };
+                
 
         });
 }(

@@ -51,8 +51,7 @@
 				}
 
 
-                return {
-                        wire$plugin: function(ready, destroyed, options) {
+                return function(options) {
 								
                                 yaap.register(autowire); //register annotation processor for @Autowire
 								yaap.register(postConstruct); //register annotation processor for @Initialize
@@ -62,10 +61,10 @@
                                 return {
                                         "connect": 	processAnnotations,
                                         "ready": 	afterProcessing,
-                                        "destroy": 	beforeDestroying
+                                        "shutdown": beforeDestroying
                                 };
-                        }
-                };
+                        };
+                
 
         });
 }(

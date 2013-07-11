@@ -28,7 +28,7 @@ MyClass.prototype = {
 	},
   
 	onInit: function (message)
-	/* @Autowired @Initialize */
+	/* @Autowired @PostConstruct */
 	{
 		console.log("autowired init fn: " + message);
 	},

@@ -1,13 +1,13 @@
 {
   
     "name": "browser-example",
-    "version": "0.0.2",
+    "version": "0.1.1",
+    "directory":"components",
     "dependencies": {
       "curl": "0.7.3",
-      "meld": "1.2.0",
+      "meld": "1.3.0",
       "underscore": "1.4.4",
-      "when": "1.8.1",
-      "wire": "0.9.1",
-      "yaap": "0.1.0"
+      "when": "2.2.1",
+      "wire": "0.10.0"
     }
 }

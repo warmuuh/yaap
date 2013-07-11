@@ -76,13 +76,13 @@ module.exports = {
 			test.equal(ctx.testInstance.value, 1);
 			test.done();
 		}, console.error);
-	},
-	"wiring with @PreDestroy": function(test){
+	}
+/*	"wiring with @PreDestroy": function(test){
 		
 		var spec = {
 			bean: "autowiredValue",
 			testInstance:{create: './classes/InitializeTest'},
-			plugins: [{module:'../wire'}]
+			$plugins: [{module:'../wire'}]
 		};
 		
 		wire(spec, {require:require}).then(function(ctx){
@@ -92,5 +92,7 @@ module.exports = {
 			test.done();
 		}, console.error);
 	}
+*/
+
 	
 };

@@ -4,7 +4,7 @@ define([], function(){
 return {
   message: "autowired",
   node:   {$ref: "dom.all!.pressed"},
-  out: {$ref: "dom!output"},
+  out:	  {$ref: "dom!output"},
   myComponent: {
           create: {
 	            module: 'MyClass',

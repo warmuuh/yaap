@@ -2,6 +2,9 @@
 "use strict";
 
 
+var express = require('express');
+var wire = require('wire');
+
 wire({
 		app: { create: 'express',
 			   init:{use:[express.bodyParser()]}, //TODO:shift this into yaap/wire/express

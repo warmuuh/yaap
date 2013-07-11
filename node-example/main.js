@@ -16,7 +16,7 @@ wire({
 				        }
         },
 
-        plugins: [
+        $plugins: [
           //{module: "wire/debug", trace: true},
            {module: "../yaap/wire"}
            

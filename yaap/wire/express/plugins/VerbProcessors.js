@@ -13,7 +13,7 @@
  *
  * @author Peter Mucha
  *
- * @version 0.1.0
+ * @version 0.1.1
  */
 "use strict";
 (function(define) { 
@@ -167,6 +167,7 @@ function(when, _) {
 		return _(fnDescription.annotations).chain().findWhere({name: annotationName}).value();
 	}
     
+//return the annotation processors
 return [
 {
   annotation: "@GET",
