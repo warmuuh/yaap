@@ -76,8 +76,8 @@ module.exports = {
 			test.equal(ctx.testInstance.value, 1);
 			test.done();
 		}, console.error);
-	}
-/*	"wiring with @PreDestroy": function(test){
+	},
+	"wiring with @PreDestroy": function(test){
 		
 		var spec = {
 			bean: "autowiredValue",
@@ -87,12 +87,14 @@ module.exports = {
 		
 		wire(spec, {require:require}).then(function(ctx){
 			var bean = ctx.testInstance;
-			ctx.destroy();
-			test.equal(bean.value, 2);
-			test.done();
+			ctx.destroy().then(function(){
+        test.equal(bean.value, 2);
+			  test.done();
+      });
+			
 		}, console.error);
 	}
-*/
+
 
 	
 };

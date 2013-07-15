@@ -61,7 +61,7 @@
                                 return {
                                         "connect": 	processAnnotations,
                                         "ready": 	afterProcessing,
-                                        "shutdown": beforeDestroying
+                                        "destroy": beforeDestroying
                                 };
                         };
                 
