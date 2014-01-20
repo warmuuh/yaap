@@ -52,7 +52,7 @@
 
 
                 return function(options) {
-								
+								yaap.setOptions(options);
                                 yaap.register(autowire); //register annotation processor for @Autowire
 								yaap.register(postConstruct); //register annotation processor for @Initialize
 								yaap.register(preDestroy); //register annotation processor for @PreDestroy

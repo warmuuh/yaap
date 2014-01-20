@@ -1,0 +1,21 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Users\\pmucha\\tools\\nodejs\\\\node.exe',
+1 verbose cli   'C:\\Users\\pmucha\\tools\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'link' ]
+2 info using npm@1.3.22
+3 info using node@v0.11.10
+4 verbose node symlink C:\Users\pmucha\tools\nodejs\\node.exe
+5 verbose linkPkg c:\Users\pmucha\workspaces\js\yaap\yaap
+6 error Error: ENOENT, open 'c:\Users\pmucha\workspaces\js\yaap\yaap\package.json'
+7 error If you need help, you may report this *entire* log,
+7 error including the npm and node versions, at:
+7 error     <http://github.com/isaacs/npm/issues>
+8 error System Windows_NT 6.1.7601
+9 error command "C:\\Users\\pmucha\\tools\\nodejs\\\\node.exe" "C:\\Users\\pmucha\\tools\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "link"
+10 error cwd c:\Users\pmucha\workspaces\js\yaap\yaap
+11 error node -v v0.11.10
+12 error npm -v 1.3.22
+13 error path c:\Users\pmucha\workspaces\js\yaap\yaap\package.json
+14 error code ENOENT
+15 error errno -4058
+16 verbose exit [ -4058, true ]

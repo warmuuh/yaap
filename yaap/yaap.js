@@ -21,7 +21,10 @@ function(_, registry, NotNullProcessor, DefaultProcessor, wire, PanPG_util, es5,
 	   NotNullProcessor,
 	    DefaultProcessor
 	]);
-
+    var options = {
+        shallow: true,
+        debug: false
+    };
 
 	function callProcessors(obj, fnDescription, config) {
 	
@@ -68,7 +71,8 @@ function(_, registry, NotNullProcessor, DefaultProcessor, wire, PanPG_util, es5,
 	}
 
 	function processFunction(obj, f, config){
-	
+            if (options.debug)
+                console.log("yaap: processing function " + f);
 		    var source = obj[f].toString();
 				source = source.substring(0, source.indexOf("{")); //strip body //TODO: this is not secure, if comments contain '{'
 			    var ast =  es5.Program(source);
@@ -104,13 +108,17 @@ function(_, registry, NotNullProcessor, DefaultProcessor, wire, PanPG_util, es5,
 		register: function (processor) {
 			registry.register([processor]);
 		},
+        setOptions: function(opts){
+            options = _.defaults(opts, options);
+        },
  
 		process: function (obj, config){
 
 			for(var f in obj)
 			{
 
-				if (_(obj[f]).isFunction()) 
+				if (_(obj[f]).isFunction()
+                    && ( !options.shallow || _(obj.__proto__).has(f)))
 					processFunction(obj, f, config);
 				else if (typeof f === 'string' && f[0] === '@') //a string that starts with @
 					processClassAnnotation(obj, f, config);
