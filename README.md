@@ -20,9 +20,12 @@ There is a more complex web application example developed with wire and a lot of
 #News
 ##current
 * updated dependencies to wire.js 0.10.0 and when.js 2.2.1
+
 * added yaap-options:
   * debug:   add debug output (default: false)
   * shallow: only process own methods (not inherited) => boosts performance (default: true)
+  * improved performance
+
 
 ##0.1.0
 * classbased annotations

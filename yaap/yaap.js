@@ -75,7 +75,10 @@ function(_, registry, NotNullProcessor, DefaultProcessor, wire, PanPG_util, es5,
                 console.log("yaap: processing function " + f);
 		    var source = obj[f].toString();
 				source = source.substring(0, source.indexOf("{")); //strip body //TODO: this is not secure, if comments contain '{'
-			    var ast =  es5.Program(source);
+				//early bail-out: no annotation sign => skip
+				if (source.indexOf('@') < 0)
+					return;
+				var ast =  es5.Program(source);
           
 				    //console.log(PanPG_util.showTree(ast));
 	          var fnDescriptions = null;
@@ -118,7 +121,7 @@ function(_, registry, NotNullProcessor, DefaultProcessor, wire, PanPG_util, es5,
 			{
 
 				if (_(obj[f]).isFunction()
-                    && ( !options.shallow || _(obj.__proto__).has(f)))
+                    && ( !options.shallow || _(obj).hasOwnProperty(f) || _(obj.__proto__).has(f)))
 					processFunction(obj, f, config);
 				else if (typeof f === 'string' && f[0] === '@') //a string that starts with @
 					processClassAnnotation(obj, f, config);
