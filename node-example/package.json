@@ -14,7 +14,7 @@
 		"Peter Mucha <ptmucha@gmail.com>"
 	],
 	"dependencies": {
-        "yaap": "0.1.1",
+        "yaap": "0.1.2",
         "wire": "0.10.0"
 	},
 	"license": "MIT",

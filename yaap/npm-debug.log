@@ -1,0 +1,287 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Users\\pmucha\\tools\\nodejs\\\\node.exe',
+1 verbose cli   'C:\\Users\\pmucha\\tools\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'publish',
+1 verbose cli   '-f' ]
+2 info using npm@1.3.22
+3 info using node@v0.11.10
+4 verbose node symlink C:\Users\pmucha\tools\nodejs\\node.exe
+5 warn using --force I sure hope you know what you are doing.
+6 verbose publish [ '.' ]
+7 verbose cache add [ '.', null ]
+8 verbose cache add name=undefined spec="." args=[".",null]
+9 verbose parsed url { protocol: null,
+9 verbose parsed url   slashes: null,
+9 verbose parsed url   auth: null,
+9 verbose parsed url   host: null,
+9 verbose parsed url   port: null,
+9 verbose parsed url   hostname: null,
+9 verbose parsed url   hash: null,
+9 verbose parsed url   search: null,
+9 verbose parsed url   query: null,
+9 verbose parsed url   pathname: '.',
+9 verbose parsed url   path: '.',
+9 verbose parsed url   href: '.' }
+10 silly lockFile 3a52ce78- .
+11 verbose lock . C:\Users\pmucha\AppData\Roaming\npm-cache\3a52ce78-.lock
+12 verbose tar pack [ 'c:\\Users\\pmucha\\AppData\\Local\\Temp\\npm-6684-SOmjeyfo\\1394544444344-0.14530750829726458\\tmp.tgz',
+12 verbose tar pack   '.' ]
+13 verbose tarball c:\Users\pmucha\AppData\Local\Temp\npm-6684-SOmjeyfo\1394544444344-0.14530750829726458\tmp.tgz
+14 verbose folder .
+15 info prepublish yaap@0.1.2
+16 silly lockFile 1f1177db-tar tar://.
+17 verbose lock tar://. C:\Users\pmucha\AppData\Roaming\npm-cache\1f1177db-tar.lock
+18 silly lockFile a53e2cbc-4344-0-14530750829726458-tmp-tgz tar://c:\Users\pmucha\AppData\Local\Temp\npm-6684-SOmjeyfo\1394544444344-0.14530750829726458\tmp.tgz
+19 verbose lock tar://c:\Users\pmucha\AppData\Local\Temp\npm-6684-SOmjeyfo\1394544444344-0.14530750829726458\tmp.tgz C:\Users\pmucha\AppData\Roaming\npm-cache\a53e2cbc-4344-0-14530750829726458-tmp-tgz.lock
+20 silly lockFile 1f1177db-tar tar://.
+21 silly lockFile 1f1177db-tar tar://.
+22 silly lockFile a53e2cbc-4344-0-14530750829726458-tmp-tgz tar://c:\Users\pmucha\AppData\Local\Temp\npm-6684-SOmjeyfo\1394544444344-0.14530750829726458\tmp.tgz
+23 silly lockFile a53e2cbc-4344-0-14530750829726458-tmp-tgz tar://c:\Users\pmucha\AppData\Local\Temp\npm-6684-SOmjeyfo\1394544444344-0.14530750829726458\tmp.tgz
+24 verbose tar unpack c:\Users\pmucha\AppData\Local\Temp\npm-6684-SOmjeyfo\1394544444344-0.14530750829726458\tmp.tgz
+25 silly lockFile 12f9a400-4344-0-14530750829726458-package tar://c:\Users\pmucha\AppData\Local\Temp\npm-6684-SOmjeyfo\1394544444344-0.14530750829726458\package
+26 verbose lock tar://c:\Users\pmucha\AppData\Local\Temp\npm-6684-SOmjeyfo\1394544444344-0.14530750829726458\package C:\Users\pmucha\AppData\Roaming\npm-cache\12f9a400-4344-0-14530750829726458-package.lock
+27 silly lockFile a53e2cbc-4344-0-14530750829726458-tmp-tgz tar://c:\Users\pmucha\AppData\Local\Temp\npm-6684-SOmjeyfo\1394544444344-0.14530750829726458\tmp.tgz
+28 verbose lock tar://c:\Users\pmucha\AppData\Local\Temp\npm-6684-SOmjeyfo\1394544444344-0.14530750829726458\tmp.tgz C:\Users\pmucha\AppData\Roaming\npm-cache\a53e2cbc-4344-0-14530750829726458-tmp-tgz.lock
+29 silly gunzTarPerm modes [ '755', '644' ]
+30 silly gunzTarPerm extractEntry package.json
+31 silly gunzTarPerm modified mode [ 'package.json', 438, 420 ]
+32 silly gunzTarPerm extractEntry README.md
+33 silly gunzTarPerm modified mode [ 'README.md', 438, 420 ]
+34 silly gunzTarPerm extractEntry testsuite.js
+35 silly gunzTarPerm modified mode [ 'testsuite.js', 438, 420 ]
+36 silly gunzTarPerm extractEntry registry.js
+37 silly gunzTarPerm modified mode [ 'registry.js', 438, 420 ]
+38 silly gunzTarPerm extractEntry yaap.js
+39 silly gunzTarPerm modified mode [ 'yaap.js', 438, 420 ]
+40 silly gunzTarPerm extractEntry plugins/DefaultProcessor.js
+41 silly gunzTarPerm modified mode [ 'plugins/DefaultProcessor.js', 438, 420 ]
+42 silly gunzTarPerm extractEntry plugins/NotNullProcessor.js
+43 silly gunzTarPerm modified mode [ 'plugins/NotNullProcessor.js', 438, 420 ]
+44 silly gunzTarPerm extractEntry plugins/test/DefaultAnnotationProcessor.js
+45 silly gunzTarPerm modified mode [ 'plugins/test/DefaultAnnotationProcessor.js', 438, 420 ]
+46 silly gunzTarPerm extractEntry plugins/test/NotNullProcessor.js
+47 silly gunzTarPerm modified mode [ 'plugins/test/NotNullProcessor.js', 438, 420 ]
+48 silly gunzTarPerm extractEntry LICENSE.txt
+49 silly gunzTarPerm modified mode [ 'LICENSE.txt', 438, 420 ]
+50 silly gunzTarPerm extractEntry parser/buildparser.js
+51 silly gunzTarPerm modified mode [ 'parser/buildparser.js', 438, 420 ]
+52 silly gunzTarPerm extractEntry parser/buildparser_min.js
+53 silly gunzTarPerm modified mode [ 'parser/buildparser_min.js', 438, 420 ]
+54 silly gunzTarPerm extractEntry parser/ECMA5Parser.js
+55 silly gunzTarPerm modified mode [ 'parser/ECMA5Parser.js', 438, 420 ]
+56 silly gunzTarPerm extractEntry parser/ECMA5Parser_min.js
+57 silly gunzTarPerm modified mode [ 'parser/ECMA5Parser_min.js', 438, 420 ]
+58 silly gunzTarPerm extractEntry parser/PanPG.js
+59 silly gunzTarPerm modified mode [ 'parser/PanPG.js', 438, 420 ]
+60 silly gunzTarPerm extractEntry parser/PanPG_util.js
+61 silly gunzTarPerm modified mode [ 'parser/PanPG_util.js', 438, 420 ]
+62 silly gunzTarPerm extractEntry parser/walker.js
+63 silly gunzTarPerm modified mode [ 'parser/walker.js', 438, 420 ]
+64 silly gunzTarPerm extractEntry parser/ECMAScript_5.peg
+65 silly gunzTarPerm modified mode [ 'parser/ECMAScript_5.peg', 438, 420 ]
+66 silly gunzTarPerm extractEntry parser/ECMAScript_5_strippedDown.peg
+67 silly gunzTarPerm modified mode [ 'parser/ECMAScript_5_strippedDown.peg', 438, 420 ]
+68 silly gunzTarPerm extractEntry parser/test/walker.js
+69 silly gunzTarPerm modified mode [ 'parser/test/walker.js', 438, 420 ]
+70 silly gunzTarPerm extractEntry test/registry.js
+71 silly gunzTarPerm modified mode [ 'test/registry.js', 438, 420 ]
+72 silly gunzTarPerm extractEntry test/wire.js
+73 silly gunzTarPerm modified mode [ 'test/wire.js', 438, 420 ]
+74 silly gunzTarPerm extractEntry test/classes/AutoWiredTest.js
+75 silly gunzTarPerm modified mode [ 'test/classes/AutoWiredTest.js', 438, 420 ]
+76 silly gunzTarPerm extractEntry test/classes/InitializeTest.js
+77 silly gunzTarPerm modified mode [ 'test/classes/InitializeTest.js', 438, 420 ]
+78 silly gunzTarPerm extractEntry test/classes/TestClass.js
+79 silly gunzTarPerm modified mode [ 'test/classes/TestClass.js', 438, 420 ]
+80 silly gunzTarPerm extractEntry wire/package.json
+81 silly gunzTarPerm modified mode [ 'wire/package.json', 438, 420 ]
+82 silly gunzTarPerm extractEntry wire/wireplugin.js
+83 silly gunzTarPerm modified mode [ 'wire/wireplugin.js', 438, 420 ]
+84 silly gunzTarPerm extractEntry wire/express/package.json
+85 silly gunzTarPerm modified mode [ 'wire/express/package.json', 438, 420 ]
+86 silly gunzTarPerm extractEntry wire/express/wireplugin.js
+87 silly gunzTarPerm modified mode [ 'wire/express/wireplugin.js', 438, 420 ]
+88 silly gunzTarPerm extractEntry wire/express/plugins/VerbProcessors.js
+89 silly gunzTarPerm modified mode [ 'wire/express/plugins/VerbProcessors.js', 438, 420 ]
+90 silly gunzTarPerm extractEntry wire/html/package.json
+91 silly gunzTarPerm modified mode [ 'wire/html/package.json', 438, 420 ]
+92 silly gunzTarPerm extractEntry wire/html/wireplugin.js
+93 silly gunzTarPerm modified mode [ 'wire/html/wireplugin.js', 438, 420 ]
+94 silly gunzTarPerm extractEntry wire/html/plugins/OnProcessor.js
+95 silly gunzTarPerm modified mode [ 'wire/html/plugins/OnProcessor.js', 438, 420 ]
+96 silly gunzTarPerm extractEntry wire/plugins/AutowireProcessor.js
+97 silly gunzTarPerm modified mode [ 'wire/plugins/AutowireProcessor.js', 438, 420 ]
+98 silly gunzTarPerm extractEntry wire/plugins/PostConstructProcessor.js
+99 silly gunzTarPerm modified mode [ 'wire/plugins/PostConstructProcessor.js', 438, 420 ]
+100 silly gunzTarPerm extractEntry wire/plugins/PreDestroyProcessor.js
+101 silly gunzTarPerm modified mode [ 'wire/plugins/PreDestroyProcessor.js', 438, 420 ]
+102 silly gunzTarPerm extractEntry docs/annotations.md
+103 silly gunzTarPerm modified mode [ 'docs/annotations.md', 438, 420 ]
+104 silly gunzTarPerm extractEntry docs/express.md
+105 silly gunzTarPerm modified mode [ 'docs/express.md', 438, 420 ]
+106 silly gunzTarPerm extractEntry docs/processors.md
+107 silly gunzTarPerm modified mode [ 'docs/processors.md', 438, 420 ]
+108 silly lockFile 12f9a400-4344-0-14530750829726458-package tar://c:\Users\pmucha\AppData\Local\Temp\npm-6684-SOmjeyfo\1394544444344-0.14530750829726458\package
+109 silly lockFile 12f9a400-4344-0-14530750829726458-package tar://c:\Users\pmucha\AppData\Local\Temp\npm-6684-SOmjeyfo\1394544444344-0.14530750829726458\package
+110 silly lockFile a53e2cbc-4344-0-14530750829726458-tmp-tgz tar://c:\Users\pmucha\AppData\Local\Temp\npm-6684-SOmjeyfo\1394544444344-0.14530750829726458\tmp.tgz
+111 silly lockFile a53e2cbc-4344-0-14530750829726458-tmp-tgz tar://c:\Users\pmucha\AppData\Local\Temp\npm-6684-SOmjeyfo\1394544444344-0.14530750829726458\tmp.tgz
+112 verbose tar pack [ 'C:\\Users\\pmucha\\AppData\\Roaming\\npm-cache\\yaap\\0.1.2\\package.tgz',
+112 verbose tar pack   'c:\\Users\\pmucha\\AppData\\Local\\Temp\\npm-6684-SOmjeyfo\\1394544444344-0.14530750829726458\\package' ]
+113 verbose tarball C:\Users\pmucha\AppData\Roaming\npm-cache\yaap\0.1.2\package.tgz
+114 verbose folder c:\Users\pmucha\AppData\Local\Temp\npm-6684-SOmjeyfo\1394544444344-0.14530750829726458\package
+115 silly lockFile 12f9a400-4344-0-14530750829726458-package tar://c:\Users\pmucha\AppData\Local\Temp\npm-6684-SOmjeyfo\1394544444344-0.14530750829726458\package
+116 verbose lock tar://c:\Users\pmucha\AppData\Local\Temp\npm-6684-SOmjeyfo\1394544444344-0.14530750829726458\package C:\Users\pmucha\AppData\Roaming\npm-cache\12f9a400-4344-0-14530750829726458-package.lock
+117 silly lockFile 49587c45-npm-cache-yaap-0-1-1-package-tgz tar://C:\Users\pmucha\AppData\Roaming\npm-cache\yaap\0.1.2\package.tgz
+118 verbose lock tar://C:\Users\pmucha\AppData\Roaming\npm-cache\yaap\0.1.2\package.tgz C:\Users\pmucha\AppData\Roaming\npm-cache\49587c45-npm-cache-yaap-0-1-1-package-tgz.lock
+119 silly lockFile 12f9a400-4344-0-14530750829726458-package tar://c:\Users\pmucha\AppData\Local\Temp\npm-6684-SOmjeyfo\1394544444344-0.14530750829726458\package
+120 silly lockFile 12f9a400-4344-0-14530750829726458-package tar://c:\Users\pmucha\AppData\Local\Temp\npm-6684-SOmjeyfo\1394544444344-0.14530750829726458\package
+121 silly lockFile 49587c45-npm-cache-yaap-0-1-1-package-tgz tar://C:\Users\pmucha\AppData\Roaming\npm-cache\yaap\0.1.2\package.tgz
+122 silly lockFile 49587c45-npm-cache-yaap-0-1-1-package-tgz tar://C:\Users\pmucha\AppData\Roaming\npm-cache\yaap\0.1.2\package.tgz
+123 silly lockFile 979df31c-ing-npm-cache-yaap-0-1-1-package c:\Users\pmucha\AppData\Roaming\npm-cache\yaap\0.1.2\package
+124 verbose lock c:\Users\pmucha\AppData\Roaming\npm-cache\yaap\0.1.2\package C:\Users\pmucha\AppData\Roaming\npm-cache\979df31c-ing-npm-cache-yaap-0-1-1-package.lock
+125 silly lockFile 979df31c-ing-npm-cache-yaap-0-1-1-package c:\Users\pmucha\AppData\Roaming\npm-cache\yaap\0.1.2\package
+126 silly lockFile 979df31c-ing-npm-cache-yaap-0-1-1-package c:\Users\pmucha\AppData\Roaming\npm-cache\yaap\0.1.2\package
+127 verbose tar unpack C:\Users\pmucha\AppData\Roaming\npm-cache\yaap\0.1.2\package.tgz
+128 silly lockFile 994dbd23-ing-npm-cache-yaap-0-1-1-package tar://c:\Users\pmucha\AppData\Roaming\npm-cache\yaap\0.1.2\package
+129 verbose lock tar://c:\Users\pmucha\AppData\Roaming\npm-cache\yaap\0.1.2\package C:\Users\pmucha\AppData\Roaming\npm-cache\994dbd23-ing-npm-cache-yaap-0-1-1-package.lock
+130 silly lockFile 49587c45-npm-cache-yaap-0-1-1-package-tgz tar://C:\Users\pmucha\AppData\Roaming\npm-cache\yaap\0.1.2\package.tgz
+131 verbose lock tar://C:\Users\pmucha\AppData\Roaming\npm-cache\yaap\0.1.2\package.tgz C:\Users\pmucha\AppData\Roaming\npm-cache\49587c45-npm-cache-yaap-0-1-1-package-tgz.lock
+132 silly gunzTarPerm modes [ '755', '644' ]
+133 silly gunzTarPerm extractEntry package.json
+134 silly gunzTarPerm modified mode [ 'package.json', 438, 420 ]
+135 silly gunzTarPerm extractEntry README.md
+136 silly gunzTarPerm modified mode [ 'README.md', 438, 420 ]
+137 silly gunzTarPerm extractEntry testsuite.js
+138 silly gunzTarPerm modified mode [ 'testsuite.js', 438, 420 ]
+139 silly gunzTarPerm extractEntry registry.js
+140 silly gunzTarPerm modified mode [ 'registry.js', 438, 420 ]
+141 silly gunzTarPerm extractEntry yaap.js
+142 silly gunzTarPerm modified mode [ 'yaap.js', 438, 420 ]
+143 silly gunzTarPerm extractEntry LICENSE.txt
+144 silly gunzTarPerm modified mode [ 'LICENSE.txt', 438, 420 ]
+145 silly gunzTarPerm extractEntry plugins/DefaultProcessor.js
+146 silly gunzTarPerm modified mode [ 'plugins/DefaultProcessor.js', 438, 420 ]
+147 silly gunzTarPerm extractEntry plugins/NotNullProcessor.js
+148 silly gunzTarPerm modified mode [ 'plugins/NotNullProcessor.js', 438, 420 ]
+149 silly gunzTarPerm extractEntry plugins/test/DefaultAnnotationProcessor.js
+150 silly gunzTarPerm modified mode [ 'plugins/test/DefaultAnnotationProcessor.js', 438, 420 ]
+151 silly gunzTarPerm extractEntry plugins/test/NotNullProcessor.js
+152 silly gunzTarPerm modified mode [ 'plugins/test/NotNullProcessor.js', 438, 420 ]
+153 silly gunzTarPerm extractEntry test/registry.js
+154 silly gunzTarPerm modified mode [ 'test/registry.js', 438, 420 ]
+155 silly gunzTarPerm extractEntry test/wire.js
+156 silly gunzTarPerm modified mode [ 'test/wire.js', 438, 420 ]
+157 silly gunzTarPerm extractEntry test/classes/AutoWiredTest.js
+158 silly gunzTarPerm modified mode [ 'test/classes/AutoWiredTest.js', 438, 420 ]
+159 silly gunzTarPerm extractEntry test/classes/InitializeTest.js
+160 silly gunzTarPerm modified mode [ 'test/classes/InitializeTest.js', 438, 420 ]
+161 silly gunzTarPerm extractEntry test/classes/TestClass.js
+162 silly gunzTarPerm modified mode [ 'test/classes/TestClass.js', 438, 420 ]
+163 silly gunzTarPerm extractEntry parser/buildparser.js
+164 silly gunzTarPerm modified mode [ 'parser/buildparser.js', 438, 420 ]
+165 silly gunzTarPerm extractEntry parser/buildparser_min.js
+166 silly gunzTarPerm modified mode [ 'parser/buildparser_min.js', 438, 420 ]
+167 silly gunzTarPerm extractEntry parser/ECMA5Parser.js
+168 silly gunzTarPerm modified mode [ 'parser/ECMA5Parser.js', 438, 420 ]
+169 silly gunzTarPerm extractEntry parser/ECMA5Parser_min.js
+170 silly gunzTarPerm modified mode [ 'parser/ECMA5Parser_min.js', 438, 420 ]
+171 silly gunzTarPerm extractEntry parser/PanPG.js
+172 silly gunzTarPerm modified mode [ 'parser/PanPG.js', 438, 420 ]
+173 silly gunzTarPerm extractEntry parser/PanPG_util.js
+174 silly gunzTarPerm modified mode [ 'parser/PanPG_util.js', 438, 420 ]
+175 silly gunzTarPerm extractEntry parser/walker.js
+176 silly gunzTarPerm modified mode [ 'parser/walker.js', 438, 420 ]
+177 silly gunzTarPerm extractEntry parser/ECMAScript_5.peg
+178 silly gunzTarPerm modified mode [ 'parser/ECMAScript_5.peg', 438, 420 ]
+179 silly gunzTarPerm extractEntry parser/ECMAScript_5_strippedDown.peg
+180 silly gunzTarPerm modified mode [ 'parser/ECMAScript_5_strippedDown.peg', 438, 420 ]
+181 silly gunzTarPerm extractEntry parser/test/walker.js
+182 silly gunzTarPerm modified mode [ 'parser/test/walker.js', 438, 420 ]
+183 silly gunzTarPerm extractEntry wire/package.json
+184 silly gunzTarPerm modified mode [ 'wire/package.json', 438, 420 ]
+185 silly gunzTarPerm extractEntry wire/wireplugin.js
+186 silly gunzTarPerm modified mode [ 'wire/wireplugin.js', 438, 420 ]
+187 silly gunzTarPerm extractEntry wire/express/package.json
+188 silly gunzTarPerm modified mode [ 'wire/express/package.json', 438, 420 ]
+189 silly gunzTarPerm extractEntry wire/express/wireplugin.js
+190 silly gunzTarPerm modified mode [ 'wire/express/wireplugin.js', 438, 420 ]
+191 silly gunzTarPerm extractEntry wire/express/plugins/VerbProcessors.js
+192 silly gunzTarPerm modified mode [ 'wire/express/plugins/VerbProcessors.js', 438, 420 ]
+193 silly gunzTarPerm extractEntry wire/html/package.json
+194 silly gunzTarPerm modified mode [ 'wire/html/package.json', 438, 420 ]
+195 silly gunzTarPerm extractEntry wire/html/wireplugin.js
+196 silly gunzTarPerm modified mode [ 'wire/html/wireplugin.js', 438, 420 ]
+197 silly gunzTarPerm extractEntry wire/html/plugins/OnProcessor.js
+198 silly gunzTarPerm modified mode [ 'wire/html/plugins/OnProcessor.js', 438, 420 ]
+199 silly gunzTarPerm extractEntry wire/plugins/AutowireProcessor.js
+200 silly gunzTarPerm modified mode [ 'wire/plugins/AutowireProcessor.js', 438, 420 ]
+201 silly gunzTarPerm extractEntry wire/plugins/PostConstructProcessor.js
+202 silly gunzTarPerm modified mode [ 'wire/plugins/PostConstructProcessor.js', 438, 420 ]
+203 silly gunzTarPerm extractEntry wire/plugins/PreDestroyProcessor.js
+204 silly gunzTarPerm modified mode [ 'wire/plugins/PreDestroyProcessor.js', 438, 420 ]
+205 silly gunzTarPerm extractEntry docs/annotations.md
+206 silly gunzTarPerm modified mode [ 'docs/annotations.md', 438, 420 ]
+207 silly gunzTarPerm extractEntry docs/express.md
+208 silly gunzTarPerm modified mode [ 'docs/express.md', 438, 420 ]
+209 silly gunzTarPerm extractEntry docs/processors.md
+210 silly gunzTarPerm modified mode [ 'docs/processors.md', 438, 420 ]
+211 silly lockFile 994dbd23-ing-npm-cache-yaap-0-1-1-package tar://c:\Users\pmucha\AppData\Roaming\npm-cache\yaap\0.1.2\package
+212 silly lockFile 994dbd23-ing-npm-cache-yaap-0-1-1-package tar://c:\Users\pmucha\AppData\Roaming\npm-cache\yaap\0.1.2\package
+213 silly lockFile 49587c45-npm-cache-yaap-0-1-1-package-tgz tar://C:\Users\pmucha\AppData\Roaming\npm-cache\yaap\0.1.2\package.tgz
+214 silly lockFile 49587c45-npm-cache-yaap-0-1-1-package-tgz tar://C:\Users\pmucha\AppData\Roaming\npm-cache\yaap\0.1.2\package.tgz
+215 verbose chmod C:\Users\pmucha\AppData\Roaming\npm-cache\yaap\0.1.2\package.tgz 644
+216 silly chown skipping for windows C:\Users\pmucha\AppData\Roaming\npm-cache\yaap\0.1.2\package.tgz
+217 silly lockFile 3a52ce78- .
+218 silly lockFile 3a52ce78- .
+219 silly publish { name: 'yaap',
+219 silly publish   version: '0.1.2',
+219 silly publish   description: 'yaap',
+219 silly publish   keywords: [ 'javascript', 'dependency injection', 'AOP', 'IOC' ],
+219 silly publish   repository: { type: 'git', url: 'https://github.com/warmuuh/yaap.git' },
+219 silly publish   bugs: { url: 'https://github.com/warmuuh/yaap/issues' },
+219 silly publish   contributors: [ { name: 'Peter Mucha', email: 'ptmucha@gmail.com' } ],
+219 silly publish   dependencies:
+219 silly publish    { PanPG: '0.0.9',
+219 silly publish      underscore: '1.4.4',
+219 silly publish      when: '2.2.1',
+219 silly publish      wire: '0.10.0' },
+219 silly publish   devDependencies: { nodeunit: '0.7.4' },
+219 silly publish   license: 'MIT',
+219 silly publish   readmeFilename: 'README.md',
+219 silly publish   main: './yaap',
+219 silly publish   readme: '#Yaap\r\n\r\nYaap is a generic annotation processor for javascript. It can be used to implement cross-cutting concerns and inject additional aspect oriented code.\r\n\r\n\r\nIt [integrates](#wirejs-integration) with [wire.js](https://github.com/cujojs/wire) (part of [cujo.js](http://cujojs.com)), which enables Spring-style wiring (i.e. dependency injection) of your javascript applications. \r\nWith the `yaap/wire` plugin, @Autowired applications are possible\r\n\r\nIt also [integrates](#expressjs-integration) with Express.js to achieve a SpringMVC-style framework for webapps.\r\n\r\n`Remark:` This is an experimentational library and should not be used in production.\r\n\r\nAn overview of out-of-the-box supported annotations is available [here](docs/annotations.md)\r\n\r\n##Installation\r\nInstallation for node: `npm install yaap`\r\n\r\n##Articles\r\n\r\n* [Annotations for JavaScript](http://cubiccow.blogspot.com/2013/02/yaap-annotations-for-javascript.html)\r\n* [@Autowired for JavaScript](http://cubiccow.blogspot.de/2013/02/autowire-for-javascript.html)\r\n* [Express.js the SpringMVC-way](http://cubiccow.blogspot.com/2013/04/expressjs-springmvc-way.html)\r\n\r\n##Example\r\n\r\nThe Yaap-library can process annotated javascript-objects. One simply defines the object adds annotations and let Yaap process it.\r\n\r\nThe library already includes some so-called annotation processors, e.g. @NotNull or @Default, which injects a default value in case of a missing or null-argument.\r\n\r\n```js\r\nvar logger = {\r\n\tlog: function(message, /*@Default("INFO")*/ level){\r\n\t\tconsole.log(level + ": " + message);\r\n\t}\r\n};\r\nyaap.process(logger);\r\n```\r\n\r\nThe level-parameter is annotated with @Default. Calling <code>yaap.process</code> scans and \r\nenables attached annotations.\r\n\r\n\r\n```js\r\nlogger.log("hello world"); //will print "INFO: hello world"\r\n```\r\n\r\n##Annotations in Javascript\r\nJavascript does not have annotations, but at specific positions, comments are saved and can be retrieved during runtime. This library allow to retrieve and parse annotations placed at these positions.\r\n\r\nRight now, Yaap supports class-annotations, parameter-annotations and function-annotations:\r\n\r\n```js\r\nvar obj = {\r\n\t"@Autowired": {"myBean": "bean"},\r\n\t\r\n\tfn: function(message, /*@Default("INFO")*/ level) /*@NotNull*/{\r\n\t\tconsole.log(level + ": " + message);\r\n\t}\r\n};\r\n```\r\n`@Default` here is an parameter-annotation while `@NotNull` is a function-annotation. (`@NotNull` can also be used as parameter-annotation though).\r\n`@Autowired` is an example for a classbased annotation.\r\n\r\n\r\n\r\n##Processors\r\nYaap is no library of pre-defined annotations for javascript. It should be an extensible foundation to process \r\nyour own annotations easily. All need to be done is to register your processor. The rest is taken care of by Yaap.\r\n\r\n```js\r\nvar myProcessor = {\r\n\tannotation: "@NotNull",\r\n\tprocessFunction: function(object, fnDescription, annotationParams, configuration){...\t},\r\n\tprocessParameter: function(object, fnDescription, annotatedParameters, configuration){...},\r\n\tprocessClass: function(object, annotatedParameters, configuration){...}\r\n}\r\nyaap.register(myProcessor);\r\n```\r\n\r\nAfter registering your processor, `processFunction` will be called, \r\nif a function is annotated with the according annotation. `processParameter` is called, \r\nif an annotated parameter is found and `processClass`, if a class-annotation is found.\r\n\r\n`Remark:` You can either define all or some of these functions, depending on \r\nwhere you want to allow your annotation to be placed.\r\n\r\nMore information on how to create custom annotation processors are available [here](docs/processors.md).\r\n\r\n##wire.js Integration\r\nTo use @Autowired (and annotations in general) in wire.js, simply add it as a plugin:\r\n```js\r\nvar wire = require("wire");\r\nwire({\r\n\tlevel: "INFO",\r\n\tlogger: {create:  \'./Logger\'},\r\n        \r\n\tplugins: [\r\n\t\t{module: "yaap/wire"}\r\n\t]\r\n}, {require: require}).then(function(ctx){\r\n\tctx.logger.log("message");\r\n}, console.error);\r\n```\r\nEverything else is done by yaap, so you can start use your annotations:\r\n\r\n```js\r\n//Logger.js\r\n\r\nmodule.exports = {\r\n  log: function(message, /*@Autowire*/ level){\r\n\t\tconsole.log(level + ": " + message);\r\n\t}\r\n}\r\n```\r\n`level` references the value in the wire-context (with value "INFO") now.\r\n\r\n`Remark:` Yaap/wire uses the parameter name to autowire. You can also supply a reference name with `/*@Autowire("level")*/`\r\n\r\n`Remark:` You can also annotate the whole function with `@Autowire` so every parameter will be autowired by name.\r\n\r\n###Constructors\r\nThe yaap/wire plugin will be called after the bean was created. That means, the constructor itself will not be affected by annotations. \r\n\r\nAs a workaround, use a @PostConstruct-annotation together with the class-based @Autowired \r\n\r\n##Express.js integration\r\nThere are also out-of-the-box annotations included for creating webapps in a springMVC-like manner. \r\nMore information on how to setup this integration is available [here](docs/express.md)\r\nA simple example of a service:\r\n\r\n```js\r\nMyService.prototype = {\r\n    index: function ()/*@GET*/ {\r\n\t\treturn \'index\';\r\n    },\r\n    \r\n    submit: function (name, age)/*@POST @Param*/ {\r\n     var msg = (age < 18)? "You are too young" : "You are welcome!";\r\n\t return {view:\'greet\', model:{name: name, msg: msg}};\r\n    }\r\n};\r\n```\r\nAs known from SpringMVC, the returned values determine, which view will be called and with what parameters. \r\nMore details on this in my [blogpost](http://cubiccow.blogspot.com/2013/02/autowire-for-javascript.html).\r\n\r\n',
+219 silly publish   homepage: 'https://github.com/warmuuh/yaap',
+219 silly publish   _id: 'yaap@0.1.2',
+219 silly publish   dist: { shasum: 'dd4791ef036215795a5cd773bada9e925de1c887' },
+219 silly publish   _from: '.' }
+220 verbose url raw yaap
+221 verbose url resolving [ 'https://registry.npmjs.org/', './yaap' ]
+222 verbose url resolved https://registry.npmjs.org/yaap
+223 info trying registry request attempt 1 at 14:27:24
+224 http PUT https://registry.npmjs.org/yaap
+225 http 403 https://registry.npmjs.org/yaap
+226 info trying registry request attempt 1 at 14:27:29
+227 http PUT https://registry.npmjs.org/yaap
+228 http 403 https://registry.npmjs.org/yaap
+229 error publish Failed PUT 403
+230 error Error: forbidden cannot modify pre-existing version: 0.1.2
+230 error old={"name":"yaap","version":"0.1.2","description":"yaap","keywords":["javascript","dependency injection","AOP","IOC"],"repository":{"type":"git","url":"https://github.com/warmuuh/yaap.git"},"bugs":{"url":"https://github.com/warmuuh/yaap/issues"},"contributors":[{"name":"Peter Mucha","email":"ptmucha@gmail.com"}],"dependencies":{"PanPG":"0.0.9","underscore":"1.4.4","when":"2.2.1","wire":"0.10.0"},"devDependencies":{"nodeunit":"0.7.4"},"license":"MIT","main":"./yaap","homepage":"https://github.com/warmuuh/yaap","_id":"yaap@0.1.2","dist":{"shasum":"92c93319f926a94d4c3c75e6093da68db1f6c8dc","tarball":"http://registry.npmjs.org/yaap/-/yaap-0.1.2.tgz"},"_from":".","_npmVersion":"1.3.22","_npmUser":{"name":"warmuuh","email":"ptmucha@gmail.com"},"maintainers":[{"name":"warmuuh","email":"ptmucha@gmail.com"}]}
+230 error new={"name":"yaap","version":"0.1.2","description":"yaap","keywords":["javascript","dependency injection","AOP","IOC"],"repository":{"type":"git","url":"https://github.com/warmuuh/yaap.git"},"bugs":{"url":"https://github.com/warmuuh/yaap/issues"},"contributors":[{"name":"Peter Mucha","email":"ptmucha@gmail.com"}],"dependencies":{"PanPG":"0.0.9","underscore":"1.4.4","when":"2.2.1","wire":"0.10.0"},"devDependencies":{"nodeunit":"0.7.4"},"license":"MIT","readmeFilename":"README.md","main":"./yaap","readme":"#Yaap\u000d\u000a\u000d\u000aYaap is a generic annotation processor for javascript. It can be used to implement cross-cutting concerns and inject additional aspect oriented code.\u000d\u000a\u000d\u000a\u000d\u000aIt [integrates](#wirejs-integration) with [wire.js](https://github.com/cujojs/wire) (part of [cujo.js](http://cujojs.com)), which enables Spring-style wiring (i.e. dependency injection) of your javascript applications. \u000d\u000aWith the `yaap/wire` plugin, @Autowired applications are possible\u000d\u000a\u000d\u000aIt also [integrates](#expressjs-integration) with Express.js to achieve a SpringMVC-style framework for webapps.\u000d\u000a\u000d\u000a`Remark:` This is an experimentational library and should not be used in production.\u000d\u000a\u000d\u000aAn overview of out-of-the-box supported annotations is available [here](docs/annotations.md)\u000d\u000a\u000d\u000a##Installation\u000d\u000aInstallation for node: `npm install yaap`\u000d\u000a\u000d\u000a##Articles\u000d\u000a\u000d\u000a* [Annotations for JavaScript](http://cubiccow.blogspot.com/2013/02/yaap-annotations-for-javascript.html)\u000d\u000a* [@Autowired for JavaScript](http://cubiccow.blogspot.de/2013/02/autowire-for-javascript.html)\u000d\u000a* [Express.js the SpringMVC-way](http://cubiccow.blogspot.com/2013/04/expressjs-springmvc-way.html)\u000d\u000a\u000d\u000a##Example\u000d\u000a\u000d\u000aThe Yaap-library can process annotated javascript-objects. One simply defines the object adds annotations and let Yaap process it.\u000d\u000a\u000d\u000aThe library already includes some so-called annotation processors, e.g. @NotNull or @Default, which injects a default value in case of a missing or null-argument.\u000d\u000a\u000d\u000a```js\u000d\u000avar logger = {\u000d\u000a\u0009log: function(message, /*@Default(\"INFO\")*/ level){\u000d\u000a\u0009\u0009console.log(level + \": \" + message);\u000d\u000a\u0009}\u000d\u000a};\u000d\u000ayaap.process(logger);\u000d\u000a```\u000d\u000a\u000d\u000aThe level-parameter is annotated with @Default. Calling <code>yaap.process</code> scans and \u000d\u000aenables attached annotations.\u000d\u000a\u000d\u000a\u000d\u000a```js\u000d\u000alogger.log(\"hello world\"); //will print \"INFO: hello world\"\u000d\u000a```\u000d\u000a\u000d\u000a##Annotations in Javascript\u000d\u000aJavascript does not have annotations, but at specific positions, comments are saved and can be retrieved during runtime. This library allow to retrieve and parse annotations placed at these positions.\u000d\u000a\u000d\u000aRight now, Yaap supports class-annotations, parameter-annotations and function-annotations:\u000d\u000a\u000d\u000a```js\u000d\u000avar obj = {\u000d\u000a\u0009\"@Autowired\": {\"myBean\": \"bean\"},\u000d\u000a\u0009\u000d\u000a\u0009fn: function(message, /*@Default(\"INFO\")*/ level) /*@NotNull*/{\u000d\u000a\u0009\u0009console.log(level + \": \" + message);\u000d\u000a\u0009}\u000d\u000a};\u000d\u000a```\u000d\u000a`@Default` here is an parameter-annotation while `@NotNull` is a function-annotation. (`@NotNull` can also be used as parameter-annotation though).\u000d\u000a`@Autowired` is an example for a classbased annotation.\u000d\u000a\u000d\u000a\u000d\u000a\u000d\u000a##Processors\u000d\u000aYaap is no library of pre-defined annotations for javascript. It should be an extensible foundation to process \u000d\u000ayour own annotations easily. All need to be done is to register your processor. The rest is taken care of by Yaap.\u000d\u000a\u000d\u000a```js\u000d\u000avar myProcessor = {\u000d\u000a\u0009annotation: \"@NotNull\",\u000d\u000a\u0009processFunction: function(object, fnDescription, annotationParams, configuration){...\u0009},\u000d\u000a\u0009processParameter: function(object, fnDescription, annotatedParameters, configuration){...},\u000d\u000a\u0009processClass: function(object, annotatedParameters, configuration){...}\u000d\u000a}\u000d\u000ayaap.register(myProcessor);\u000d\u000a```\u000d\u000a\u000d\u000aAfter registering your processor, `processFunction` will be called, \u000d\u000aif a function is annotated with the according annotation. `processParameter` is called, \u000d\u000aif an annotated parameter is found and `processClass`, if a class-annotation is found.\u000d\u000a\u000d\u000a`Remark:` You can either define all or some of these functions, depending on \u000d\u000awhere you want to allow your annotation to be placed.\u000d\u000a\u000d\u000aMore information on how to create custom annotation processors are available [here](docs/processors.md).\u000d\u000a\u000d\u000a##wire.js Integration\u000d\u000aTo use @Autowired (and annotations in general) in wire.js, simply add it as a plugin:\u000d\u000a```js\u000d\u000avar wire = require(\"wire\");\u000d\u000awire({\u000d\u000a\u0009level: \"INFO\",\u000d\u000a\u0009logger: {create:  './Logger'},\u000d\u000a        \u000d\u000a\u0009plugins: [\u000d\u000a\u0009\u0009{module: \"yaap/wire\"}\u000d\u000a\u0009]\u000d\u000a}, {require: require}).then(function(ctx){\u000d\u000a\u0009ctx.logger.log(\"message\");\u000d\u000a}, console.error);\u000d\u000a```\u000d\u000aEverything else is done by yaap, so you can start use your annotations:\u000d\u000a\u000d\u000a```js\u000d\u000a//Logger.js\u000d\u000a\u000d\u000amodule.exports = {\u000d\u000a  log: function(message, /*@Autowire*/ level){\u000d\u000a\u0009\u0009console.log(level + \": \" + message);\u000d\u000a\u0009}\u000d\u000a}\u000d\u000a```\u000d\u000a`level` references the value in the wire-context (with value \"INFO\") now.\u000d\u000a\u000d\u000a`Remark:` Yaap/wire uses the parameter name to autowire. You can also supply a reference name with `/*@Autowire(\"level\")*/`\u000d\u000a\u000d\u000a`Remark:` You can also annotate the whole function with `@Autowire` so every parameter will be autowired by name.\u000d\u000a\u000d\u000a###Constructors\u000d\u000aThe yaap/wire plugin will be called after the bean was created. That means, the constructor itself will not be affected by annotations. \u000d\u000a\u000d\u000aAs a workaround, use a @PostConstruct-annotation together with the class-based @Autowired \u000d\u000a\u000d\u000a##Express.js integration\u000d\u000aThere are also out-of-the-box annotations included for creating webapps in a springMVC-like manner. \u000d\u000aMore information on how to setup this integration is available [here](docs/express.md)\u000d\u000aA simple example of a service:\u000d\u000a\u000d\u000a```js\u000d\u000aMyService.prototype = {\u000d\u000a    index: function ()/*@GET*/ {\u000d\u000a\u0009\u0009return 'index';\u000d\u000a    },\u000d\u000a    \u000d\u000a    submit: function (name, age)/*@POST @Param*/ {\u000d\u000a     var msg = (age < 18)? \"You are too young\" : \"You are welcome!\";\u000d\u000a\u0009 return {view:'greet', model:{name: name, msg: msg}};\u000d\u000a    }\u000d\u000a};\u000d\u000a```\u000d\u000aAs known from SpringMVC, the returned values determine, which view will be called and with what parameters. \u000d\u000aMore details on this in my [blogpost](http://cubiccow.blogspot.com/2013/02/autowire-for-javascript.html).\u000d\u000a\u000d\u000a","homepage":"https://github.com/warmuuh/yaap","_id":"yaap@0.1.2","dist":{"shasum":"dd4791ef036215795a5cd773bada9e925de1c887","tarball":"http://registry.npmjs.org/yaap/-/yaap-0.1.2.tgz"},"_from":".","_npmVersion":"1.3.22","_npmUser":{"name":"warmuuh","email":"ptmucha@gmail.com"},"maintainers":[{"name":"warmuuh","email":"ptmucha@gmail.com"}]}: yaap
+230 error     at RegClient.<anonymous> (C:\Users\pmucha\tools\nodejs\node_modules\npm\node_modules\npm-registry-client\lib\request.js:275:14)
+230 error     at Request.self.callback (C:\Users\pmucha\tools\nodejs\node_modules\npm\node_modules\request\request.js:123:22)
+230 error     at Request.EventEmitter.emit (events.js:104:17)
+230 error     at Request.<anonymous> (C:\Users\pmucha\tools\nodejs\node_modules\npm\node_modules\request\request.js:893:14)
+230 error     at Request.EventEmitter.emit (events.js:123:20)
+230 error     at IncomingMessage.<anonymous> (C:\Users\pmucha\tools\nodejs\node_modules\npm\node_modules\request\request.js:844:12)
+230 error     at IncomingMessage.EventEmitter.emit (events.js:123:20)
+230 error     at _stream_readable.js:896:16
+230 error     at process._tickCallback (node.js:599:11)
+231 error If you need help, you may report this *entire* log,
+231 error including the npm and node versions, at:
+231 error     <http://github.com/isaacs/npm/issues>
+232 error System Windows_NT 6.1.7601
+233 error command "C:\\Users\\pmucha\\tools\\nodejs\\\\node.exe" "C:\\Users\\pmucha\\tools\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "publish" "-f"
+234 error cwd c:\Users\pmucha\workspaces\js\yaap\yaap\yaap
+235 error node -v v0.11.10
+236 error npm -v 1.3.22
+237 verbose exit [ 1, true ]

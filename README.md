@@ -21,7 +21,7 @@ There is a more complex web application example developed with wire and a lot of
 ##current
 * improved debug logging
 
-##0.1.1
+##0.1.2
 * updated dependencies to wire.js 0.10.0 and when.js 2.2.1
 
 * added yaap-options:
