@@ -22,7 +22,7 @@
                  DefaultProcessor
              ]);
             var options = {
-                shallow: true,
+                shallow: false,
                 debug: false
             };
 
