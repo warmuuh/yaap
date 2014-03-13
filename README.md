@@ -5,8 +5,8 @@ Yaap is a generic annotation processor for javascript. It can be used to impleme
 It supports annotations at class-, function- and parameter-level of javascript objects. (see examples)
 
  * See [Readme](yaap) for more information, e.g. on using **@Autowired**-annotation
- * **See [Video Demonstration](http://y2u.be/HrgnyGl2K8A) for a quick Overview**
-
+ * **See [Video Demonstration](http://y2u.be/HrgnyGl2K8A)** for a quick Overview
+ * **Try it** using the yeoman generator [generator-yaap-express](https://github.com/warmuuh/generator-yaap-express)
 There are also three examples for server and client scenario:
 
 * On [Node](node-example)
