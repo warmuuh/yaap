@@ -7,6 +7,7 @@ It supports annotations at class-, function- and parameter-level of javascript o
  * See [Readme](yaap) for more information, e.g. on using **@Autowired**-annotation
  * **See [Video Demonstration](http://y2u.be/HrgnyGl2K8A)** for a quick Overview
  * **Try it** using the yeoman generator [generator-yaap-express](https://github.com/warmuuh/generator-yaap-express)
+ 
 There are also three examples for server and client scenario:
 
 * On [Node](node-example)
