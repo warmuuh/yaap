@@ -53,7 +53,11 @@ function(when, _) {
 			
 			//if it is undefined, then there *should* be a callback ;)
 			if (result !== undefined && !responseSent)
-				sendResponse(result); 
+            {
+                //result can be a promise or a value:
+                when(result).then(sendResponse, sendResponse);
+            }
+				
 			
 		});
 	}
@@ -159,7 +163,7 @@ function(when, _) {
 						res.render(result + '.' + context.express_view);
 				else if (result && result.view){
 					res.render(result.view + '.' + context.express_view, result.model);
-				}
+				} 
 			}
 	}
 

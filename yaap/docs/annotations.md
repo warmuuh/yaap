@@ -42,4 +42,4 @@ for these annotations, you need to add the additional `yaap/wire/express`-plugin
 * `@Body` (parameter/function): if parameter-level, then the request-body will be injected. If on function-level, 
 	it states that the return-value will be returned as-is (Just like @ResponseBody does in SpringMVC).
 * `@JSON` (function): states, that the returned value will be send as response in json-format. (using [response.json](http://expressjs.com/api.html#res.json)).
-* 
+* `@Callback` (parameter): a callback will be injected so you can return your response asynchronously. You can also simply return a promise, so you do not need to use a callback for asynchronous operations.
