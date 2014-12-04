@@ -1,4 +1,4 @@
-#Yaap
+#Yaap [![Build Status](https://travis-ci.org/warmuuh/yaap.svg?branch=master)](https://travis-ci.org/warmuuh/yaap)
 
 Yaap is a generic annotation processor for javascript. It can be used to implement cross-cutting concerns and inject additional aspect oriented code.
 
