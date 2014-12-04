@@ -1,6 +1,6 @@
 {
 	"name": "yaap-express",
-	"version": "0.1.2",
+	"version": "0.1.3",
 	"description": "yaap express example",
 	"keywords": [ "javascript", "dependency injection", "AOP", "IOC"],
 	"repository": {

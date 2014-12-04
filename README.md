@@ -19,7 +19,7 @@ There is a more complex web application example developed with wire and a lot of
 
 
 #News
-##current
+##0.1.3
 * improved debug logging
 * support for Promises in `yaap/wire/express` (instead of `@Callback`)
 

@@ -1,6 +1,6 @@
 {
 	"name": "yaap_example",
-	"version": "0.0.1",
+	"version": "0.1.3",
 	"description": "yaap example",
 	"keywords": [ "javascript" ],
 	"repository": {
@@ -14,7 +14,7 @@
 		"Peter Mucha <ptmucha@gmail.com>"
 	],
 	"dependencies": {
-        "yaap": "0.1.2",
+        "yaap": "0.1.3",
         "wire": "0.10.0"
 	},
 	"license": "MIT",
