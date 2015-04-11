@@ -1,0 +1,35 @@
+{
+  "name": "yaap",
+  "version": "0.1.4",
+  "description": "yaap",
+  "keywords": [
+    "javascript",
+    "dependency injection",
+    "AOP",
+    "IOC"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/warmuuh/yaap.git"
+  },
+  "bugs": {
+    "url": "https://github.com/warmuuh/yaap/issues"
+  },
+  "scripts": {
+    "test": "node testsuite.js"
+  },
+  "contributors": [
+    "Peter Mucha <ptmucha@gmail.com>"
+  ],
+  "dependencies": {
+    "PanPG": "0.0.9",
+    "underscore": "1.4.4",
+    "when": "2.2.1"
+  },
+  "devDependencies": {
+    "nodeunit": "0.9.1"
+  },
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "main": "./yaap"
+}

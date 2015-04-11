@@ -1,7 +1,7 @@
 {
   "name": "yaap",
-  "version": "0.1.2",
-  "main": "./yaap/yaap.js",
+  "version": "0.1.4",
+  "main": "./yaap.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/warmuuh/yaap.git"

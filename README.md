@@ -4,21 +4,24 @@ Yaap is a generic annotation processor for javascript. It can be used to impleme
 
 It supports annotations at class-, function- and parameter-level of javascript objects. (see examples)
 
- * See [Readme](yaap) for more information, e.g. on using **@Autowired**-annotation
- * **See [Video Demonstration](http://y2u.be/HrgnyGl2K8A)** for a quick Overview
+ * See [Readme](https://github.com/warmuuh/yaap/docs/yaap.md) for more information and usage, e.g. on using **@Autowired**-annotation
+ * *See [Video Demonstration](http://y2u.be/HrgnyGl2K8A)* for a quick Overview
  * **Try it** using the yeoman generator [generator-yaap-express](https://github.com/warmuuh/generator-yaap-express)
- 
+
 There are also three examples for server and client scenario:
 
-* On [Node](node-example)
-* With [Express.js](express-example)
-* In [Browser](browser-example)
+* On [Node](https://github.com/warmuuh/yaap-wire/tree/master/examples/node)
+* With [Express.js](https://github.com/warmuuh/yaap-wire/tree/master/examples/express)
+* In [Browser](https://github.com/warmuuh/yaap-wire/tree/master/examples/browser)
 
 ###Example application
 There is a more complex web application example developed with wire and a lot of yaap-features: [yaap-nodepad](https://github.com/warmuuh/yaap-nodepad)
 
 
-#News
+#Changelog
+##0.1.4
+* moved wire-plugins and express-functionality into its own project `yaap-wire` to make yaap more lightweight
+
 ##0.1.3
 * improved debug logging
 * support for Promises in `yaap/wire/express` (instead of `@Callback`)
@@ -27,9 +30,9 @@ There is a more complex web application example developed with wire and a lot of
 * updated dependencies to wire.js 0.10.0 and when.js 2.2.1
 
 * added yaap-options:
-  * debug:   add debug output (default: false)
-  * shallow: only process own methods (not inherited) => boosts performance (default: true)
-  * improved performance
+  * `debug`:   add debug output (default: false)
+  * `shallow`: only process own methods (not inherited) => boosts performance (default: true)
+  * `improved` performance
 
 
 ##0.1.0
@@ -55,4 +58,4 @@ There is a more complex web application example developed with wire and a lot of
 ##0.0.1
 * Yaap Annotation processor
 * Initial Annotations: `@Default`, `@NotNull`
-* Initial Wire-specific Annotations: `@Autowired` 
+* Initial Wire-specific Annotations: `@Autowired`
