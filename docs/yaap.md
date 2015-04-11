@@ -10,7 +10,7 @@ It also [integrates](#expressjs-integration) with Express.js to achieve a Spring
 
 `Remark:` This is an experimentational library and should not be used in production.
 
-An overview of out-of-the-box supported annotations is available [here](docs/annotations.md)
+An overview of out-of-the-box supported annotations is available [here](annotations.md)
 
 ##Installation
 Installation for node: `npm install yaap`
@@ -84,7 +84,7 @@ if an annotated parameter is found and `processClass`, if a class-annotation is 
 `Remark:` You can either define all or some of these functions, depending on
 where you want to allow your annotation to be placed.
 
-More information on how to create custom annotation processors are available [here](docs/processors.md).
+More information on how to create custom annotation processors are available [here](processors.md).
 
 ##wire.js Integration
 `Remark:` this functionality was moved into its own subproject [yaap-wire](https://github.com/warmuuh/yaap-wire).
