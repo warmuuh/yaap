@@ -23,8 +23,7 @@
   ],
   "dependencies": {
     "PanPG": "0.0.9",
-    "underscore": "1.4.4",
-    "when": "2.2.1"
+    "underscore": "1.4.4"
   },
   "devDependencies": {
     "nodeunit": "0.9.1"
