@@ -8,7 +8,7 @@
  *
  * @author Peter Mucha
  *
- * @version 0.1.3
+ * @version 0.1.4
  */
 "use strict";
 (function (define) {
